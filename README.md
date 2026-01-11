@@ -1,6 +1,6 @@
-# Sumit Pramanik - Portfolio Website
+# Sumit Pramanik - Portfolio
 
-A modern, responsive portfolio website built with Next.js, React, and Tailwind CSS. Showcasing my work as a React JS & React Native Developer with 6+ years of professional experience.
+A modern, responsive portfolio built with Next.js, React, and Tailwind CSS. Showcasing my work as a React JS & React Native Developer with 6+ years of professional experience.
 
 ## 🌟 Features
 
@@ -32,9 +32,11 @@ Before you begin, ensure you have the following installed:
 ### 1. Clone the repository
 
 ```bash
-git clone https://github.com/sumitpramanik/nextjs-portfolio.git
+git clone <your-private-repo-url>
 cd nextjs-portfolio-main
 ```
+
+> **Note**: This is a private repository. Ensure you have the necessary SSH keys or access credentials configured.
 
 ### 2. Install dependencies
 
@@ -120,7 +122,7 @@ The easiest way to deploy is using the [Vercel Platform](https://vercel.com) fro
 
 1. Push your code to GitHub
 2. Go to [Vercel.com](https://vercel.com)
-3. Import your repository
+3. Import your private repository
 4. Add environment variables in the Vercel dashboard
 5. Click Deploy
 
@@ -145,13 +147,13 @@ To learn more about the technologies used:
 
 ## 🤝 Contributing
 
-Contributions are welcome! Feel free to fork this project and submit pull requests.
+This is a private repository. Access is restricted to authorized users only.
 
 ## 📄 License
 
-This project is open source and available under the MIT License.
+This project is private and confidential. All rights reserved.
 
-## 👤 About Me
+## 👤 About
 
 **Sumit Pramanik**  
 React JS & React Native Developer  
@@ -161,8 +163,8 @@ React JS & React Native Developer
 📱 Phone: +91-9929242693  
 📍 Location: Jaipur, Rajasthan  
 🔗 LinkedIn: [sumitaasur](https://www.linkedin.com/in/sumitaasur/)  
-🐙 GitHub: [sumitpramanik](https://github.com/sumitpramanik)
+🐙 GitHub: [sumitaasur](https://github.com/sumitaasur)
 
 ---
 
-Made with ❤️ by Sumit Pramanik
+Made Sumit Pramanik
