@@ -117,6 +117,15 @@ export const portfolio = {
   ],
 } as const;
 
+export const socialProfiles = [
+  { platform: "linkedin", label: "LinkedIn — Sumit Pramanik", url: portfolio.linkedinUrl },
+  { platform: "github", label: "GitHub — Sumit Pramanik", url: "https://github.com/sumitaasur" },
+  { platform: "instagram", label: "Instagram — Sumit Pramanik", url: "https://www.instagram.com/sumitaasur/" },
+  { platform: "x", label: "X — Sumit Pramanik", url: "https://x.com/sumitaasur" },
+  { platform: "facebook", label: "Facebook — Sumit Pramanik", url: "https://www.facebook.com/sumitaasur" },
+] as const;
+export type SocialPlatform = (typeof socialProfiles)[number]["platform"];
+
 const featuredProjectNames = ["NASM EDGE", "Medara Health", "Bonify", "Blue Sky Peptides", "MetaMerch", "Clinical Trial Link", "Metalete", "86 Agency", "Glimpse It"];
 export const featuredProjects = featuredProjectNames.map((name) => portfolio.projects.find((project) => project.name === name)!);
 export const moreProjects = portfolio.projects.filter((project) => !featuredProjectNames.includes(project.name));
