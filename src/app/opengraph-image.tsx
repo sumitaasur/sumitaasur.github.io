@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Sumit Pramanik, Frontend Developer specializing in React.js and React Native";
+export const alt = "Sumit Pramanik, Senior Frontend Engineer specializing in React.js and React Native";
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
@@ -12,8 +12,8 @@ export default function OpenGraphImage() {
         SUMIT PRAMANIK
       </div>
       <div style={{ display: "flex", flexDirection: "column", gap: "14px" }}>
-        <div style={{ fontSize: 62, fontWeight: 700, lineHeight: 1.05 }}>Frontend Developer</div>
-        <div style={{ fontSize: 25, color: "#a1a1aa" }}>React.js &amp; React Native · Next.js · TypeScript</div>
+        <div style={{ fontSize: 62, fontWeight: 700, lineHeight: 1.05 }}>Senior Frontend Engineer</div>
+        <div style={{ fontSize: 25, color: "#a1a1aa" }}>React.js &amp; React Native · Architecture · Technical Leadership</div>
       </div>
       <div style={{ display: "flex", justifyContent: "space-between", fontSize: 18, color: "#a1a1aa" }}>
         <span>8+ years of experience</span>

@@ -17,42 +17,69 @@ const skill = (name: string, icon: string, description: string): Skill => ({ nam
 
 export const portfolio = {
   name: "Sumit Pramanik",
-  title: "Frontend Developer specializing in React.js & React Native",
+  title: "Senior Frontend Engineer | React.js & React Native",
   secondaryTitle: "React.js • React Native • Next.js • TypeScript",
   experienceLabel: "8+ years",
   summary:
-    "I’m a frontend developer with 8+ years of IT experience and deep expertise in React.js and React Native. I build scalable web and mobile experiences with JavaScript, TypeScript, and Next.js, working across frontend architecture, reusable components, state management, REST APIs, performance, third-party integrations, testing, CI/CD, and production releases. React Native is a major part of my work, with 6+ years building cross-platform applications, alongside React.js and Next.js projects. I’ve delivered 17+ production applications across healthcare, fintech, fitness, logistics, education, e-commerce, and other domains for international clients.",
+    "I’m a Senior Frontend Engineer with 8+ years of IT experience, specializing in React.js and React Native. I build scalable web and mobile applications while working across frontend architecture, solution design, performance optimization, reusable component systems, API integrations, and production delivery. My work extends beyond implementation: I contribute to technical decisions, establish reusable patterns, conduct code reviews, mentor developers, and collaborate with stakeholders to turn requirements into maintainable solutions. React Native is a major area of my frontend engineering experience, with 6+ years on cross-platform applications, alongside React.js, Next.js, JavaScript, and TypeScript.",
   valueStatement:
-    "Frontend Developer with 8+ years of experience building scalable web and mobile applications with React.js and React Native. Focused on frontend architecture, performance, reusable component systems, and production-ready experiences, with Next.js, TypeScript, and JavaScript.",
+    "Building scalable web and mobile experiences while leading frontend architecture, technical decisions, and engineering delivery.",
   metaDescription:
-    "Sumit Pramanik is a Frontend Developer with 8+ years of experience building scalable web and mobile applications using React.js, React Native, Next.js, JavaScript, and TypeScript.",
+    "Sumit Pramanik is a Senior Frontend Engineer with 8+ years of experience building scalable web and mobile applications using React.js, React Native, Next.js, JavaScript, and TypeScript.",
   email: "sumit.pramanick@hotmail.com",
   phone: "+91-9587130971",
   linkedinUrl: "https://www.linkedin.com/in/sumitaasur",
   aboutFacts: [
-    { mark: "08+", label: "years of IT\nexperience" },
-    { mark: "17+", label: "production web & mobile\napplications delivered" },
-    { mark: "Global", label: "clients across US, Europe, UAE,\nAustralia & India" },
+    { mark: "Build", label: "web & cross-platform\nmobile engineering" },
+    { mark: "Design", label: "from solution design\nto production delivery" },
+    { mark: "Partner", label: "client collaboration across\nmultiple regions" },
+  ],
+  expertise: [
+    { title: "Frontend Engineering", description: "React.js, React Native, Next.js, TypeScript, and scalable product development." },
+    { title: "Frontend Architecture", description: "Reusable component systems, application structure, state patterns, and integrations." },
+    { title: "Technical Leadership", description: "Technical decisions, code reviews, engineering standards, mentoring, and team collaboration." },
+    { title: "Performance & Quality", description: "Performance optimization, production debugging, testing, and maintainable releases." },
+    { title: "Product Delivery", description: "Working with stakeholders to turn requirements into practical, production-ready solutions." },
+  ],
+  engineeringImpacts: ["Scalable Frontend Systems", "Reusable Component Architecture", "Cross-Platform Development", "Performance Optimization", "Technical Decision-Making", "Production Delivery"],
+  impactStats: [
+    { value: "8+", label: "Years of IT Experience" },
+    { value: "6+", label: "Years React.js & React Native" },
+    { value: "17+", label: "Production Applications" },
+    { value: "35%", label: "Frontend Performance Improvement" },
+    { value: "30%", label: "Development Turnaround Improvement" },
   ],
   education: { degree: "Bachelor of Computer Applications (B.C.A.)", institution: "Rajasthan University", location: "Jaipur", year: "2012 – 2016" },
   skillGroups: [
     { name: "Frontend", skills: [
       skill("React.js", "react", "Scalable, reusable web interfaces."), skill("React Native", "react", "Cross-platform frontend development for mobile."), skill("Next.js", "next", "React framework work for web applications."), skill("TypeScript", "typescript", "Type-safe web and mobile application development."), skill("JavaScript", "javascript", "Modern JavaScript (ES6+) application development."), skill("Responsive Design", "responsive", "Interfaces that work across screen sizes."), skill("Reusable Component Architecture", "architecture", "Shared UI patterns that improve maintainability."),
     ] },
+    { name: "Architecture", skills: [
+      skill("Frontend Architecture", "architecture", "Practical frontend systems and application architecture."), skill("Solution Design", "architecture", "Translating product requirements into technical solutions."), skill("Technical Decision-Making", "architecture", "Clear technical direction for delivery."),
+    ] },
+    { name: "Technical Leadership", skills: [
+      skill("Code Reviews", "testing", "Improving code quality before release."), skill("Mentoring", "leadership", "Supporting junior and mid-level developers."), skill("Stakeholder Collaboration", "leadership", "Turning requirements into delivery plans."), skill("Agile/Scrum", "leadership", "Collaborative iterative product delivery."),
+    ] },
     { name: "Mobile", skills: [
       skill("React Native", "react", "Cross-platform mobile application development."), skill("Android", "android", "Android platform delivery and release support."), skill("iOS", "apple", "iOS platform delivery and release support."), skill("Cross-Platform Architecture", "architecture", "Maintainable shared mobile foundations."), skill("Mobile Solution Design", "architecture", "Architecture and solution design for mobile products."), skill("Native Module Integration", "mobile", "Native capabilities integrated into React Native apps."), skill("Third-Party SDK Integration", "api", "Reliable integrations for production features."), skill("Offline-First Design", "mobile", "Resilient mobile experiences for variable connectivity."),
     ] },
-    { name: "State Management & APIs", skills: [
-      skill("Redux", "redux", "Predictable application state management."), skill("Redux Toolkit", "redux", "Streamlined Redux application patterns."), skill("Context API", "react", "Shared state for React applications."), skill("REST APIs", "api", "Production API integration and delivery."), skill("Axios", "api", "HTTP client integration for web and mobile."), skill("Firebase Authentication", "firebase", "Authentication flows with Firebase."), skill("Firebase Realtime Data", "firebase", "Real-time application data."), skill("Firebase Push Notifications", "firebase", "Mobile notification integrations."), skill("Agora", "api", "Real-time calling SDK integration."), skill("Payment Gateways", "security", "Payment flows for web and mobile products."),
+    { name: "State Management", skills: [
+      skill("Redux", "redux", "Predictable application state management."), skill("Redux Toolkit", "redux", "Streamlined Redux application patterns."), skill("Context API", "react", "Shared state for React applications."),
+    ] },
+    { name: "APIs & Services", skills: [
+      skill("REST APIs", "api", "Production API integration and delivery."), skill("Axios", "api", "HTTP client integration for web and mobile."), skill("Firebase Authentication", "firebase", "Authentication flows with Firebase."), skill("Firebase Realtime Data", "firebase", "Real-time application data."), skill("Firebase Push Notifications", "firebase", "Mobile notification integrations."), skill("Agora", "api", "Real-time calling SDK integration."), skill("Payment Gateways", "security", "Payment flows for web and mobile products."),
     ] },
     { name: "Performance", skills: [
-      skill("Lazy Loading", "performance", "Faster initial loading for production applications."), skill("Code Splitting", "performance", "Smaller, more efficient application bundles."), skill("Memoization", "performance", "Reduced unnecessary rendering work."), skill("React DevTools Profiling", "performance", "Data-informed frontend performance analysis."), skill("Production Troubleshooting", "testing", "Diagnosing and resolving production issues."), skill("Authentication Flows", "security", "Secure account-access journeys."), skill("Secure Payment Integration", "security", "Careful payment gateway implementation."), skill("Secure Coding Practices", "security", "Security-conscious application development."),
+      skill("Lazy Loading", "performance", "Faster initial loading for production applications."), skill("Code Splitting", "performance", "Smaller, more efficient application bundles."), skill("Memoization", "performance", "Reduced unnecessary rendering work."), skill("React DevTools Profiling", "performance", "Data-informed frontend performance analysis."), skill("Production Troubleshooting", "testing", "Diagnosing and resolving production issues."),
     ] },
-    { name: "Engineering & Cloud", skills: [
-      skill("Xcode", "xcode", "iOS build and release workflows."), skill("Android Studio", "android", "Android build and release workflows."), skill("Jenkins", "jenkins", "CI/CD automation support."), skill("CI/CD Pipelines", "delivery", "Repeatable production delivery pipelines."), skill("Git", "git", "Version control and collaborative delivery."), skill("App Store Release Management", "apple", "End-to-end Apple App Store releases."), skill("Google Play Release Management", "android", "End-to-end Google Play releases."), skill("AWS", "cloud", "Cloud services for application delivery."), skill("CloudFront", "cloud", "Content delivery configuration and support."), skill("S3", "cloud", "Object storage for application assets."), skill("CloudWatch", "cloud", "Cloud monitoring and production visibility."),
+    { name: "Engineering", skills: [
+      skill("Xcode", "xcode", "iOS build and release workflows."), skill("Android Studio", "android", "Android build and release workflows."), skill("Jenkins", "jenkins", "CI/CD automation support."), skill("CI/CD Pipelines", "delivery", "Repeatable production delivery pipelines."), skill("Git", "git", "Version control and collaborative delivery."), skill("App Store Release Management", "apple", "End-to-end Apple App Store releases."), skill("Google Play Release Management", "android", "End-to-end Google Play releases."), skill("Authentication Flows", "security", "Secure account-access journeys."), skill("Secure Payment Integration", "security", "Careful payment gateway implementation."), skill("Secure Coding Practices", "security", "Security-conscious application development."),
     ] },
-    { name: "Testing & Technical Leadership", skills: [
-      skill("Jest", "testing", "JavaScript application testing."), skill("Functional Testing", "testing", "Feature behavior validation."), skill("Regression Testing", "testing", "Protecting established functionality."), skill("UAT Testing", "testing", "Release validation with stakeholders."), skill("Architecture", "architecture", "Practical system and application architecture."), skill("Technical Decision-Making", "architecture", "Clear technical direction for delivery."), skill("Code Reviews", "testing", "Improving code quality before release."), skill("Mentoring", "leadership", "Supporting junior and mid-level developers."), skill("Stakeholder Management", "leadership", "Turning requirements into delivery plans."), skill("Agile/Scrum", "leadership", "Collaborative iterative product delivery."),
+    { name: "Cloud", skills: [
+      skill("AWS", "cloud", "Cloud services for application delivery."), skill("CloudFront", "cloud", "Content delivery configuration and support."), skill("S3", "cloud", "Object storage for application assets."), skill("CloudWatch", "cloud", "Cloud monitoring and production visibility."),
+    ] },
+    { name: "Testing & Quality", skills: [
+      skill("Jest", "testing", "JavaScript application testing."), skill("Functional Testing", "testing", "Feature behavior validation."), skill("Regression Testing", "testing", "Protecting established functionality."), skill("UAT Testing", "testing", "Release validation with stakeholders."),
     ] },
     { name: "AI-Assisted Development", skills: [
       skill("Claude", "ai", "AI-assisted development workflows."), skill("GitHub Copilot", "ai", "AI-assisted development workflows."), skill("Cursor", "ai", "AI-assisted development workflows."), skill("ChatGPT", "ai", "AI-assisted development workflows."), skill("Codex", "ai", "AI-assisted development workflows."),
@@ -85,14 +112,11 @@ export const portfolio = {
     { name: "Ozeki Sake", description: "Product comparison website for a Japanese-American brewery.", technologies: ["React.js"], outcomes: ["Enabled product comparison for brewery customers."], liveUrl: "https://www.ozekisake.com/" },
   ] satisfies PortfolioProject[],
   achievements: [
-    "Delivered 17+ production-grade web and mobile applications across fintech, healthcare, fitness, logistics, education, and e-commerce.",
-    "Brings 8+ years of IT experience, including 6+ years with React.js and React Native.",
-    "Improved frontend performance by up to 35% through code splitting, lazy loading, and component-level optimization.",
-    "Reduced development turnaround time by approximately 30% through reusable component libraries and frontend standards.",
     "Launched and maintained applications on the Apple App Store and Google Play, and mentored junior and mid-level developers.",
     "Worked with international clients across the US, Europe, UAE, Australia, and India.",
   ],
 } as const;
 
-export const featuredProjects = portfolio.projects.slice(0, 9);
-export const moreProjects = portfolio.projects.slice(9);
+const featuredProjectNames = ["NASM EDGE", "Medara Health", "Bonify", "Blue Sky Peptides", "MetaMerch", "Clinical Trial Link", "Metalete", "86 Agency", "Glimpse It"];
+export const featuredProjects = featuredProjectNames.map((name) => portfolio.projects.find((project) => project.name === name)!);
+export const moreProjects = portfolio.projects.filter((project) => !featuredProjectNames.includes(project.name));

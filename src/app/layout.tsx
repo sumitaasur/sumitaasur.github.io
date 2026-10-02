@@ -13,7 +13,7 @@ export const metadata: Metadata = {
   description: portfolio.metaDescription,
   applicationName: portfolio.name,
   publisher: portfolio.name,
-  keywords: ["Sumit Pramanik", "Frontend Developer", "Frontend Engineer", "React Developer", "React.js Developer", "React Native Developer", "Next.js Developer", "TypeScript", "JavaScript", "Web Development", "Mobile Development", "Cross-Platform Development"],
+  keywords: ["Sumit Pramanik", "Senior Frontend Engineer", "Frontend Developer", "Frontend Architecture", "Technical Leadership", "React Developer", "React.js Developer", "React Native Developer", "Next.js Developer", "TypeScript", "JavaScript", "Web Development", "Mobile Development", "Cross-Platform Development"],
   openGraph: {
     type: "website",
     url: "/",

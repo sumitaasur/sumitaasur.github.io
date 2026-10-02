@@ -79,6 +79,7 @@ const utilityIcons = {
 
 const sectionLinks = [
   { label: "About", id: "about" },
+  { label: "Expertise", id: "expertise" },
   { label: "Skills", id: "skills" },
   { label: "Experience", id: "experience" },
   { label: "Projects", id: "projects" },
@@ -209,7 +210,7 @@ export default function PortfolioSite() {
   }, []);
 
   useEffect(() => {
-    const revealItems = document.querySelectorAll(".section-heading-row, .section-grid, .experience-entry, .project-card, .more-project, .achievement-list, .education-row, .contact-layout");
+    const revealItems = document.querySelectorAll(".section-heading-row, .section-grid, .expertise-card, .experience-entry, .project-card, .more-project, .achievement-list, .education-row, .contact-layout");
     const observer = new IntersectionObserver((entries) => {
       entries.forEach((entry) => {
         if (entry.isIntersecting) {
@@ -324,7 +325,7 @@ export default function PortfolioSite() {
           <div className="hero-inner page-width">
             <div className="hero-copy">
               <p className="eyebrow"><span className="status-dot" /> Jaipur, Rajasthan <span className="eyebrow-divider">/</span> {portfolio.experienceLabel}</p>
-              <h1 id="hero-title">Frontend<br /><span>Architect</span></h1>
+              <h1 id="hero-title">Senior Frontend<br /><span>Engineer</span></h1>
               <p className="hero-role">{portfolio.name}</p>
               <p className="hero-stack">{portfolio.secondaryTitle}</p>
               <p className="hero-value">{portfolio.valueStatement}</p>
@@ -366,10 +367,30 @@ export default function PortfolioSite() {
           </div>
         </section>
 
+        <section className="section expertise-section" id="expertise" aria-labelledby="expertise-title">
+          <div className="page-width">
+            <div className="section-heading-row">
+              <div><p className="eyebrow">02 / Architecture &amp; Technical Leadership</p><h2 id="expertise-title">What I do<span>.</span></h2></div>
+              <p className="section-note">Hands-on engineering with architectural thinking and technical ownership.</p>
+            </div>
+            <div className="expertise-grid">
+              {portfolio.expertise.map((area, index) => (
+                <article className="expertise-card" key={area.title}>
+                  <span>0{index + 1}</span><h3>{area.title}</h3><p>{area.description}</p>
+                </article>
+              ))}
+            </div>
+            <div className="engineering-impact">
+              <h3>Engineering Impact</h3>
+              <ul>{portfolio.engineeringImpacts.map((impact) => <li key={impact}>{impact}</li>)}</ul>
+            </div>
+          </div>
+        </section>
+
         <section className="section skills-section" id="skills" aria-labelledby="skills-title">
           <div className="page-width">
             <div className="section-heading-row">
-              <div><p className="eyebrow">02 / Toolkit</p><h2 id="skills-title">Skills in practice<span>.</span></h2></div>
+              <div><p className="eyebrow">03 / Toolkit</p><h2 id="skills-title">Skills in practice<span>.</span></h2></div>
               <p className="section-note">Technologies and environments named in the resume.</p>
             </div>
             <div className="skill-groups">
@@ -395,7 +416,7 @@ export default function PortfolioSite() {
         <section className="section experience-section" id="experience" aria-labelledby="experience-title">
           <div className="page-width">
             <div className="section-heading-row">
-              <div><p className="eyebrow">03 / Experience</p><h2 id="experience-title">A growing practice<span>.</span></h2></div>
+              <div><p className="eyebrow">04 / Experience</p><h2 id="experience-title">A growing practice<span>.</span></h2></div>
               <p className="section-note">Work history and dates from the resume.</p>
             </div>
             <div className="experience-list">
@@ -413,7 +434,7 @@ export default function PortfolioSite() {
         <section className="section projects-section" id="projects" aria-labelledby="projects-title">
           <div className="page-width">
             <div className="section-heading-row projects-heading">
-              <div><p className="eyebrow">04 / Selected work</p><h2 id="projects-title">Projects, shipped<span>.</span></h2></div>
+              <div><p className="eyebrow">05 / Selected work</p><h2 id="projects-title">Projects, shipped<span>.</span></h2></div>
               <p className="section-note">Web and mobile product experiences across React.js, Next.js, and React Native.</p>
             </div>
             <div className="project-grid">
@@ -425,7 +446,7 @@ export default function PortfolioSite() {
         <section className="section more-section" id="more-work" aria-labelledby="more-title">
           <div className="page-width">
             <div className="section-heading-row">
-              <div><p className="eyebrow">05 / More work</p><h2 id="more-title">Across platforms<span>.</span></h2></div>
+              <div><p className="eyebrow">06 / More work</p><h2 id="more-title">Across platforms<span>.</span></h2></div>
               <p className="section-note">Additional projects documented in the resume.</p>
             </div>
             <div className="more-grid">
@@ -443,22 +464,26 @@ export default function PortfolioSite() {
         </section>
 
         <section className="section achievements-section" id="achievements" aria-labelledby="achievements-title">
-          <div className="page-width achievement-layout">
-            <div className="section-intro"><p className="eyebrow">06 / Approach</p><h2 id="achievements-title">From first brief<br />to <span>release.</span></h2><Workflow className="achievement-graphic" aria-hidden="true" /></div>
+          <div className="page-width">
+            <div className="section-heading-row">
+              <div><p className="eyebrow">07 / Measurable Results</p><h2 id="achievements-title">Engineering impact<span>.</span></h2></div>
+              <p className="section-note">Outcomes from frontend delivery, optimization, and engineering systems.</p>
+            </div>
+            <div className="achievement-stats">{portfolio.impactStats.map((stat) => <article className="achievement-stat" key={stat.label}><strong>{stat.value}</strong><span>{stat.label}</span></article>)}</div>
             <ul className="achievement-list">{portfolio.achievements.map((achievement, index) => <li key={achievement}><span>0{index + 1}</span><p>{achievement}</p></li>)}</ul>
           </div>
         </section>
 
         <section className="section education-section" id="education" aria-labelledby="education-title">
           <div className="page-width education-row">
-            <div><p className="eyebrow">07 / Education</p><h2 id="education-title">Foundations<span>.</span></h2></div>
+            <div><p className="eyebrow">08 / Education</p><h2 id="education-title">Foundations<span>.</span></h2></div>
             <div className="education-detail"><div><h3>{portfolio.education.degree}</h3><p>{portfolio.education.institution} <span>{portfolio.education.location}</span></p></div><time>{portfolio.education.year}</time></div>
           </div>
         </section>
 
         <section className="section contact-section" id="contact" aria-labelledby="contact-title">
           <div className="page-width contact-layout">
-            <div className="contact-copy"><p className="eyebrow">08 / Contact</p><h2 id="contact-title">Let&apos;s build<br /><span>what&apos;s next.</span></h2><p>For project conversations and professional enquiries, reach out directly or leave a message.</p>
+            <div className="contact-copy"><p className="eyebrow">09 / Contact</p><h2 id="contact-title">Let&apos;s build<br /><span>what&apos;s next.</span></h2><p>For project conversations and professional enquiries, reach out directly or leave a message.</p>
               <a className="contact-detail" href={mailtoHref}><Mail aria-hidden="true" /><span>{portfolio.email}</span><ArrowUpRight aria-hidden="true" /></a>
               <a className="contact-detail" href={`tel:${portfolio.phone}`}><Phone aria-hidden="true" /><span>{portfolio.phone}</span><ArrowUpRight aria-hidden="true" /></a>
               <a className="contact-detail" href={portfolio.linkedinUrl} target="_blank" rel="noreferrer"><Linkedin aria-hidden="true" /><span>linkedin.com/in/sumitaasur</span><ArrowUpRight aria-hidden="true" /></a>
