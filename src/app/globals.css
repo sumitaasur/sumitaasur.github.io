@@ -114,6 +114,20 @@ body.dialog-open {
   font-family: var(--font-mono);
 }
 
+/* Character-by-character animation foundation (WAIL reference) */
+.ch {
+  display: inline-block;
+  will-change: transform, opacity, filter;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ch {
+    opacity: 1 !important;
+    transform: none !important;
+    filter: none !important;
+  }
+}
+
 /* Outlined typography - SAHI & WAIL style */
 .text-outline-hero {
   -webkit-text-stroke: 1.5px rgba(255, 255, 255, 0.28);
