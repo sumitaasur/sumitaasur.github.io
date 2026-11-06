@@ -8,8 +8,8 @@ export default function ClientMarquee() {
 
   return (
     <section
-      style={{ contain: "paint" }}
-      className="relative py-12 sm:py-16 overflow-hidden bg-[#080709] border-y border-white/5 max-w-[100vw]"
+      aria-label="Partner Brands and Engineering Stack Marquee"
+      className="relative py-12 sm:py-16 overflow-hidden bg-[#080709] border-y border-white/5 select-none"
     >
       {/* Subtle background glow */}
       <div
@@ -17,14 +17,35 @@ export default function ClientMarquee() {
         aria-hidden="true"
       />
 
-      <div className="relative z-10 flex flex-col gap-6">
+      {/* Edge gradient masks for smooth cinematic fade in/out */}
+      <div
+        className="pointer-events-none absolute inset-y-0 left-0 w-20 sm:w-36 bg-gradient-to-r from-[#080709] to-transparent z-10"
+        aria-hidden="true"
+      />
+      <div
+        className="pointer-events-none absolute inset-y-0 right-0 w-20 sm:w-36 bg-gradient-to-l from-[#080709] to-transparent z-10"
+        aria-hidden="true"
+      />
+
+      <div className="relative z-1 flex flex-col gap-6">
         {/* Track 1: Client Brands & Organizations (Moving Left) */}
         <div className="flex overflow-hidden whitespace-nowrap">
-          <div className="animate-marquee-left flex items-center gap-8">
-            {[...clients, ...clients, ...clients].map((client, idx) => (
+          <div className="animate-marquee-left flex items-center gap-8 pr-8 shrink-0">
+            {clients.map((client, idx) => (
               <div
-                key={`client-${idx}`}
-                className="flex items-center gap-6 font-syne text-lg sm:text-2xl font-bold uppercase tracking-tight text-[#f5f3f5]/80 hover:text-[#ff174d] transition-colors"
+                key={`client-a-${idx}`}
+                className="flex items-center gap-6 font-syne text-lg sm:text-2xl font-bold uppercase tracking-tight text-[#f5f3f5]/80 hover:text-[#ff174d] transition-colors cursor-default"
+              >
+                <span>{client}</span>
+                <span className="text-[#ff174d] text-sm">✦</span>
+              </div>
+            ))}
+          </div>
+          <div className="animate-marquee-left flex items-center gap-8 pr-8 shrink-0" aria-hidden="true">
+            {clients.map((client, idx) => (
+              <div
+                key={`client-b-${idx}`}
+                className="flex items-center gap-6 font-syne text-lg sm:text-2xl font-bold uppercase tracking-tight text-[#f5f3f5]/80 hover:text-[#ff174d] transition-colors cursor-default"
               >
                 <span>{client}</span>
                 <span className="text-[#ff174d] text-sm">✦</span>
@@ -35,13 +56,26 @@ export default function ClientMarquee() {
 
         {/* Track 2: Core Engineering Stack & Tooling (Moving Right) */}
         <div className="flex overflow-hidden whitespace-nowrap">
-          <div className="animate-marquee-right flex items-center gap-8">
-            {[...tech, ...tech, ...tech].map((item, idx) => (
+          <div className="animate-marquee-right flex items-center gap-8 pr-8 shrink-0">
+            {tech.map((item, idx) => (
               <div
-                key={`tech-${idx}`}
-                className="flex items-center gap-6 font-mono text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#a7a1a8] hover:text-white transition-colors"
+                key={`tech-a-${idx}`}
+                className="flex items-center gap-6 font-mono text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#a7a1a8] hover:text-white transition-colors cursor-default"
               >
-                <span className="px-3 py-1 rounded-md bg-white/[0.04] border border-white/5">
+                <span className="px-3 py-1 rounded-md bg-white/[0.04] border border-white/5 hover:border-[#ff174d]/40 transition-colors">
+                  {item}
+                </span>
+                <span className="text-white/20">{"//"}</span>
+              </div>
+            ))}
+          </div>
+          <div className="animate-marquee-right flex items-center gap-8 pr-8 shrink-0" aria-hidden="true">
+            {tech.map((item, idx) => (
+              <div
+                key={`tech-b-${idx}`}
+                className="flex items-center gap-6 font-mono text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#a7a1a8] hover:text-white transition-colors cursor-default"
+              >
+                <span className="px-3 py-1 rounded-md bg-white/[0.04] border border-white/5 hover:border-[#ff174d]/40 transition-colors">
                   {item}
                 </span>
                 <span className="text-white/20">{"//"}</span>
