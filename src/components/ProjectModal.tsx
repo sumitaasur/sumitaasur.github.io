@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import { X, ExternalLink, Apple, Play, CheckCircle2, Braces, Sparkles, Globe, GitFork } from "lucide-react";
+import { X, ExternalLink, Apple, Play, CheckCircle2, Braces, Globe, GitFork, AlertTriangle } from "lucide-react";
 import { type PortfolioProject } from "@/data/portfolio";
 
 export default function ProjectModal({
@@ -53,7 +53,7 @@ export default function ProjectModal({
           ref={closeBtnRef}
           type="button"
           onClick={onClose}
-          className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/10 hover:bg-[#ff1a53] text-white flex items-center justify-center transition-colors"
+          className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/10 hover:bg-[#ff1a53] text-white flex items-center justify-center transition-colors cursor-pointer"
           aria-label="Close project modal"
         >
           <X size={18} />
@@ -62,11 +62,11 @@ export default function ProjectModal({
         {/* Modal Header */}
         <div className="mb-6">
           <div className="flex items-center gap-2 font-mono text-xs text-[#ff1a53] uppercase tracking-wider mb-2">
-            <span>SPECIFICATION {"//"} {project.category.toUpperCase()}</span>
+            <span>{project.industry.toUpperCase()} {"//"} PRODUCTION CASE</span>
           </div>
           <h2
             id="modal-project-title"
-            className="font-syne text-2xl sm:text-4xl font-extrabold text-white mb-2"
+            className="font-bebas text-4xl sm:text-5xl font-normal text-white uppercase tracking-wide mb-1"
           >
             {project.name}
           </h2>
@@ -92,21 +92,35 @@ export default function ProjectModal({
           </div>
         )}
 
-        {/* Description */}
-        <div className="space-y-4 font-display text-sm sm:text-base text-[#a7a2ad] leading-relaxed mb-6">
+        {/* Overview & Description */}
+        <div className="space-y-3 font-display text-xs sm:text-sm text-[#a7a2ad] leading-relaxed mb-6">
+          <p className="text-white font-medium">{project.overview}</p>
           <p>{project.description}</p>
         </div>
 
-        {/* Outcomes */}
+        {/* Engineering Challenges */}
+        {project.engineeringChallenges && (
+          <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 mb-6">
+            <div className="flex items-center gap-2 font-mono text-xs text-amber-400 mb-1.5 font-bold uppercase tracking-wider">
+              <AlertTriangle size={14} />
+              <span>KEY ENGINEERING CHALLENGE</span>
+            </div>
+            <p className="font-display text-xs sm:text-sm text-[#a7a2ad] leading-relaxed">
+              {project.engineeringChallenges}
+            </p>
+          </div>
+        )}
+
+        {/* Verified Contributions */}
         <div className="mb-6">
           <span className="font-mono text-xs uppercase tracking-wider text-[#ff1a53] font-bold block mb-3">
-            VERIFIED OUTCOMES &amp; DELIVERABLES
+            VERIFIED CONTRIBUTIONS &amp; DELIVERABLES
           </span>
           <div className="space-y-2">
-            {project.outcomes.map((outcome, idx) => (
+            {project.myContribution.map((contribution, idx) => (
               <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm font-mono text-white">
                 <CheckCircle2 size={15} className="text-emerald-400 mt-0.5 flex-shrink-0" />
-                <span>{outcome}</span>
+                <span>{contribution}</span>
               </div>
             ))}
           </div>
@@ -121,7 +135,7 @@ export default function ProjectModal({
             {project.technologies.map((tech) => (
               <span
                 key={tech}
-                className="px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/10 font-mono text-xs text-white"
+                className="px-3 py-1.5 rounded-lg bg-white/[0.04] border border-white/10 font-mono text-xs text-white font-semibold"
               >
                 {tech}
               </span>
@@ -136,7 +150,7 @@ export default function ProjectModal({
               href={project.liveUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-[#ff1a53] text-white font-mono text-xs font-bold hover:shadow-[0_0_20px_rgba(255,26,83,0.5)] transition-all"
+              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#e11d48] hover:bg-[#c8102e] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all"
             >
               <Globe size={14} />
               <span>VISIT LIVE PLATFORM</span>
@@ -149,7 +163,7 @@ export default function ProjectModal({
               href={project.iosUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono text-xs font-semibold transition-all"
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono text-xs font-semibold transition-all"
             >
               <Apple size={14} />
               <span>APPLE APP STORE</span>
@@ -162,7 +176,7 @@ export default function ProjectModal({
               href={project.androidUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono text-xs font-semibold transition-all"
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono text-xs font-semibold transition-all"
             >
               <Play size={14} />
               <span>GOOGLE PLAY STORE</span>
@@ -175,7 +189,7 @@ export default function ProjectModal({
               href={project.repoUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono text-xs font-semibold transition-all"
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono text-xs font-semibold transition-all"
             >
               <GitFork size={14} />
               <span>REPOSITORY</span>

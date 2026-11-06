@@ -8,31 +8,21 @@ import {
   Check,
   Send,
   ArrowUpRight,
-  Sparkles,
   Terminal,
-  ShieldCheck,
   CheckCircle2,
 } from "lucide-react";
 import confetti from "canvas-confetti";
 import { portfolio, socialProfiles } from "@/data/portfolio";
 import { FaLinkedin } from "react-icons/fa";
-import { SiGithub, SiInstagram, SiX, SiFacebook } from "react-icons/si";
+import { SiGithub } from "react-icons/si";
 
 const inquiryTopics = [
-  "Technical Leadership & RFCs",
-  "React Native Mobile Architecture",
-  "Frontend Performance & Web Vitals",
-  "Contract & Engineering Delivery",
-  "General Consultation",
+  "Full Stack Architecture & Delivery",
+  "AI / GenAI Application Integration",
+  "Node.js Backend & REST API Design",
+  "Cross-Platform React Native Mobile",
+  "Technical Leadership & Consultation",
 ];
-
-const socialIcons: Record<string, React.ReactNode> = {
-  linkedin: <FaLinkedin size={18} />,
-  github: <SiGithub size={18} />,
-  instagram: <SiInstagram size={18} />,
-  x: <SiX size={18} />,
-  facebook: <SiFacebook size={18} />,
-};
 
 export default function ContactSection() {
   const [copied, setCopied] = useState(false);
@@ -45,7 +35,6 @@ export default function ContactSection() {
     navigator.clipboard.writeText(portfolio.email);
     setCopied(true);
 
-    // Fire confetti celebration
     try {
       confetti({
         particleCount: 50,
@@ -54,7 +43,7 @@ export default function ContactSection() {
         colors: ["#ff1a53", "#880826", "#ffffff", "#fda4af"],
       });
     } catch {
-      // Ignore if canvas is unsupported
+      // Ignore confetti error
     }
 
     setTimeout(() => setCopied(false), 2500);
@@ -75,7 +64,7 @@ export default function ContactSection() {
     const payload = {
       name,
       email,
-      message: `[Inquiry Topic: ${selectedTopic}]\n\n${userMessage}`,
+      message: `[Inquiry Classification: ${selectedTopic}]\n\n${userMessage}`,
     };
 
     try {
@@ -87,11 +76,11 @@ export default function ContactSection() {
 
       const data = await res.json();
       if (!res.ok) {
-        throw new Error(data.message || "Failed to send message.");
+        throw new Error(data.message || "Failed to transmit message.");
       }
 
       setIsSuccess(true);
-      setStatusMessage("Dispatch transmission successful. I will respond within 24 hours.");
+      setStatusMessage("Transmission confirmed. I will review and reply within 24 hours.");
       form.reset();
 
       try {
@@ -132,15 +121,15 @@ export default function ContactSection() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-8 border-b border-white/10">
         <div>
           <div className="flex items-center gap-2 font-mono text-xs text-[#ff1a53] uppercase tracking-widest mb-3">
-            <span>08 {"//"} TRANSMISSION TERMINAL</span>
+            <span>07 {"//"} INITIATE ENGAGEMENT</span>
           </div>
-          <h2 className="font-syne text-3xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white">
-            Let&apos;s Build Something <br />
-            <span className="text-outline-hero">Extraordinary.</span>
+          <h2 className="font-bebas text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase font-normal leading-[0.9]">
+            Let&apos;s Build <br />
+            <span className="text-[#e11d48] text-outline-hero">Something Real.</span>
           </h2>
         </div>
         <div className="max-w-md font-mono text-xs sm:text-sm text-[#a7a2ad]">
-          Available for senior technical leadership, architecture consulting, and high-impact web and mobile engineering engagements worldwide.
+          Available for Full Stack Engineering, AI application development, REST API architecture, and cross-platform leadership worldwide.
         </div>
       </div>
 
@@ -150,14 +139,14 @@ export default function ContactSection() {
         <div className="lg:col-span-5 space-y-6">
           {/* Status Card */}
           <div className="p-6 rounded-2xl bg-gradient-to-br from-[#18040a] via-[#10070d] to-[#080709] border border-[#ff1a53]/30 box-glow-crimson">
-            <div className="flex items-center gap-2.5 mb-3">
+            <div className="flex items-center gap-2.5 mb-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse-dot" />
               <span className="font-mono text-xs uppercase tracking-wider text-emerald-400 font-bold">
-                AVAILABILITY STATUS: ACTIVE
+                {portfolio.availabilityStatus}
               </span>
             </div>
-            <p className="font-display text-sm text-[#a7a2ad] leading-relaxed mb-5">
-              Currently accepting selective opportunities for Technical Lead, Senior Full Stack Engineer, or Cross-Platform Architect roles.
+            <p className="font-display text-xs sm:text-sm text-[#a7a2ad] leading-relaxed mb-5">
+              {portfolio.name} &bull; {portfolio.primaryTitle}
             </p>
 
             {/* Quick Copy Email Button */}
@@ -166,7 +155,7 @@ export default function ContactSection() {
               onClick={copyEmail}
               data-cursor="contact"
               data-cursor-text="COPY"
-              className="w-full py-3 px-4 rounded-xl bg-white/[0.06] border border-white/10 hover:border-[#ff1a53] text-white font-mono text-xs font-semibold flex items-center justify-between transition-all group"
+              className="w-full py-3.5 px-4 rounded-xl bg-white/[0.06] border border-white/10 hover:border-[#ff1a53] text-white font-mono text-xs font-semibold flex items-center justify-between transition-all group cursor-pointer"
             >
               <div className="flex items-center gap-2.5 truncate">
                 <Mail size={15} className="text-[#ff1a53]" />
@@ -180,10 +169,10 @@ export default function ContactSection() {
           </div>
 
           {/* Direct Phone & Details */}
-          <div className="p-6 rounded-2xl bg-[#120f16] border border-white/10 space-y-4 font-mono text-xs">
+          <div className="p-6 rounded-2xl bg-[#120f16] border border-white/10 space-y-3 font-mono text-xs">
             <a
               href={`tel:${portfolio.phone}`}
-              className="flex items-center justify-between p-3 rounded-xl bg-white/[0.03] border border-white/5 hover:border-[#ff1a53]/40 text-[#a7a2ad] hover:text-white transition-colors"
+              className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-[#ff1a53]/40 text-[#a7a2ad] hover:text-white transition-colors"
             >
               <div className="flex items-center gap-2.5">
                 <Phone size={15} className="text-[#ff1a53]" />
@@ -192,47 +181,55 @@ export default function ContactSection() {
               <ArrowUpRight size={14} />
             </a>
 
-            <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-between text-[#a7a2ad]">
-              <span>COORDINATES</span>
-              <span className="text-white font-semibold">{portfolio.coordinates}</span>
+            <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-between text-[#a7a2ad]">
+              <span>LOCATION BASE</span>
+              <span className="text-white font-semibold">{portfolio.location}</span>
             </div>
 
-            <div className="p-3 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-between text-[#a7a2ad]">
+            <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-between text-[#a7a2ad]">
               <span>TIMEZONE</span>
-              <span className="text-white font-semibold">IST (UTC+5:30) &bull; Global Remote Sync</span>
+              <span className="text-white font-semibold">IST (UTC+5:30) &bull; Global Remote</span>
             </div>
           </div>
 
-          {/* Social Profiles */}
+          {/* Verified Professional Profiles */}
           <div className="p-6 rounded-2xl bg-[#120f16] border border-white/10">
             <span className="font-mono text-[10px] uppercase tracking-widest text-[#a7a2ad] block mb-3">
-              PROFESSIONAL DIRECTORIES &amp; NETWORKS
+              VERIFIED PROFESSIONAL NETWORKS
             </span>
             <div className="flex flex-wrap gap-2.5">
-              {socialProfiles.map((item) => (
-                <a
-                  key={item.platform}
-                  href={item.url}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="flex items-center gap-2 px-3.5 py-2 rounded-xl bg-white/[0.04] border border-white/10 text-white hover:border-[#ff1a53] hover:text-[#ff1a53] font-mono text-xs transition-colors"
-                  aria-label={item.label}
-                >
-                  {socialIcons[item.platform]}
-                  <span className="capitalize">{item.platform}</span>
-                </a>
-              ))}
+              <a
+                href={portfolio.linkedinUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white hover:border-[#ff1a53] hover:text-[#ff1a53] font-mono text-xs transition-colors"
+              >
+                <FaLinkedin size={16} />
+                <span>LinkedIn</span>
+                <ArrowUpRight size={12} />
+              </a>
+
+              <a
+                href={portfolio.githubUrl}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white hover:border-[#ff1a53] hover:text-[#ff1a53] font-mono text-xs transition-colors"
+              >
+                <SiGithub size={16} />
+                <span>GitHub</span>
+                <ArrowUpRight size={12} />
+              </a>
             </div>
           </div>
         </div>
 
-        {/* Right Column: Interactive Dispatch Terminal Form */}
+        {/* Right Column: Interactive Transmission Terminal Form */}
         <div className="lg:col-span-7 rounded-2xl bg-[#120f16] border border-white/10 p-6 sm:p-8 relative overflow-hidden">
           <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
             <div className="flex items-center gap-2">
               <Terminal size={15} className="text-[#ff1a53]" />
               <span className="font-mono text-xs font-bold uppercase tracking-wider text-white">
-                DISPATCH PROTOCOL {"//"} FORM
+                DIRECT TRANSMISSION {"//"} TERMINAL
               </span>
             </div>
             <span className="font-mono text-[10px] text-emerald-400">ENCRYPTED / SSL</span>
@@ -241,7 +238,7 @@ export default function ContactSection() {
           {/* Topic Selectors */}
           <div className="mb-6">
             <label className="font-mono text-xs text-[#a7a2ad] block mb-2.5">
-              SELECT INQUIRY CLASSIFICATION:
+              SELECT ENGAGEMENT CLASSIFICATION:
             </label>
             <div className="flex flex-wrap gap-2">
               {inquiryTopics.map((topic) => {
@@ -251,7 +248,7 @@ export default function ContactSection() {
                     key={topic}
                     type="button"
                     onClick={() => setSelectedTopic(topic)}
-                    className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all ${
+                    className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all cursor-pointer ${
                       isSelected
                         ? "bg-[#ff1a53] text-white font-bold shadow-[0_0_15px_rgba(255,26,83,0.4)]"
                         : "bg-white/[0.04] text-[#a7a2ad] border border-white/10 hover:border-white/30 hover:text-white"
@@ -276,7 +273,7 @@ export default function ContactSection() {
                   name="name"
                   required
                   maxLength={120}
-                  placeholder="e.g. Elena Vance"
+                  placeholder="e.g. John Doe"
                   className="w-full px-4 py-3 rounded-xl bg-[#09070c] border border-white/10 focus:border-[#ff1a53] focus:outline-none text-white font-mono text-xs transition-colors"
                 />
               </div>
@@ -290,7 +287,7 @@ export default function ContactSection() {
                   name="email"
                   required
                   maxLength={254}
-                  placeholder="elena@enterprise.com"
+                  placeholder="john@organization.com"
                   className="w-full px-4 py-3 rounded-xl bg-[#09070c] border border-white/10 focus:border-[#ff1a53] focus:outline-none text-white font-mono text-xs transition-colors"
                 />
               </div>
@@ -298,19 +295,19 @@ export default function ContactSection() {
 
             <div>
               <label className="font-mono text-xs text-[#a7a2ad] block mb-1.5">
-                TRANSMISSION MESSAGE *
+                PROJECT SCOPE / MESSAGE *
               </label>
               <textarea
                 name="message"
                 required
                 maxLength={4000}
                 rows={5}
-                placeholder="Detail your engineering requirements, project scope, team leadership needs, or timelines..."
+                placeholder="Describe your project requirements, technical architecture, or engineering role..."
                 className="w-full px-4 py-3 rounded-xl bg-[#09070c] border border-white/10 focus:border-[#ff1a53] focus:outline-none text-white font-mono text-xs leading-relaxed resize-y transition-colors"
               />
             </div>
 
-            {/* Status Message */}
+            {/* Status Feedback */}
             {statusMessage && (
               <div
                 className={`p-3.5 rounded-xl font-mono text-xs flex items-center gap-2 ${
@@ -330,14 +327,14 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={sending}
-                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#880826] to-[#ff1a53] text-white font-mono text-xs font-bold tracking-wider hover:shadow-[0_0_25px_rgba(255,26,83,0.5)] active:scale-95 disabled:opacity-50 transition-all cursor-pointer"
+                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#e11d48] hover:bg-[#c8102e] text-white font-mono text-xs font-bold tracking-wider uppercase hover:shadow-[0_0_25px_rgba(225,29,72,0.5)] active:scale-95 disabled:opacity-50 transition-all cursor-pointer"
               >
                 <span>{sending ? "TRANSMITTING..." : "DISPATCH TRANSMISSION"}</span>
                 <Send size={14} />
               </button>
 
               <span className="font-mono text-[11px] text-[#a7a2ad]">
-                Direct SMTP or mailto fallback supported
+                Direct SMTP &bull; sumit.pramanick@hotmail.com
               </span>
             </div>
           </form>

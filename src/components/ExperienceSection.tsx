@@ -1,6 +1,6 @@
 "use client";
 
-import { ArrowUpRight, Briefcase, Calendar, MapPin, CheckCircle2 } from "lucide-react";
+import { Briefcase, Calendar, MapPin, CheckCircle2 } from "lucide-react";
 import { portfolio } from "@/data/portfolio";
 
 export default function ExperienceSection() {
@@ -22,15 +22,15 @@ export default function ExperienceSection() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-8 border-b border-white/10">
         <div>
           <div className="flex items-center gap-2 font-mono text-xs text-[#ff1a53] uppercase tracking-widest mb-3">
-            <span>06 {"//"} CAREER TRAJECTORY</span>
+            <span>05 {"//"} CAREER TRAJECTORY</span>
           </div>
-          <h2 className="font-syne text-3xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white">
+          <h2 className="font-bebas text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase font-normal leading-[0.9]">
             8+ Years of Verified <br />
-            <span className="text-outline-hero">Engineering Leadership.</span>
+            <span className="text-[#e11d48] text-outline-hero">Engineering Delivery.</span>
           </h2>
         </div>
         <div className="max-w-md font-mono text-xs sm:text-sm text-[#a7a2ad]">
-          A progressive career path evolving from rigorous Quality Analysis to Senior Full Stack Engineering and Cross-Platform Architecture.
+          A progressive career path in production software engineering: from quality verification to full stack systems, REST API architecture, and cross-platform leadership.
         </div>
       </div>
 

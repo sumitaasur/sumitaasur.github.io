@@ -4,23 +4,22 @@ import { useState } from "react";
 import {
   ExternalLink,
   ArrowUpRight,
-  Smartphone,
   Globe,
-  Layers,
-  Sparkles,
   CheckCircle2,
   Apple,
   Play,
   Braces,
+  Tag,
+  AlertTriangle,
 } from "lucide-react";
 import { portfolio, type PortfolioProject, type ProjectCategory } from "@/data/portfolio";
 
 const filterTabs: { id: ProjectCategory; label: string }[] = [
-  { id: "all", label: "All Works (16)" },
-  { id: "mobile", label: "Mobile & Native (7)" },
-  { id: "web", label: "Web Architecture (6)" },
-  { id: "3d", label: "3D & WebGL (3)" },
-  { id: "fintech-health", label: "Fintech & Health (4)" },
+  { id: "all", label: "All Works (15)" },
+  { id: "backend-fullstack", label: "Backend & Full Stack" },
+  { id: "mobile", label: "Mobile & Native" },
+  { id: "ai-web3d", label: "AI & WebGL 3D" },
+  { id: "fintech-health", label: "Fintech & Healthcare" },
 ];
 
 export default function ProjectShowcase({
@@ -39,7 +38,7 @@ export default function ProjectShowcase({
     <section
       id="projects"
       className="relative py-24 sm:py-32 px-4 sm:px-8 max-w-7xl mx-auto"
-      aria-label="Selected Production Projects"
+      aria-label="Production Project Repository"
     >
       {/* Background ambient lighting */}
       <div
@@ -51,15 +50,15 @@ export default function ProjectShowcase({
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-8 border-b border-white/10">
         <div>
           <div className="flex items-center gap-2 font-mono text-xs text-[#ff1a53] uppercase tracking-widest mb-3">
-            <span>04 {"//"} COMMERCIAL REPOSITORY</span>
+            <span>04 {"//"} COMMERCIAL PRODUCTION REPOSITORY</span>
           </div>
-          <h2 className="font-syne text-3xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white">
+          <h2 className="font-bebas text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase font-normal leading-[0.9]">
             Selected Works &amp; <br />
-            <span className="text-outline-hero">Shipped Platforms.</span>
+            <span className="text-[#e11d48] text-outline-hero">Shipped Platforms.</span>
           </h2>
         </div>
         <div className="max-w-md font-mono text-xs sm:text-sm text-[#a7a2ad]">
-          Production applications spanning Apple App Store, Google Play, and enterprise cloud deployments across the US, UK, Germany, UAE, Australia, and India.
+          Production applications spanning full-stack web architectures, cross-platform mobile apps, and 3D WebGL platforms across the US, Europe, UAE, Australia, and India.
         </div>
       </div>
 
@@ -72,7 +71,7 @@ export default function ProjectShowcase({
               key={tab.id}
               type="button"
               onClick={() => setActiveCategory(tab.id)}
-              className={`px-4 py-2 rounded-full font-mono text-xs font-semibold tracking-wider transition-all duration-200 ${
+              className={`px-4 py-2 rounded-full font-mono text-xs font-semibold tracking-wider transition-all duration-200 cursor-pointer ${
                 isActive
                   ? "bg-[#ff1a53] text-white shadow-[0_0_20px_rgba(255,26,83,0.5)]"
                   : "bg-[#120f16] text-[#a7a2ad] border border-white/10 hover:border-white/30 hover:text-white"
@@ -101,31 +100,35 @@ export default function ProjectShowcase({
               <div
                 className="relative w-full aspect-[16/9] overflow-hidden p-6 flex flex-col justify-between"
                 style={{
-                  background: `linear-gradient(135deg, #18040a 0%, #10070d 60%, ${accentColor}15 100%)`,
+                  background: `linear-gradient(135deg, #18040a 0%, #10070d 60%, ${accentColor}18 100%)`,
                 }}
               >
-                {/* Tech grid texture inside art */}
                 <div className="absolute inset-0 bg-tech-grid opacity-30 pointer-events-none" />
 
                 {/* Top Art Info */}
                 <div className="relative z-10 flex items-center justify-between">
-                  <span className="font-mono text-xs text-white/50 tracking-wider">
-                    0{index + 1} {"//"} ARCHIVE
-                  </span>
-                  <span className="px-2.5 py-1 rounded bg-black/60 backdrop-blur-md border border-white/10 font-mono text-[10px] uppercase text-[#ff1a53] font-bold">
-                    {project.category}
-                  </span>
+                  <div className="flex items-center gap-2">
+                    <span className="font-mono text-xs text-white/50 tracking-wider">
+                      0{index + 1} {"//"} ARCHIVE
+                    </span>
+                    <span className="px-2 py-0.5 rounded bg-white/10 font-mono text-[10px] text-white uppercase font-bold">
+                      {project.industry}
+                    </span>
+                  </div>
+                  <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-[#ff1a53] transition-colors">
+                    <ArrowUpRight size={16} />
+                  </div>
                 </div>
 
-                {/* Abstract Interactive Holographic Mockup Box */}
-                <div className="relative z-10 self-center w-full max-w-xs p-4 rounded-xl bg-black/70 border border-white/15 backdrop-blur-md shadow-2xl transition-transform duration-300 group-hover:scale-105 group-hover:border-[#ff1a53]/60">
+                {/* Holographic Mockup Box */}
+                <div className="relative z-10 self-center w-full max-w-xs p-4 rounded-xl bg-black/75 border border-white/15 backdrop-blur-md shadow-2xl transition-transform duration-300 group-hover:scale-105 group-hover:border-[#ff1a53]/60">
                   <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10 font-mono text-[10px] text-[#a7a2ad]">
                     <div className="flex gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-rose-500/80" />
                       <span className="w-2 h-2 rounded-full bg-amber-500/80" />
                       <span className="w-2 h-2 rounded-full bg-emerald-500/80" />
                     </div>
-                    <span>{project.name.toLowerCase()}.runtime</span>
+                    <span>{project.name.toLowerCase()}.service</span>
                   </div>
                   <div className="flex items-center gap-3 py-1">
                     <div className="w-9 h-9 rounded-lg bg-[#880826]/40 border border-[#ff1a53]/40 flex items-center justify-center text-[#ff1a53]">
@@ -135,51 +138,53 @@ export default function ProjectShowcase({
                       <span className="font-syne text-xs font-bold text-white">
                         {project.name}
                       </span>
-                      <span className="font-mono text-[9px] text-emerald-400">
-                        {project.architectureHighlight || "Engineered for 60fps"}
+                      <span className="font-mono text-[9px] text-emerald-400 truncate max-w-[170px]">
+                        {project.architectureHighlight || "Production Engineered"}
                       </span>
                     </div>
                   </div>
                 </div>
 
-                {/* Bottom Art Tech Pills */}
-                <div className="relative z-10 flex items-center justify-between text-xs font-mono">
-                  <span className="text-[#a7a2ad] line-clamp-1">
-                    {project.tagline || project.name}
-                  </span>
-                  <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-[#ff1a53] transition-colors">
-                    <ArrowUpRight size={16} />
-                  </div>
+                {/* Bottom Art Tech Tagline */}
+                <div className="relative z-10 font-mono text-xs text-[#a7a2ad] line-clamp-1">
+                  {project.tagline || project.overview}
                 </div>
               </div>
 
               {/* Card Body */}
               <div className="p-6 sm:p-7 flex flex-col justify-between flex-grow">
                 <div>
-                  <h3 className="font-syne text-2xl font-bold text-white mb-2 group-hover:text-[#ff1a53] transition-colors">
-                    {project.name}
-                  </h3>
+                  <div className="flex items-center justify-between gap-2 mb-2">
+                    <h3 className="font-syne text-2xl font-bold text-white group-hover:text-[#ff1a53] transition-colors">
+                      {project.name}
+                    </h3>
+                    <span className="text-xs font-mono text-[#ff1a53] uppercase font-semibold">
+                      {project.industry}
+                    </span>
+                  </div>
 
-                  <p className="font-display text-sm text-[#a7a2ad] leading-relaxed mb-6 line-clamp-3">
+                  <p className="font-display text-xs sm:text-sm text-[#a7a2ad] leading-relaxed mb-5 line-clamp-3">
                     {project.description}
                   </p>
 
-                  {/* Outcomes */}
-                  <div className="space-y-2 mb-6">
-                    {project.outcomes.map((outcome, idx) => (
+                  {/* Key Contributions */}
+                  <div className="space-y-1.5 mb-5">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-[#ff1a53] font-bold block">
+                      KEY ENGINEERING CONTRIBUTION
+                    </span>
+                    {project.myContribution.slice(0, 2).map((item, idx) => (
                       <div key={idx} className="flex items-start gap-2 text-xs font-mono text-[#f5f3f5]">
-                        <CheckCircle2 size={13} className="text-[#ff1a53] mt-0.5 flex-shrink-0" />
-                        <span>{outcome}</span>
+                        <CheckCircle2 size={13} className="text-emerald-400 mt-0.5 flex-shrink-0" />
+                        <span className="line-clamp-2">{item}</span>
                       </div>
                     ))}
                   </div>
                 </div>
 
                 {/* Footer with Tech Stack and Links */}
-                <div className="pt-5 border-t border-white/10 flex flex-wrap items-center justify-between gap-4">
-                  {/* Tech tags */}
+                <div className="pt-4 border-t border-white/10 flex flex-wrap items-center justify-between gap-3">
                   <div className="flex flex-wrap gap-1.5">
-                    {project.technologies.slice(0, 3).map((tech) => (
+                    {project.technologies.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
                         className="px-2.5 py-1 rounded bg-white/[0.04] border border-white/5 font-mono text-[10px] text-[#a7a2ad]"
@@ -187,9 +192,9 @@ export default function ProjectShowcase({
                         {tech}
                       </span>
                     ))}
-                    {project.technologies.length > 3 && (
+                    {project.technologies.length > 4 && (
                       <span className="px-2 py-1 rounded bg-white/[0.04] font-mono text-[10px] text-[#a7a2ad]">
-                        +{project.technologies.length - 3}
+                        +{project.technologies.length - 4}
                       </span>
                     )}
                   </div>
@@ -203,7 +208,7 @@ export default function ProjectShowcase({
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
                         className="text-[#a7a2ad] hover:text-[#ff1a53] flex items-center gap-1 transition-colors"
-                        title="Live Website"
+                        title="Live Platform"
                       >
                         <Globe size={13} />
                         <span>Web</span>

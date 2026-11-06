@@ -139,12 +139,9 @@ export default function SkillsSection() {
                 <div className="w-10 h-10 rounded-xl bg-white/[0.04] border border-white/10 flex items-center justify-center text-xl group-hover:scale-110 transition-transform">
                   {getTechIcon(item.icon)}
                 </div>
-                {item.level && (
-                  <div className="font-mono text-xs text-[#a7a2ad]">
-                    <span className="text-white font-bold">{item.level}%</span>
-                    <span className="text-[#ff1a53] ml-1">PROFICIENT</span>
-                  </div>
-                )}
+                <span className="px-2.5 py-0.5 rounded text-[10px] font-mono bg-white/5 border border-white/10 text-emerald-400 font-semibold uppercase">
+                  VERIFIED
+                </span>
               </div>
 
               <h3 className="font-syne text-lg font-bold text-white mb-2 group-hover:text-[#ff1a53] transition-colors">
@@ -155,16 +152,6 @@ export default function SkillsSection() {
                 {item.description}
               </p>
             </div>
-
-            {/* Micro visual progress bar */}
-            {item.level && (
-              <div className="w-full h-1 bg-white/5 rounded-full overflow-hidden mt-5">
-                <div
-                  className="h-full bg-gradient-to-r from-[#880826] to-[#ff1a53] rounded-full transition-all duration-500"
-                  style={{ width: `${item.level}%` }}
-                />
-              </div>
-            )}
           </div>
         ))}
       </div>

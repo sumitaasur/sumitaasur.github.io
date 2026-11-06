@@ -1,7 +1,21 @@
 import type { Metadata } from "next";
-import { Syne, Space_Grotesk, JetBrains_Mono } from "next/font/google";
+import { Bebas_Neue, Caveat, Syne, Space_Grotesk, JetBrains_Mono } from "next/font/google";
 import "./globals.css";
 import { portfolio } from "@/data/portfolio";
+
+const bebasNeue = Bebas_Neue({
+  subsets: ["latin"],
+  variable: "--font-bebas",
+  weight: ["400"],
+  display: "swap",
+});
+
+const caveatFont = Caveat({
+  subsets: ["latin"],
+  variable: "--font-handwriting",
+  display: "swap",
+  weight: ["400", "700"],
+});
 
 const syneDisplay = Syne({
   subsets: ["latin"],
@@ -32,43 +46,47 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: `${portfolio.name} | Senior Full Stack Engineer & Technical Lead`,
-  description: portfolio.metaDescription,
+  title: "Sumit Pramanik | Full Stack Engineer | Node.js, React.js & AI",
+  description:
+    "Full Stack Engineer with 8+ years of experience building scalable web, mobile and backend applications using Node.js, React.js, React Native and Next.js. Focused on AI/GenAI application development and intelligent software experiences.",
   applicationName: portfolio.name,
   publisher: portfolio.name,
   keywords: [
     "Sumit Pramanik",
-    "Senior Full Stack Engineer",
-    "Technical Lead",
-    "Frontend Architect",
+    "Full Stack Engineer",
+    "Node.js",
     "React.js",
     "React Native",
     "Next.js",
     "TypeScript",
-    "JavaScript",
-    "Node.js",
-    "Cross-Platform Mobile Architecture",
-    "Performance Optimization",
+    "AI / GenAI Application Development",
+    "LLM API Integration",
+    "RAG Architecture",
+    "MongoDB",
+    "RESTful API Design",
+    "Cross-Platform Mobile Engineering",
   ],
   openGraph: {
     type: "website",
     url: "/",
-    title: `${portfolio.name} | Senior Full Stack Engineer & Technical Lead`,
-    description: portfolio.metaDescription,
+    title: "Sumit Pramanik | Full Stack Engineer | Node.js, React.js & AI",
+    description:
+      "Full Stack Engineer with 8+ years of experience building scalable web, mobile and backend applications using Node.js, React.js, React Native and Next.js. Focused on AI/GenAI application development.",
     siteName: portfolio.name,
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: `${portfolio.name}, Senior Full Stack Engineer & Technical Lead`,
+        alt: `${portfolio.name}, Full Stack Engineer (Node.js, React.js) | AI / GenAI`,
       },
     ],
   },
   twitter: {
     card: "summary_large_image",
-    title: `${portfolio.name} | Senior Full Stack Engineer & Technical Lead`,
-    description: portfolio.metaDescription,
+    title: "Sumit Pramanik | Full Stack Engineer | Node.js, React.js & AI",
+    description:
+      "Full Stack Engineer with 8+ years of experience building scalable web, mobile and backend applications using Node.js, React.js, React Native and Next.js.",
     images: ["/opengraph-image"],
   },
   icons: { icon: "/icon.svg", shortcut: "/icon.svg" },
@@ -88,31 +106,58 @@ export default function RootLayout({
     description: portfolio.summary,
     telephone: portfolio.phone,
     email: portfolio.email,
+    address: {
+      "@type": "PostalAddress",
+      addressLocality: "Jaipur",
+      addressCountry: "India",
+    },
     alumniOf: {
       "@type": "CollegeOrUniversity",
       name: portfolio.education.institution,
     },
     knowsAbout: [
-      "JavaScript",
-      "TypeScript",
+      "Node.js",
+      "Express.js",
       "React.js",
       "React Native",
       "Next.js",
-      "Node.js",
-      "Architecture",
-      "Mobile Engineering",
+      "TypeScript",
+      "MongoDB",
+      "REST APIs",
+      "AI / GenAI Application Development",
+      "LLM API Integration",
+      "RAG Architecture",
     ],
+  };
+
+  const websiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    name: `${portfolio.name} Portfolio`,
+    url: siteUrl,
+    description:
+      "Full Stack Engineer with 8+ years of experience building scalable web, mobile and backend applications using Node.js, React.js, React Native and Next.js.",
+    author: {
+      "@type": "Person",
+      name: portfolio.name,
+    },
   };
 
   return (
     <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
       <body
-        className={`${syneDisplay.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} bg-[#080709] text-[#f4f2f4] antialiased selection:bg-[#ff1a53] selection:text-white`}
+        className={`${bebasNeue.variable} ${caveatFont.variable} ${syneDisplay.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} bg-[#080709] text-[#f4f2f4] antialiased selection:bg-[#ff1a53] selection:text-white`}
       >
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(personSchema).replace(/</g, "\\u003c"),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(websiteSchema).replace(/</g, "\\u003c"),
           }}
         />
         {children}

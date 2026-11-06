@@ -1,17 +1,15 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { ArrowUpRight, Menu, X, Sparkles, Terminal } from "lucide-react";
+import { ArrowUpRight, Menu, X } from "lucide-react";
 import { portfolio } from "@/data/portfolio";
 
 const navItems = [
-  { label: "Overview", href: "#top" },
-  { label: "Architecture", href: "#architecture" },
-  { label: "Selected Work", href: "#projects" },
-  { label: "Performance", href: "#performance" },
-  { label: "Process", href: "#process" },
+  { label: "Work", href: "#projects" },
+  { label: "Services", href: "#architecture" },
+  { label: "AI / GenAI", href: "#ai-engineering" },
+  { label: "About", href: "#about" },
   { label: "Experience", href: "#experience" },
-  { label: "Toolkit", href: "#skills" },
   { label: "Contact", href: "#contact" },
 ];
 
@@ -22,7 +20,7 @@ export default function FloatingNav() {
 
   useEffect(() => {
     const handleScroll = () => {
-      setIsScrolled(window.scrollY > 40);
+      setIsScrolled(window.scrollY > 30);
     };
 
     window.addEventListener("scroll", handleScroll, { passive: true });
@@ -32,7 +30,7 @@ export default function FloatingNav() {
   }, []);
 
   useEffect(() => {
-    const sectionIds = ["top", "architecture", "projects", "performance", "process", "experience", "skills", "contact"];
+    const sectionIds = ["top", "projects", "architecture", "ai-engineering", "about", "experience", "contact"];
     const elements = sectionIds
       .map((id) => document.getElementById(id))
       .filter(Boolean) as HTMLElement[];
@@ -63,117 +61,112 @@ export default function FloatingNav() {
 
   return (
     <>
-      {/* Top Bar with Floating Pill Container */}
+      {/* Top Navbar Header matching WAIL screenshot */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 flex items-center justify-between px-4 sm:px-8 py-3.5 sm:py-5 transition-all duration-300 pointer-events-none ${
-          isScrolled ? "backdrop-blur-sm bg-black/25" : ""
+        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+          isScrolled
+            ? "bg-[#080709]/95 backdrop-blur-md border-b border-white/10 shadow-2xl"
+            : "bg-transparent border-b border-white/10"
         }`}
       >
-        {/* Left: Brand Monogram & Coordinates */}
-        <div className="pointer-events-auto flex items-center gap-3">
+        <div className="max-w-[1520px] mx-auto px-4 sm:px-8 lg:px-12 h-16 sm:h-20 flex items-center justify-between">
+          {/* Left: Brand Monogram / Logo */}
           <a
             href="#top"
             onClick={(e) => {
               e.preventDefault();
               scrollTo("top");
             }}
-            className="group flex items-center gap-2.5 px-3 py-1.5 rounded-full bg-[#120f16]/90 border border-white/10 hover:border-[#ff1a53]/50 transition-all duration-200 backdrop-blur-md"
+            className="flex items-center gap-1.5 group"
             aria-label={`${portfolio.name} home`}
           >
-            <span className="w-6 h-6 rounded-full bg-gradient-to-br from-[#ff1a53] to-[#880826] text-white font-mono text-[11px] font-bold flex items-center justify-center shadow-[0_0_12px_rgba(255,26,83,0.4)]">
-              SP
+            <span className="font-bebas text-2xl sm:text-3xl text-white tracking-wider uppercase group-hover:text-[#ff1a53] transition-colors">
+              SUMIT
             </span>
-            <div className="flex flex-col">
-              <span className="font-syne text-xs font-bold tracking-tight text-white group-hover:text-[#ff1a53] transition-colors">
-                {portfolio.name}
-              </span>
-              <span className="font-mono text-[9px] text-[#a7a2ad] hidden sm:inline">
-                {portfolio.coordinates}
-              </span>
-            </div>
+            <span className="font-mono text-xs text-[#ff1a53] font-bold">®</span>
           </a>
 
-          {/* Availability Pill */}
-          <div className="hidden lg:flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#120f16]/90 border border-white/10 backdrop-blur-md">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-dot" />
-            <span className="font-mono text-[10px] tracking-wider uppercase text-emerald-300 font-semibold">
-              {portfolio.availabilityBadge}
-            </span>
+          {/* Center: Desktop Nav Links */}
+          <nav
+            className="hidden md:flex items-center gap-8 lg:gap-12"
+            aria-label="Primary Navigation"
+          >
+            {navItems.map((item) => {
+              const id = item.href.replace("#", "");
+              const isActive = activeSection === id;
+              return (
+                <a
+                  key={item.label}
+                  href={item.href}
+                  onClick={(e) => {
+                    e.preventDefault();
+                    scrollTo(id);
+                  }}
+                  className={`font-mono text-xs uppercase tracking-wider transition-colors relative py-1 ${
+                    isActive
+                      ? "text-white font-bold"
+                      : "text-[#a7a2ad] hover:text-white"
+                  }`}
+                >
+                  {item.label}
+                  {isActive && (
+                    <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-[#ff1a53]" />
+                  )}
+                </a>
+              );
+            })}
+          </nav>
+
+          {/* Right: Let's Talk CTA & Mobile Toggle */}
+          <div className="flex items-center gap-4">
+            <a
+              href="#contact"
+              onClick={(e) => {
+                e.preventDefault();
+                scrollTo("contact");
+              }}
+              data-cursor="contact"
+              data-cursor-text="TALK"
+              className="hidden sm:inline-flex items-center gap-2 font-mono text-xs font-bold text-white hover:text-[#ff1a53] uppercase tracking-wider transition-colors group"
+            >
+              <span>Let&apos;s talk</span>
+              <ArrowUpRight
+                size={14}
+                className="text-[#ff1a53] group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"
+              />
+            </a>
+
+            {/* Mobile Hamburger Button */}
+            <button
+              type="button"
+              onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+              className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-white/5 border border-white/10 text-white hover:border-[#ff1a53] transition-colors"
+              aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
+              aria-expanded={mobileMenuOpen}
+            >
+              {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
+            </button>
           </div>
-        </div>
-
-        {/* Center: Desktop Floating Navigation Pill */}
-        <nav
-          className="pointer-events-auto hidden md:flex items-center gap-1 px-3 py-1.5 rounded-full bg-[#120f16]/90 border border-white/10 shadow-[0_12px_40px_rgba(0,0,0,0.6)] backdrop-blur-xl"
-          aria-label="Primary Navigation"
-        >
-          {navItems.map((item) => {
-            const id = item.href.replace("#", "");
-            const isActive = activeSection === id;
-            return (
-              <a
-                key={item.label}
-                href={item.href}
-                onClick={(e) => {
-                  e.preventDefault();
-                  scrollTo(id);
-                }}
-                className={`relative px-3.5 py-1.5 rounded-full font-mono text-xs transition-all duration-200 ${
-                  isActive
-                    ? "text-white font-bold bg-[#ff1a53] shadow-[0_0_16px_rgba(255,26,83,0.5)]"
-                    : "text-[#a7a2ad] hover:text-white hover:bg-white/5"
-                }`}
-              >
-                {item.label}
-              </a>
-            );
-          })}
-        </nav>
-
-        {/* Right: Quick Action CTA & Mobile Toggle */}
-        <div className="pointer-events-auto flex items-center gap-2.5">
-          <a
-            href="#contact"
-            onClick={(e) => {
-              e.preventDefault();
-              scrollTo("contact");
-            }}
-            className="hidden sm:inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gradient-to-r from-[#880826] to-[#ff1a53] text-white font-mono text-xs font-bold hover:shadow-[0_0_24px_rgba(255,26,83,0.5)] hover:scale-105 active:scale-95 transition-all duration-200"
-          >
-            <span>DISPATCH</span>
-            <ArrowUpRight size={14} />
-          </a>
-
-          {/* Mobile Hamburger Button */}
-          <button
-            type="button"
-            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
-            className="md:hidden flex items-center justify-center w-10 h-10 rounded-full bg-[#120f16]/95 border border-white/10 text-white hover:border-[#ff1a53] transition-colors"
-            aria-label={mobileMenuOpen ? "Close navigation menu" : "Open navigation menu"}
-            aria-expanded={mobileMenuOpen}
-          >
-            {mobileMenuOpen ? <X size={18} /> : <Menu size={18} />}
-          </button>
         </div>
       </header>
 
       {/* Mobile Drawer Menu */}
       {mobileMenuOpen && (
         <div
-          className="fixed inset-0 z-40 bg-black/90 backdrop-blur-2xl flex flex-col justify-between p-6 pt-24 md:hidden animate-in fade-in duration-200"
+          className="fixed inset-0 z-40 bg-black/95 backdrop-blur-2xl flex flex-col justify-between p-6 pt-24 md:hidden animate-in fade-in duration-200"
           role="dialog"
           aria-modal="true"
         >
-          <div className="flex flex-col gap-2">
+          <div className="flex flex-col gap-3">
             <div className="flex items-center gap-2 px-3 py-1.5 mb-4 rounded-full bg-white/5 border border-white/10 w-fit">
               <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-dot" />
               <span className="font-mono text-[10px] text-emerald-300 uppercase tracking-wider">
-                {portfolio.availabilityBadge}
+                {portfolio.availabilityStatus}
               </span>
             </div>
 
             <p className="font-mono text-[10px] uppercase tracking-widest text-[#a7a2ad] mb-1">
-              INDEX DIRECTORY
+              PORTFOLIO DIRECTORY
             </p>
 
             {navItems.map((item, idx) => {
@@ -187,7 +180,7 @@ export default function FloatingNav() {
                     e.preventDefault();
                     scrollTo(id);
                   }}
-                  className={`flex items-center justify-between p-3.5 rounded-xl border transition-all text-base font-syne font-semibold ${
+                  className={`flex items-center justify-between p-4 rounded-xl border transition-all text-lg font-bebas tracking-wider uppercase ${
                     isActive
                       ? "bg-[#ff1a53]/15 border-[#ff1a53] text-[#ff1a53]"
                       : "bg-[#120f16] border-white/5 text-white hover:border-white/20"
@@ -210,14 +203,14 @@ export default function FloatingNav() {
                 e.preventDefault();
                 scrollTo("contact");
               }}
-              className="flex items-center justify-center gap-2 w-full py-3.5 rounded-xl bg-gradient-to-r from-[#880826] to-[#ff1a53] text-white font-mono text-sm font-bold shadow-[0_0_25px_rgba(255,26,83,0.4)]"
+              className="flex items-center justify-center gap-2 w-full py-4 rounded-xl bg-[#e11d48] text-white font-mono text-sm font-bold shadow-[0_0_25px_rgba(225,29,72,0.5)] uppercase tracking-wider"
             >
-              <span>DISPATCH MESSAGE</span>
+              <span>INITIATE TRANSMISSION</span>
               <ArrowUpRight size={16} />
             </a>
             <div className="flex items-center justify-between text-xs font-mono text-[#a7a2ad]">
               <span>{portfolio.location}</span>
-              <span>{portfolio.experienceLabel}</span>
+              <span>{portfolio.experienceYears} Years Exp</span>
             </div>
           </div>
         </div>
@@ -225,4 +218,3 @@ export default function FloatingNav() {
     </>
   );
 }
-

@@ -91,6 +91,14 @@ body.dialog-open {
 }
 
 /* Typography styles */
+.font-bebas {
+  font-family: var(--font-bebas), sans-serif;
+}
+
+.font-handwriting {
+  font-family: var(--font-handwriting), cursive;
+}
+
 .font-syne {
   font-family: var(--font-syne);
 }

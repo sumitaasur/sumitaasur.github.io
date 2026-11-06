@@ -6,13 +6,13 @@ import CustomCursor from "@/components/CustomCursor";
 import FloatingNav from "@/components/FloatingNav";
 import HeroSection from "@/components/HeroSection";
 import ClientMarquee from "@/components/ClientMarquee";
-import EditorialStory from "@/components/EditorialStory";
+import AIEngineeringSection from "@/components/AIEngineeringSection";
 import ArchitectureMatrix from "@/components/ArchitectureMatrix";
 import BeforeAfterShowcase from "@/components/BeforeAfterShowcase";
 import ProjectShowcase from "@/components/ProjectShowcase";
 import ProcessTimeline from "@/components/ProcessTimeline";
 import ExperienceSection from "@/components/ExperienceSection";
-import SkillsSection from "@/components/SkillsSection";
+import EditorialStory from "@/components/EditorialStory";
 import ContactSection from "@/components/ContactSection";
 import ProjectModal from "@/components/ProjectModal";
 import Footer from "@/components/Footer";
@@ -23,49 +23,49 @@ export default function PortfolioSite() {
 
   return (
     <SmoothScrollProvider>
-      {/* Animated Multi-State Magnetic Custom Cursor */}
+      {/* Animated Multi-State Custom Cursor */}
       <CustomCursor />
 
-      {/* Floating Glass Navigation Bar with Live Status */}
+      {/* WAIL-Inspired Top Navigation Bar */}
       <FloatingNav />
 
-      {/* Main Content Sections */}
+      {/* Main Content Stream */}
       <main id="main-content" className="relative z-10 overflow-hidden">
-        {/* 1. Immersive Hero with Oversized Typography, Red Identity Block & 3D Layered Hologram */}
+        {/* 1. High-Fidelity WAIL Recreation Hero with Sumit's Actual Portrait */}
         <HeroSection />
 
-        {/* 2. Client & Brand Marquee (WAIL ticker) */}
+        {/* 2. Brand & Technology Continuous Marquee */}
         <ClientMarquee />
 
-        {/* 3. Editorial Storytelling & Engineering Philosophy */}
-        <EditorialStory />
+        {/* 3. Dedicated AI & GenAI Engineering Section (Intelligent Systems Interface) */}
+        <AIEngineeringSection />
 
-        {/* 4. Interactive Engineering Architecture Matrix */}
+        {/* 4. Connected Full Stack Architecture Map (Node.js, React, Mobile, Cloud) */}
         <ArchitectureMatrix />
 
-        {/* 5. Measured Impact Before / After Interactive Slider */}
+        {/* 5. Measured Impact: Before vs. Engineered Architecture */}
         <BeforeAfterShowcase />
 
-        {/* 6. Selected Work & Shipped Platforms with Category Filtering */}
+        {/* 6. Selected Works & Shipped Platforms (Filtered Projects with Technical Challenges) */}
         <ProjectShowcase onSelectProject={(project) => setSelectedProject(project)} />
 
-        {/* 7. Creative Engineering Process Lifecycle */}
+        {/* 7. Engineering Methodology & Lifecycle Process */}
         <ProcessTimeline />
 
-        {/* 8. Verified Professional Experience Timeline */}
+        {/* 8. Verified Professional Experience (With 86 Agency Lead Frontend Engineer) */}
         <ExperienceSection />
 
-        {/* 9. Specialized Stack & Technical Capabilities */}
-        <SkillsSection />
+        {/* 9. Editorial Philosophy & Quantified Production Outcomes */}
+        <EditorialStory />
 
-        {/* 10. Contact / Dispatch Center */}
+        {/* 10. Transmission Terminal & Contact */}
         <ContactSection />
       </main>
 
       {/* Cinematic Footer */}
       <Footer />
 
-      {/* Interactive Project Deep-Dive Modal */}
+      {/* Accessible Project Deep-Dive Modal */}
       <ProjectModal
         project={selectedProject}
         onClose={() => setSelectedProject(null)}

@@ -1,285 +1,251 @@
 "use client";
 
-import { useEffect, useRef, useState } from "react";
-import {
-  ArrowDown,
-  ArrowDownRight,
-  ArrowUpRight,
-  Download,
-  Terminal,
-  ShieldCheck,
-  Zap,
-  Cpu,
-  Layers,
-  Sparkles,
-  Smartphone,
-  Globe,
-} from "lucide-react";
-import { portfolio, socialProfiles } from "@/data/portfolio";
+import Image from "next/image";
+import { ArrowDown, ArrowUpRight, MapPin, Sparkles } from "lucide-react";
+import { portfolio } from "@/data/portfolio";
 
 export default function HeroSection() {
-  const containerRef = useRef<HTMLDivElement>(null);
-  const cardRef = useRef<HTMLDivElement>(null);
-  const [mousePos, setMousePos] = useState({ x: 0, y: 0 });
-  const [tilt, setTilt] = useState({ rotateX: 0, rotateY: 0 });
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
-    if (!containerRef.current) return;
-    const rect = containerRef.current.getBoundingClientRect();
-    const x = e.clientX - rect.left;
-    const y = e.clientY - rect.top;
-    setMousePos({ x, y });
-
-    // Calculate subtle 3D tilt
-    const centerX = rect.width / 2;
-    const centerY = rect.height / 2;
-    const rotateY = ((x - centerX) / centerX) * 8;
-    const rotateX = -((y - centerY) / centerY) * 8;
-    setTilt({ rotateX, rotateY });
+  const scrollToWork = () => {
+    document.getElementById("projects")?.scrollIntoView({ behavior: "smooth" });
   };
 
-  const handleMouseLeave = () => {
-    setTilt({ rotateX: 0, rotateY: 0 });
+  const scrollToContact = () => {
+    document.getElementById("contact")?.scrollIntoView({ behavior: "smooth" });
   };
 
   return (
     <section
       id="top"
-      ref={containerRef}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={handleMouseLeave}
-      className="relative min-h-screen pt-28 pb-16 sm:pb-24 px-4 sm:px-8 flex flex-col justify-between overflow-hidden bg-tech-grid"
-      aria-label="Introduction & Architecture Overview"
+      className="relative min-h-screen w-full bg-[#080709] text-white overflow-hidden flex flex-col justify-between pt-20 sm:pt-24 select-none"
+      aria-label="Hero Section"
     >
-      {/* Dynamic Ambient Glow Layers */}
+      {/* Background Atmosphere: Subtle Grain & Red Ambient Lighting */}
       <div
-        className="pointer-events-none absolute -top-40 -right-40 w-[600px] h-[600px] rounded-full bg-gradient-to-br from-[#ff1a53]/20 via-[#880826]/10 to-transparent blur-[140px]"
+        className="pointer-events-none absolute inset-0 bg-noise opacity-40 z-0"
         aria-hidden="true"
       />
       <div
-        className="pointer-events-none absolute top-1/2 -left-40 w-[500px] h-[500px] rounded-full bg-gradient-to-tr from-[#67001f]/25 via-transparent to-transparent blur-[120px]"
+        className="pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[500px] bg-gradient-to-b from-[#e11d48]/15 via-[#880826]/10 to-transparent blur-[160px] z-0"
         aria-hidden="true"
       />
 
-      {/* Top Telemetry HUD Strip */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full flex flex-wrap items-center justify-between gap-4 py-3 px-4 rounded-xl bg-[#0e0d12]/60 border border-white/5 backdrop-blur-md mb-8">
-        <div className="flex items-center gap-3">
-          <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-dot" />
-          <span className="font-mono text-[11px] text-[#f5f3f5] tracking-wide font-medium">
-            TELEMETRY: <span className="text-emerald-400">OPTIMAL</span> {"//"} JAIPUR [26.91°N, 75.78°E]
-          </span>
+      {/* Scattered Aesthetic Floating Cursor Pointers (WAIL reference) */}
+      <div className="pointer-events-none absolute inset-0 z-20 overflow-hidden" aria-hidden="true">
+        {/* Top Left Yellow/Green Cursor */}
+        <div className="absolute top-28 left-[8%] hidden lg:flex items-center gap-1.5 opacity-80 animate-bounce duration-1000">
+          <svg className="w-5 h-5 text-emerald-400 drop-shadow-[0_0_8px_#34d399]" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M4 2l16 11.5-7.5 1.5-4 7-2.5-1.5 4-7L4 12V2z" />
+          </svg>
         </div>
-        <div className="hidden sm:flex items-center gap-6 font-mono text-[11px] text-[#a7a2ad]">
-          <span className="flex items-center gap-1.5">
-            <Cpu size={12} className="text-[#ff1a53]" />
-            REACT 18+ &amp; HERMES
-          </span>
-          <span className="flex items-center gap-1.5">
-            <Smartphone size={12} className="text-[#ff1a53]" />
-            CROSS-PLATFORM NATIVE
-          </span>
-          <span className="flex items-center gap-1.5">
-            <Zap size={12} className="text-emerald-400" />
-            35% PERF LIFT
-          </span>
+
+        {/* Mid Left Red Cursor */}
+        <div className="absolute bottom-32 left-[4%] hidden sm:flex items-center gap-1.5 opacity-80">
+          <svg className="w-5 h-5 text-[#ff1a53] drop-shadow-[0_0_8px_#ff1a53]" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M4 2l16 11.5-7.5 1.5-4 7-2.5-1.5 4-7L4 12V2z" />
+          </svg>
         </div>
-        <div className="font-mono text-[11px] text-[#ff1a53] font-semibold">
-          VERIFIED PRODUCTION ARCHITECTURE
+
+        {/* Top Right Orange/Red Cursor */}
+        <div className="absolute top-28 right-[14%] hidden md:flex items-center gap-1.5 opacity-80">
+          <svg className="w-5 h-5 text-[#f97316] drop-shadow-[0_0_8px_#f97316]" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M4 2l16 11.5-7.5 1.5-4 7-2.5-1.5 4-7L4 12V2z" />
+          </svg>
+        </div>
+
+        {/* Bottom Right Blue Cursor */}
+        <div className="absolute bottom-28 right-[8%] hidden lg:flex items-center gap-1.5 opacity-80">
+          <svg className="w-5 h-5 text-[#38bdf8] drop-shadow-[0_0_8px_#38bdf8]" viewBox="0 0 24 24" fill="currentColor">
+            <path d="M4 2l16 11.5-7.5 1.5-4 7-2.5-1.5 4-7L4 12V2z" />
+          </svg>
         </div>
       </div>
 
-      {/* Main Hero Composition */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full grid grid-cols-1 lg:grid-cols-12 gap-10 items-center my-auto">
-        {/* Left Column: Monumental Oversized Typography & Value */}
-        <div className="lg:col-span-7 flex flex-col justify-center">
-          {/* Eyebrow badge */}
-          <div className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full bg-[#ff1a53]/10 border border-[#ff1a53]/30 w-fit mb-6">
-            <Sparkles size={13} className="text-[#ff1a53]" />
-            <span className="font-mono text-xs uppercase tracking-wider text-[#ff1a53] font-semibold">
-              Senior Full Stack Engineer &bull; Technical Lead
-            </span>
-          </div>
+      {/* MASSIVE CONDENSED RED "PORTFOLIO" TYPOGRAPHY (Spanning Viewport Behind Portrait) */}
+      <div
+        className="pointer-events-none absolute top-[28%] sm:top-[24%] lg:top-[20%] left-0 right-0 w-full flex justify-center items-center z-0 overflow-hidden leading-none select-none"
+        aria-hidden="true"
+      >
+        <span className="font-bebas text-[clamp(6.5rem,19.5vw,22rem)] text-[#d61a3c] tracking-normal uppercase font-normal opacity-95 scale-y-110 drop-shadow-[0_0_35px_rgba(214,26,60,0.25)]">
+          PORTFOLIO
+        </span>
+      </div>
 
-          {/* Monumental Headline with Outlined & Glowing Typography */}
-          <h1 className="font-syne text-[clamp(2.75rem,7vw,5.75rem)] font-extrabold leading-[0.92] tracking-tighter uppercase mb-6 text-white">
-            <span className="block text-outline-hero transition-all duration-300">
-              ARCHITECTING
-            </span>
-            <span className="block text-transparent bg-clip-text bg-gradient-to-r from-white via-[#fce7f3] to-[#fda4af]">
-              SCALABLE WEB &amp;
-            </span>
-            <span className="block text-[#ff1a53] glow-crimson">
-              NATIVE MOBILE.
-            </span>
-          </h1>
-
-          {/* Lead Value Statement */}
-          <p className="font-display text-base sm:text-xl text-[#a7a2ad] max-w-2xl leading-relaxed mb-8">
-            {portfolio.valueStatement} Specializing in <span className="text-white font-semibold">React.js</span>,{" "}
-            <span className="text-[#ff1a53] font-semibold">React Native</span>,{" "}
-            <span className="text-white font-semibold">Next.js</span>, and enterprise cross-platform architecture with{" "}
-            <span className="text-white font-semibold">8+ years</span> of production IT delivery.
-          </p>
-
-          {/* Quick CTA Actions */}
-          <div className="flex flex-wrap items-center gap-3.5 mb-10">
-            <a
-              href="#projects"
-              data-cursor="project"
-              data-cursor-text="EXPLORE"
-              className="inline-flex items-center gap-3 px-6 py-3.5 rounded-xl bg-gradient-to-r from-[#ff1a53] to-[#880826] text-white font-mono text-sm font-bold tracking-wider hover:shadow-[0_0_30px_rgba(255,26,83,0.5)] hover:scale-[1.02] active:scale-[0.98] transition-all duration-200"
-            >
-              <span>EXPLORE SELECTED WORK</span>
-              <ArrowDownRight size={17} />
-            </a>
-
-            <a
-              href="/Sumit-Pramanik-Resume.pdf"
-              download
-              className="inline-flex items-center gap-2.5 px-5 py-3.5 rounded-xl bg-[#120f16] border border-white/10 text-white font-mono text-sm font-semibold hover:border-[#ff1a53]/60 hover:bg-[#1a1420] transition-all duration-200"
-            >
-              <Download size={16} className="text-[#ff1a53]" />
-              <span>DOWNLOAD RESUME</span>
-            </a>
-
-            <a
-              href="#architecture"
-              className="inline-flex items-center gap-2 px-4 py-3.5 text-[#a7a2ad] hover:text-white font-mono text-sm font-medium transition-colors"
-            >
-              <span>System Specs</span>
-              <ArrowDown size={14} className="text-[#ff1a53]" />
-            </a>
-          </div>
-
-          {/* Hero Stats Ribbon */}
-          <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 pt-6 border-t border-white/10">
-            {portfolio.heroStats.map((stat) => (
-              <div key={stat.label} className="flex flex-col">
-                <div className="font-syne text-2xl sm:text-3xl font-bold text-white tracking-tight flex items-baseline gap-1">
-                  <span>{stat.value}</span>
-                  <span className="font-mono text-xs text-[#ff1a53] font-medium">{stat.suffix}</span>
-                </div>
-                <div className="font-mono text-[10px] uppercase tracking-wider text-[#a7a2ad]">
-                  {stat.label}
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-
-        {/* Right Column: Signature SAHI Red Identity Block & Layered Visual */}
-        <div className="lg:col-span-5 relative flex items-center justify-center">
-          {/* 3D Tilt Card Container */}
-          <div
-            ref={cardRef}
-            className="w-full max-w-md rounded-2xl p-6 sm:p-7 bg-gradient-to-br from-[#880826] via-[#4a0315] to-[#120307] border border-[#ff1a53]/40 box-glow-red-card relative overflow-hidden transition-transform duration-200 ease-out"
-            style={{
-              transform: `perspective(1000px) rotateX(${tilt.rotateX}deg) rotateY(${tilt.rotateY}deg)`,
-            }}
-          >
-            {/* Tech Grid Background inside card */}
-            <div className="absolute inset-0 bg-tech-grid-crimson opacity-60 pointer-events-none" />
-
-            {/* Corner Decorative Crosshairs */}
-            <span className="absolute top-3 left-3 font-mono text-[10px] text-[#ff1a53]/70 font-bold">+</span>
-            <span className="absolute top-3 right-3 font-mono text-[10px] text-[#ff1a53]/70 font-bold">+</span>
-            <span className="absolute bottom-3 left-3 font-mono text-[10px] text-[#ff1a53]/70 font-bold">+</span>
-            <span className="absolute bottom-3 right-3 font-mono text-[10px] text-[#ff1a53]/70 font-bold">+</span>
-
-            {/* Card Header Strip */}
-            <div className="relative z-10 flex items-center justify-between pb-4 border-b border-white/10 mb-5">
-              <div className="flex items-center gap-2">
-                <div className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse-dot" />
-                <span className="font-mono text-[11px] font-bold uppercase tracking-widest text-white">
-                  IDENTITY CARD {"//"} SPEC 01
-                </span>
-              </div>
-              <span className="font-mono text-[10px] text-white/60 tracking-wider">
-                NODE_ID: SP_8Y
+      {/* MAIN HERO CONTENT COMPOSITION: Left Info, Central Portrait, Right Stats */}
+      <div className="relative z-10 w-full max-w-[1520px] mx-auto px-4 sm:px-8 lg:px-12 flex-grow flex flex-col justify-end pb-4">
+        <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-end w-full relative">
+          
+          {/* ======================================================== */}
+          {/* LEFT CONTENT: Handwritten greeting, Red SUMIT block, Bio */}
+          {/* ======================================================== */}
+          <div className="lg:col-span-4 flex flex-col justify-end z-20 pb-4 lg:pb-10">
+            {/* Handwritten "Hello, I'm" */}
+            <div className="mb-1 -rotate-2 transform-gpu">
+              <span className="font-handwriting text-3xl sm:text-4xl text-[#fef08a] font-normal tracking-wide drop-shadow-[0_2px_8px_rgba(0,0,0,0.8)]">
+                Hello, I&apos;m
               </span>
             </div>
 
-            {/* Layered Engineering Portrait / Hologram Avatar */}
-            <div className="relative z-10 w-full aspect-[4/3] rounded-xl overflow-hidden bg-[#18040a] border border-[#ff1a53]/30 flex items-center justify-center mb-5 group">
-              {/* Radar Orbit Rings */}
-              <div className="absolute inset-0 flex items-center justify-center">
-                <div className="w-48 h-48 rounded-full border border-[#ff1a53]/20 animate-rotate-radar" />
-                <div className="absolute w-32 h-32 rounded-full border border-dashed border-[#ff1a53]/40" />
-                <div className="absolute w-16 h-16 rounded-full border border-[#ff1a53]/60" />
-              </div>
-
-              {/* Stylized Hologram Monogram & Visual Center */}
-              <div className="relative z-10 flex flex-col items-center justify-center text-center p-4">
-                <div className="w-20 h-20 rounded-2xl bg-gradient-to-tr from-[#ff1a53] to-[#3a010c] flex items-center justify-center text-white font-syne text-3xl font-black shadow-[0_0_35px_rgba(255,26,83,0.7)] mb-2 border border-white/20">
-                  SP
-                </div>
-                <div className="font-syne text-lg font-bold text-white tracking-wide">
-                  {portfolio.name}
-                </div>
-                <div className="font-mono text-xs text-[#fda4af] font-medium">
-                  {portfolio.title}
-                </div>
-              </div>
-
-              {/* Holographic Telemetry Badges */}
-              <div className="absolute top-2 left-2 px-2 py-1 rounded bg-black/60 backdrop-blur-sm border border-[#ff1a53]/30 font-mono text-[9px] text-[#fda4af]">
-                ENGINE: REACT NATIVE 60FPS
-              </div>
-              <div className="absolute bottom-2 right-2 px-2 py-1 rounded bg-black/60 backdrop-blur-sm border border-emerald-500/30 font-mono text-[9px] text-emerald-300">
-                LCP 0.9s {"//"} OPTIMIZED
-              </div>
+            {/* Giant Red SUMIT Identity Block */}
+            <div className="mb-3">
+              <h1 className="font-bebas text-6xl sm:text-8xl lg:text-9xl tracking-tight text-[#e11d48] font-normal leading-[0.88] uppercase drop-shadow-[0_4px_20px_rgba(225,29,72,0.3)]">
+                {portfolio.shortName}.
+              </h1>
             </div>
 
-            {/* Card Content & Details */}
-            <div className="relative z-10 space-y-3 font-mono text-xs">
-              <div className="flex items-center justify-between text-white/90">
-                <span className="text-[#fca5a5]">CORE STACK</span>
-                <span className="font-semibold text-white">React.js &bull; React Native &bull; Next</span>
-              </div>
-              <div className="flex items-center justify-between text-white/90">
-                <span className="text-[#fca5a5]">APP STORES</span>
-                <span className="font-semibold text-emerald-300">iOS App Store &bull; Google Play</span>
-              </div>
-              <div className="flex items-center justify-between text-white/90">
-                <span className="text-[#fca5a5]">BASE LOCATION</span>
-                <span className="font-semibold text-white">Jaipur, India &bull; Global Remote</span>
-              </div>
-              <div className="flex items-center justify-between text-white/90">
-                <span className="text-[#fca5a5]">STATUS</span>
-                <span className="text-[#ff1a53] font-bold uppercase tracking-wider">
-                  Open for Leadership / Contract
-                </span>
-              </div>
+            {/* Title & Sub-positioning */}
+            <div className="space-y-1 mb-4">
+              <h2 className="font-bebas text-xl sm:text-2xl tracking-wider text-white font-normal uppercase">
+                {portfolio.primaryTitle}
+              </h2>
+              <p className="font-mono text-xs sm:text-[13px] text-[#ff1a53] uppercase tracking-wider font-semibold">
+                NODE.JS | REACT.JS | AI / GENAI
+              </p>
             </div>
 
-            {/* Quick Card Action */}
-            <div className="relative z-10 mt-5 pt-4 border-t border-white/15 flex items-center justify-between">
-              <a
-                href="#contact"
-                className="w-full py-2.5 px-4 rounded-lg bg-white text-[#4a0315] hover:bg-[#ff1a53] hover:text-white font-mono text-xs font-bold text-center transition-all duration-200 flex items-center justify-center gap-2"
+            {/* Professional Introduction Paragraph */}
+            <p className="font-display text-xs sm:text-sm text-[#a7a2ad] leading-relaxed max-w-md mb-6">
+              {portfolio.heroIntro}
+            </p>
+
+            {/* View My Work CTA Button & Location */}
+            <div className="flex flex-wrap items-center gap-4">
+              <button
+                type="button"
+                onClick={scrollToWork}
+                data-cursor="project"
+                data-cursor-text="EXPLORE"
+                className="px-6 py-3.5 bg-[#e11d48] hover:bg-[#c8102e] text-white font-mono text-xs font-bold uppercase tracking-wider rounded-sm transition-all duration-200 flex items-center gap-2 shadow-[0_0_20px_rgba(225,29,72,0.4)] hover:shadow-[0_0_30px_rgba(225,29,72,0.6)] cursor-pointer"
               >
-                <span>INITIATE DIRECT DISPATCH</span>
-                <ArrowUpRight size={14} />
-              </a>
+                <span>View my work</span>
+                <ArrowDown size={14} />
+              </button>
+
+              <div className="flex items-center gap-1.5 font-mono text-xs text-[#a7a2ad] tracking-wider uppercase">
+                <span className="text-[#ff1a53]">&bull;</span>
+                <span>{portfolio.location}</span>
+              </div>
+            </div>
+          </div>
+
+          {/* ======================================================== */}
+          {/* CENTRAL FOREGROUND PORTRAIT (Overlapping PORTFOLIO text) */}
+          {/* ======================================================== */}
+          <div className="lg:col-span-4 flex justify-center items-end relative z-10 -mb-4 lg:-mb-8">
+            <div className="relative w-[320px] sm:w-[420px] lg:w-[480px] xl:w-[520px] aspect-[4/5] max-h-[75vh] flex items-end justify-center pointer-events-none">
+              {/* Portrait Image */}
+              <Image
+                src="/images/sumit-portrait.jpg"
+                alt="Sumit Pramanik - Full Stack Engineer"
+                fill
+                priority
+                sizes="(max-width: 640px) 320px, (max-width: 1024px) 420px, 520px"
+                className="object-contain object-bottom drop-shadow-[0_20px_40px_rgba(0,0,0,0.9)]"
+              />
+
+              {/* Seamless Bottom Vignette Gradient to blend shoulders into floor */}
+              <div
+                className="absolute bottom-0 left-0 right-0 h-16 bg-gradient-to-t from-[#080709] via-[#080709]/80 to-transparent z-10"
+                aria-hidden="true"
+              />
+            </div>
+          </div>
+
+          {/* ======================================================== */}
+          {/* RIGHT INFORMATION PANEL: Tagline & 3 Big Stat Blocks    */}
+          {/* ======================================================== */}
+          <div className="lg:col-span-4 flex flex-col justify-end z-20 pb-4 lg:pb-10 pl-0 lg:pl-6">
+            {/* Tagline / Subtitle */}
+            <div className="mb-6 space-y-0.5">
+              <div className="flex items-center gap-2 font-mono text-xs text-[#ff1a53]">
+                <span>*</span>
+                <span className="text-white font-medium">Scalable systems.</span>
+              </div>
+              <p className="font-mono text-xs text-[#a7a2ad] pl-3.5">
+                Measurable engineering impact.
+              </p>
+            </div>
+
+            {/* Vertical Stack of Statistics (Matching WAIL screenshot layout) */}
+            <div className="space-y-4 border-t border-white/10 pt-5">
+              {/* Stat 1: Years */}
+              <div className="flex items-baseline gap-4 group">
+                <span className="font-bebas text-5xl sm:text-6xl text-[#e11d48] font-normal leading-none w-16 sm:w-20 flex-shrink-0 group-hover:text-white transition-colors">
+                  {portfolio.heroStats[0].value}
+                </span>
+                <div className="flex flex-col">
+                  <span className="font-mono text-xs font-bold tracking-wider text-white uppercase">
+                    {portfolio.heroStats[0].label}
+                  </span>
+                  <span className="font-mono text-[11px] text-[#a7a2ad]">
+                    {portfolio.heroStats[0].detail}
+                  </span>
+                </div>
+              </div>
+
+              {/* Stat 2: Apps */}
+              <div className="flex items-baseline gap-4 group border-t border-white/5 pt-3.5">
+                <span className="font-bebas text-5xl sm:text-6xl text-[#e11d48] font-normal leading-none w-16 sm:w-20 flex-shrink-0 group-hover:text-white transition-colors">
+                  {portfolio.heroStats[1].value}
+                </span>
+                <div className="flex flex-col">
+                  <span className="font-mono text-xs font-bold tracking-wider text-white uppercase">
+                    {portfolio.heroStats[1].label}
+                  </span>
+                  <span className="font-mono text-[11px] text-[#a7a2ad]">
+                    {portfolio.heroStats[1].detail}
+                  </span>
+                </div>
+              </div>
+
+              {/* Stat 3: Industries */}
+              <div className="flex items-baseline gap-4 group border-t border-white/5 pt-3.5">
+                <span className="font-bebas text-5xl sm:text-6xl text-[#e11d48] font-normal leading-none w-16 sm:w-20 flex-shrink-0 group-hover:text-white transition-colors">
+                  {portfolio.heroStats[2].value}
+                </span>
+                <div className="flex flex-col">
+                  <span className="font-mono text-xs font-bold tracking-wider text-white uppercase flex items-center gap-1.5">
+                    <span>{portfolio.heroStats[2].label}</span>
+                    <ArrowUpRight size={13} className="text-[#ff1a53]" />
+                  </span>
+                  <span className="font-mono text-[10px] text-[#a7a2ad] leading-tight mt-0.5">
+                    {portfolio.heroStats[2].detail}
+                  </span>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      {/* Bottom Footer Cue */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full flex items-center justify-between pt-8 border-t border-white/5 mt-10 text-xs font-mono text-[#a7a2ad]">
-        <div className="flex items-center gap-2">
-          <Terminal size={14} className="text-[#ff1a53]" />
-          <span>SCROLL DOWN TO INSPECT ARCHITECTURE MATRIX</span>
+      {/* ======================================================== */}
+      {/* BOTTOM BAR: Scroll indicator, Availability, Thin Line    */}
+      {/* ======================================================== */}
+      <div className="relative z-20 w-full border-t border-white/10 bg-[#080709]/90 backdrop-blur-sm">
+        <div className="max-w-[1520px] mx-auto px-4 sm:px-8 lg:px-12 py-3 flex flex-wrap items-center justify-between gap-4 font-mono text-[11px] text-[#a7a2ad]">
+          {/* Left: Featured Work indicator */}
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-[#ff1a53]" />
+            <span className="text-white font-semibold uppercase tracking-wider">FEATURED WORKS // 17+ PROD APPS</span>
+          </div>
+
+          {/* Center: Scroll to discover */}
+          <button
+            type="button"
+            onClick={scrollToWork}
+            className="hidden md:flex items-center gap-1.5 hover:text-white transition-colors cursor-pointer"
+          >
+            <span>SCROLL TO DISCOVER</span>
+            <ArrowDown size={13} className="text-[#ff1a53] animate-bounce" />
+          </button>
+
+          {/* Right: Availability status */}
+          <div className="flex items-center gap-2">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse-dot" />
+            <span className="text-emerald-300 uppercase tracking-wider font-semibold">
+              {portfolio.availabilityStatus}
+            </span>
+          </div>
         </div>
-        <a
-          href="#architecture"
-          className="flex items-center gap-1.5 text-white hover:text-[#ff1a53] transition-colors"
-          aria-label="Scroll to Architecture Section"
-        >
-          <span>EXPLORE</span>
-          <ArrowDown size={14} className="animate-bounce" />
-        </a>
       </div>
     </section>
   );
