@@ -7,10 +7,10 @@ export default function ClientMarquee() {
   const tech = portfolio.marqueeTech;
 
   return (
-    <section className="relative py-12 sm:py-16 overflow-hidden bg-[#0a080d] border-y border-white/5">
+    <section className="relative py-12 sm:py-16 overflow-hidden bg-[#080709] border-y border-white/5">
       {/* Subtle background glow */}
       <div
-        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#880826]/10 via-transparent to-[#880826]/10 opacity-50"
+        className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#ff174d]/5 via-transparent to-[#ff174d]/5 opacity-50"
         aria-hidden="true"
       />
 
@@ -21,10 +21,10 @@ export default function ClientMarquee() {
             {[...clients, ...clients, ...clients].map((client, idx) => (
               <div
                 key={`client-${idx}`}
-                className="flex items-center gap-6 font-syne text-lg sm:text-2xl font-bold uppercase tracking-tight text-[#f5f3f5]/80 hover:text-[#ff1a53] transition-colors"
+                className="flex items-center gap-6 font-syne text-lg sm:text-2xl font-bold uppercase tracking-tight text-[#f5f3f5]/80 hover:text-[#ff174d] transition-colors"
               >
                 <span>{client}</span>
-                <span className="text-[#ff1a53] text-sm">✦</span>
+                <span className="text-[#ff174d] text-sm">✦</span>
               </div>
             ))}
           </div>
@@ -36,7 +36,7 @@ export default function ClientMarquee() {
             {[...tech, ...tech, ...tech].map((item, idx) => (
               <div
                 key={`tech-${idx}`}
-                className="flex items-center gap-6 font-mono text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#a7a2ad] hover:text-white transition-colors"
+                className="flex items-center gap-6 font-mono text-xs sm:text-sm font-semibold uppercase tracking-wider text-[#a7a1a8] hover:text-white transition-colors"
               >
                 <span className="px-3 py-1 rounded-md bg-white/[0.04] border border-white/5">
                   {item}

@@ -40,7 +40,7 @@ export default function ContactSection() {
         particleCount: 50,
         spread: 60,
         origin: { y: 0.8 },
-        colors: ["#ff1a53", "#880826", "#ffffff", "#fda4af"],
+        colors: ["#ff174d", "#e5093f", "#ffffff", "#ff2a5f"],
       });
     } catch {
       // Ignore confetti error
@@ -88,7 +88,7 @@ export default function ContactSection() {
           particleCount: 80,
           spread: 70,
           origin: { y: 0.6 },
-          colors: ["#ff1a53", "#22c55e", "#ffffff"],
+          colors: ["#ff174d", "#22c55e", "#ffffff"],
         });
       } catch {
         // Ignore confetti error
@@ -113,22 +113,22 @@ export default function ContactSection() {
     >
       {/* Background Section Glow */}
       <div
-        className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-t from-[#880826]/20 to-transparent blur-[180px] rounded-full"
+        className="pointer-events-none absolute bottom-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-gradient-to-t from-[#ff174d]/15 to-transparent blur-[180px] rounded-full"
         aria-hidden="true"
       />
 
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-8 border-b border-white/10">
         <div>
-          <div className="flex items-center gap-2 font-mono text-xs text-[#ff1a53] uppercase tracking-widest mb-3">
+          <div className="flex items-center gap-2 font-mono text-xs text-[#ff174d] uppercase tracking-widest mb-3">
             <span>07 {"//"} INITIATE ENGAGEMENT</span>
           </div>
           <h2 className="font-bebas text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase font-normal leading-[0.9]">
             Let&apos;s Build <br />
-            <span className="text-[#e11d48] text-outline-hero">Something Real.</span>
+            <span className="text-[#ff174d] text-outline-hero">Something Real.</span>
           </h2>
         </div>
-        <div className="max-w-md font-mono text-xs sm:text-sm text-[#a7a2ad]">
+        <div className="max-w-md font-mono text-xs sm:text-sm text-[#a7a1a8]">
           Available for Full Stack Engineering, AI application development, REST API architecture, and cross-platform leadership worldwide.
         </div>
       </div>
@@ -138,14 +138,14 @@ export default function ContactSection() {
         {/* Left Column: Direct Links & Coordinates */}
         <div className="lg:col-span-5 space-y-6">
           {/* Status Card */}
-          <div className="p-6 rounded-2xl bg-gradient-to-br from-[#18040a] via-[#10070d] to-[#080709] border border-[#ff1a53]/30 box-glow-crimson">
+          <div className="p-6 rounded-2xl bg-gradient-to-br from-[#140a10] via-[#0e080c] to-[#080709] border border-[#ff174d]/30 box-glow-crimson">
             <div className="flex items-center gap-2.5 mb-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse-dot" />
               <span className="font-mono text-xs uppercase tracking-wider text-emerald-400 font-bold">
                 {portfolio.availabilityStatus}
               </span>
             </div>
-            <p className="font-display text-xs sm:text-sm text-[#a7a2ad] leading-relaxed mb-5">
+            <p className="font-display text-xs sm:text-sm text-[#a7a1a8] leading-relaxed mb-5">
               {portfolio.name} &bull; {portfolio.primaryTitle}
             </p>
 
@@ -155,13 +155,13 @@ export default function ContactSection() {
               onClick={copyEmail}
               data-cursor="contact"
               data-cursor-text="COPY"
-              className="w-full py-3.5 px-4 rounded-xl bg-white/[0.06] border border-white/10 hover:border-[#ff1a53] text-white font-mono text-xs font-semibold flex items-center justify-between transition-all group cursor-pointer"
+              className="w-full py-3.5 px-4 rounded-xl bg-white/[0.06] border border-white/10 hover:border-[#ff174d] text-white font-mono text-xs font-semibold flex items-center justify-between transition-all group cursor-pointer touch-target"
             >
               <div className="flex items-center gap-2.5 truncate">
-                <Mail size={15} className="text-[#ff1a53]" />
+                <Mail size={15} className="text-[#ff174d]" />
                 <span className="truncate">{portfolio.email}</span>
               </div>
-              <div className="flex items-center gap-1.5 text-[#ff1a53] flex-shrink-0">
+              <div className="flex items-center gap-1.5 text-[#ff174d] flex-shrink-0">
                 {copied ? <Check size={14} /> : <Copy size={14} />}
                 <span>{copied ? "COPIED" : "COPY"}</span>
               </div>
@@ -169,32 +169,32 @@ export default function ContactSection() {
           </div>
 
           {/* Direct Phone & Details */}
-          <div className="p-6 rounded-2xl bg-[#120f16] border border-white/10 space-y-3 font-mono text-xs">
+          <div className="p-6 rounded-2xl bg-[#0e0c10] border border-white/10 space-y-3 font-mono text-xs">
             <a
               href={`tel:${portfolio.phone}`}
-              className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-[#ff1a53]/40 text-[#a7a2ad] hover:text-white transition-colors"
+              className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-[#ff174d]/40 text-[#a7a1a8] hover:text-white transition-colors touch-target"
             >
               <div className="flex items-center gap-2.5">
-                <Phone size={15} className="text-[#ff1a53]" />
+                <Phone size={15} className="text-[#ff174d]" />
                 <span>{portfolio.phone}</span>
               </div>
               <ArrowUpRight size={14} />
             </a>
 
-            <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-between text-[#a7a2ad]">
+            <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-between text-[#a7a1a8]">
               <span>LOCATION BASE</span>
               <span className="text-white font-semibold">{portfolio.location}</span>
             </div>
 
-            <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-between text-[#a7a2ad]">
+            <div className="p-3.5 rounded-xl bg-white/[0.03] border border-white/5 flex items-center justify-between text-[#a7a1a8]">
               <span>TIMEZONE</span>
               <span className="text-white font-semibold">IST (UTC+5:30) &bull; Global Remote</span>
             </div>
           </div>
 
           {/* Verified Professional Profiles */}
-          <div className="p-6 rounded-2xl bg-[#120f16] border border-white/10">
-            <span className="font-mono text-[10px] uppercase tracking-widest text-[#a7a2ad] block mb-3">
+          <div className="p-6 rounded-2xl bg-[#0e0c10] border border-white/10">
+            <span className="font-mono text-[10px] uppercase tracking-widest text-[#a7a1a8] block mb-3">
               VERIFIED PROFESSIONAL NETWORKS
             </span>
             <div className="flex flex-wrap gap-2.5">
@@ -202,7 +202,7 @@ export default function ContactSection() {
                 href={portfolio.linkedinUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white hover:border-[#ff1a53] hover:text-[#ff1a53] font-mono text-xs transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white hover:border-[#ff174d] hover:text-[#ff174d] font-mono text-xs transition-colors touch-target"
               >
                 <FaLinkedin size={16} />
                 <span>LinkedIn</span>
@@ -213,7 +213,7 @@ export default function ContactSection() {
                 href={portfolio.githubUrl}
                 target="_blank"
                 rel="noopener noreferrer"
-                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white hover:border-[#ff1a53] hover:text-[#ff1a53] font-mono text-xs transition-colors"
+                className="flex items-center gap-2 px-4 py-2.5 rounded-xl bg-white/[0.04] border border-white/10 text-white hover:border-[#ff174d] hover:text-[#ff174d] font-mono text-xs transition-colors touch-target"
               >
                 <SiGithub size={16} />
                 <span>GitHub</span>
@@ -224,10 +224,10 @@ export default function ContactSection() {
         </div>
 
         {/* Right Column: Interactive Transmission Terminal Form */}
-        <div className="lg:col-span-7 rounded-2xl bg-[#120f16] border border-white/10 p-6 sm:p-8 relative overflow-hidden">
+        <div className="lg:col-span-7 rounded-2xl bg-[#0e0c10] border border-white/10 p-6 sm:p-8 relative overflow-hidden">
           <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
             <div className="flex items-center gap-2">
-              <Terminal size={15} className="text-[#ff1a53]" />
+              <Terminal size={15} className="text-[#ff174d]" />
               <span className="font-mono text-xs font-bold uppercase tracking-wider text-white">
                 DIRECT TRANSMISSION {"//"} TERMINAL
               </span>
@@ -237,7 +237,7 @@ export default function ContactSection() {
 
           {/* Topic Selectors */}
           <div className="mb-6">
-            <label className="font-mono text-xs text-[#a7a2ad] block mb-2.5">
+            <label className="font-mono text-xs text-[#a7a1a8] block mb-2.5">
               SELECT ENGAGEMENT CLASSIFICATION:
             </label>
             <div className="flex flex-wrap gap-2">
@@ -248,10 +248,10 @@ export default function ContactSection() {
                     key={topic}
                     type="button"
                     onClick={() => setSelectedTopic(topic)}
-                    className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all cursor-pointer ${
+                    className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all duration-200 cursor-pointer touch-target ${
                       isSelected
-                        ? "bg-[#ff1a53] text-white font-bold shadow-[0_0_15px_rgba(255,26,83,0.4)]"
-                        : "bg-white/[0.04] text-[#a7a2ad] border border-white/10 hover:border-white/30 hover:text-white"
+                        ? "bg-[#ff174d] text-white shadow-[0_0_15px_rgba(255,23,77,0.4)]"
+                        : "bg-white/[0.04] text-[#a7a1a8] border border-white/5 hover:border-white/20 hover:text-white"
                     }`}
                   >
                     {topic}
@@ -261,41 +261,41 @@ export default function ContactSection() {
             </div>
           </div>
 
-          {/* Contact Form */}
+          {/* Form */}
           <form onSubmit={handleSubmit} className="space-y-4">
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
               <div>
-                <label className="font-mono text-xs text-[#a7a2ad] block mb-1.5">
-                  YOUR NAME / STAKEHOLDER *
+                <label className="font-mono text-[11px] uppercase tracking-wider text-[#a7a1a8] block mb-1.5">
+                  YOUR NAME / ORGANIZATION *
                 </label>
                 <input
                   type="text"
                   name="name"
                   required
-                  maxLength={120}
-                  placeholder="e.g. John Doe"
-                  className="w-full px-4 py-3 rounded-xl bg-[#09070c] border border-white/10 focus:border-[#ff1a53] focus:outline-none text-white font-mono text-xs transition-colors"
+                  maxLength={100}
+                  placeholder="e.g. Alex Rivera (Lead Architect)"
+                  className="w-full px-4 py-3 rounded-xl bg-[#080709] border border-white/10 focus:border-[#ff174d] focus:outline-none text-white font-mono text-xs transition-colors"
                 />
               </div>
 
               <div>
-                <label className="font-mono text-xs text-[#a7a2ad] block mb-1.5">
-                  DIRECT EMAIL ADDRESS *
+                <label className="font-mono text-[11px] uppercase tracking-wider text-[#a7a1a8] block mb-1.5">
+                  BUSINESS EMAIL *
                 </label>
                 <input
                   type="email"
                   name="email"
                   required
-                  maxLength={254}
-                  placeholder="john@organization.com"
-                  className="w-full px-4 py-3 rounded-xl bg-[#09070c] border border-white/10 focus:border-[#ff1a53] focus:outline-none text-white font-mono text-xs transition-colors"
+                  maxLength={100}
+                  placeholder="alex@company.com"
+                  className="w-full px-4 py-3 rounded-xl bg-[#080709] border border-white/10 focus:border-[#ff174d] focus:outline-none text-white font-mono text-xs transition-colors"
                 />
               </div>
             </div>
 
             <div>
-              <label className="font-mono text-xs text-[#a7a2ad] block mb-1.5">
-                PROJECT SCOPE / MESSAGE *
+              <label className="font-mono text-[11px] uppercase tracking-wider text-[#a7a1a8] block mb-1.5">
+                MESSAGE BRIEF / SYSTEM ARCHITECTURE GOALS *
               </label>
               <textarea
                 name="message"
@@ -303,7 +303,7 @@ export default function ContactSection() {
                 maxLength={4000}
                 rows={5}
                 placeholder="Describe your project requirements, technical architecture, or engineering role..."
-                className="w-full px-4 py-3 rounded-xl bg-[#09070c] border border-white/10 focus:border-[#ff1a53] focus:outline-none text-white font-mono text-xs leading-relaxed resize-y transition-colors"
+                className="w-full px-4 py-3 rounded-xl bg-[#080709] border border-white/10 focus:border-[#ff174d] focus:outline-none text-white font-mono text-xs leading-relaxed resize-y transition-colors"
               />
             </div>
 
@@ -327,14 +327,14 @@ export default function ContactSection() {
               <button
                 type="submit"
                 disabled={sending}
-                className="inline-flex items-center justify-center gap-2.5 px-6 py-3.5 rounded-xl bg-[#e11d48] hover:bg-[#c8102e] text-white font-mono text-xs font-bold tracking-wider uppercase hover:shadow-[0_0_25px_rgba(225,29,72,0.5)] active:scale-95 disabled:opacity-50 transition-all cursor-pointer"
+                className="btn-neon inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl font-mono text-xs font-bold tracking-wider uppercase cursor-pointer disabled:opacity-50 touch-target"
               >
                 <span>{sending ? "TRANSMITTING..." : "DISPATCH TRANSMISSION"}</span>
                 <Send size={14} />
               </button>
 
-              <span className="font-mono text-[11px] text-[#a7a2ad]">
-                Direct SMTP &bull; sumit.pramanick@hotmail.com
+              <span className="font-mono text-[11px] text-[#a7a1a8]">
+                Direct SMTP &bull; {portfolio.email}
               </span>
             </div>
           </form>

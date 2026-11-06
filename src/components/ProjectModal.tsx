@@ -46,89 +46,93 @@ export default function ProjectModal({
       <div
         ref={modalRef}
         onClick={(e) => e.stopPropagation()}
-        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#120f16] border border-[#ff1a53]/40 p-6 sm:p-8 shadow-[0_25px_70px_rgba(0,0,0,0.8)] box-glow-crimson"
+        className="relative w-full max-w-2xl max-h-[90vh] overflow-y-auto rounded-3xl bg-[#0e0c10] border border-[#ff174d]/40 p-6 sm:p-8 shadow-[0_25px_70px_rgba(0,0,0,0.8)] box-glow-crimson"
       >
         {/* Close Button */}
         <button
           ref={closeBtnRef}
           type="button"
           onClick={onClose}
-          className="absolute top-5 right-5 w-9 h-9 rounded-full bg-white/10 hover:bg-[#ff1a53] text-white flex items-center justify-center transition-colors cursor-pointer"
+          className="absolute top-5 right-5 w-10 h-10 rounded-full bg-white/10 hover:bg-[#ff174d] text-white flex items-center justify-center transition-colors cursor-pointer touch-target"
           aria-label="Close project modal"
         >
           <X size={18} />
         </button>
 
-        {/* Modal Header */}
-        <div className="mb-6">
-          <div className="flex items-center gap-2 font-mono text-xs text-[#ff1a53] uppercase tracking-wider mb-2">
-            <span>{project.industry.toUpperCase()} {"//"} PRODUCTION CASE</span>
-          </div>
-          <h2
-            id="modal-project-title"
-            className="font-bebas text-4xl sm:text-5xl font-normal text-white uppercase tracking-wide mb-1"
-          >
-            {project.name}
-          </h2>
-          {project.tagline && (
-            <p className="font-mono text-xs sm:text-sm text-emerald-400">
-              {project.tagline}
-            </p>
-          )}
+        {/* Industry & Status */}
+        <div className="flex items-center gap-2 mb-3">
+          <span className="px-3 py-1 rounded-full bg-[#ff174d]/15 border border-[#ff174d]/30 font-mono text-[11px] text-[#ff174d] font-bold uppercase">
+            {project.industry}
+          </span>
+          <span className="font-mono text-xs text-[#a7a1a8]">
+            PRODUCTION RECORD
+          </span>
         </div>
 
-        {/* Architecture Highlight Box */}
+        {/* Title */}
+        <h2
+          id="modal-project-title"
+          className="font-syne text-2xl sm:text-4xl font-extrabold text-white mb-2"
+        >
+          {project.name}
+        </h2>
+
+        {/* Tagline / Subtitle */}
+        <p className="font-mono text-xs text-[#ff174d] font-medium mb-6">
+          {project.tagline || project.overview}
+        </p>
+
+        {/* Overview */}
+        <div className="mb-6">
+          <span className="font-mono text-xs uppercase tracking-wider text-[#a7a1a8] block mb-2">
+            SYSTEM OVERVIEW
+          </span>
+          <p className="font-display text-sm sm:text-base text-[#f5f3f5] leading-relaxed">
+            {project.description}
+          </p>
+        </div>
+
+        {/* Architecture Highlight */}
         {project.architectureHighlight && (
-          <div className="p-4 rounded-xl bg-[#18040a] border border-[#ff1a53]/30 mb-6 flex items-start gap-3">
-            <Braces size={18} className="text-[#ff1a53] mt-0.5 flex-shrink-0" />
-            <div>
-              <span className="font-mono text-[10px] text-[#ff1a53] uppercase font-bold tracking-wider block">
-                ENGINEERING ARCHITECTURE HIGHLIGHT
-              </span>
-              <p className="font-mono text-xs text-white mt-0.5">
-                {project.architectureHighlight}
-              </p>
-            </div>
+          <div className="mb-6 p-4 rounded-xl bg-white/[0.03] border border-white/10 font-mono text-xs">
+            <span className="text-[#ff174d] font-bold uppercase block mb-1">
+              ARCHITECTURAL HIGHLIGHT
+            </span>
+            <p className="text-[#a7a1a8]">{project.architectureHighlight}</p>
           </div>
         )}
 
-        {/* Overview & Description */}
-        <div className="space-y-3 font-display text-xs sm:text-sm text-[#a7a2ad] leading-relaxed mb-6">
-          <p className="text-white font-medium">{project.overview}</p>
-          <p>{project.description}</p>
-        </div>
-
-        {/* Engineering Challenges */}
-        {project.engineeringChallenges && (
-          <div className="p-4 rounded-xl bg-white/[0.03] border border-white/10 mb-6">
-            <div className="flex items-center gap-2 font-mono text-xs text-amber-400 mb-1.5 font-bold uppercase tracking-wider">
-              <AlertTriangle size={14} />
-              <span>KEY ENGINEERING CHALLENGE</span>
-            </div>
-            <p className="font-display text-xs sm:text-sm text-[#a7a2ad] leading-relaxed">
-              {project.engineeringChallenges}
-            </p>
-          </div>
-        )}
-
-        {/* Verified Contributions */}
+        {/* Key Engineering Contributions */}
         <div className="mb-6">
-          <span className="font-mono text-xs uppercase tracking-wider text-[#ff1a53] font-bold block mb-3">
-            VERIFIED CONTRIBUTIONS &amp; DELIVERABLES
+          <span className="font-mono text-xs uppercase tracking-wider text-[#ff174d] font-bold block mb-3">
+            VERIFIED RESUME CONTRIBUTIONS
           </span>
           <div className="space-y-2">
             {project.myContribution.map((contribution, idx) => (
-              <div key={idx} className="flex items-start gap-2.5 text-xs sm:text-sm font-mono text-white">
-                <CheckCircle2 size={15} className="text-emerald-400 mt-0.5 flex-shrink-0" />
+              <div key={idx} className="flex items-start gap-3 text-xs sm:text-sm font-display text-[#a7a1a8]">
+                <CheckCircle2 size={16} className="text-[#ff174d] mt-0.5 flex-shrink-0" />
                 <span>{contribution}</span>
               </div>
             ))}
           </div>
         </div>
 
-        {/* Technologies List */}
+        {/* Engineering Challenges & Solutions */}
+        {project.engineeringChallenges && (
+          <div className="mb-6 p-4 rounded-xl bg-[#080709] border border-white/10 font-mono text-xs">
+            <div className="flex items-center gap-1.5 text-amber-400 font-bold uppercase mb-2">
+              <AlertTriangle size={14} />
+              <span>CORE TECHNICAL CHALLENGE &amp; SOLUTION</span>
+            </div>
+            <p className="text-[#a7a1a8] leading-relaxed">
+              {project.engineeringChallenges}
+            </p>
+          </div>
+        )}
+
+        {/* Technologies Grid */}
         <div className="mb-8">
-          <span className="font-mono text-xs uppercase tracking-wider text-[#a7a2ad] block mb-3">
+          <span className="font-mono text-xs uppercase tracking-wider text-[#a7a1a8] block mb-3">
             TECHNOLOGY STACK
           </span>
           <div className="flex flex-wrap gap-2">
@@ -150,7 +154,7 @@ export default function ProjectModal({
               href={project.liveUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-[#e11d48] hover:bg-[#c8102e] text-white font-mono text-xs font-bold uppercase tracking-wider transition-all"
+              className="btn-neon inline-flex items-center gap-2 px-6 py-3.5 rounded-xl font-mono text-xs font-bold uppercase tracking-wider transition-all touch-target"
             >
               <Globe size={14} />
               <span>VISIT LIVE PLATFORM</span>
@@ -163,7 +167,7 @@ export default function ProjectModal({
               href={project.iosUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono text-xs font-semibold transition-all"
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono text-xs font-semibold transition-all touch-target"
             >
               <Apple size={14} />
               <span>APPLE APP STORE</span>
@@ -176,23 +180,10 @@ export default function ProjectModal({
               href={project.androidUrl}
               target="_blank"
               rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono text-xs font-semibold transition-all"
+              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono text-xs font-semibold transition-all touch-target"
             >
               <Play size={14} />
-              <span>GOOGLE PLAY STORE</span>
-              <ExternalLink size={12} />
-            </a>
-          )}
-
-          {project.repoUrl && (
-            <a
-              href={project.repoUrl}
-              target="_blank"
-              rel="noreferrer"
-              className="inline-flex items-center gap-2 px-4 py-3 rounded-xl bg-white/10 hover:bg-white/20 text-white font-mono text-xs font-semibold transition-all"
-            >
-              <GitFork size={14} />
-              <span>REPOSITORY</span>
+              <span>GOOGLE PLAY</span>
               <ExternalLink size={12} />
             </a>
           )}

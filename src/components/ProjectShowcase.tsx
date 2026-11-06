@@ -42,22 +42,22 @@ export default function ProjectShowcase({
     >
       {/* Background ambient lighting */}
       <div
-        className="pointer-events-none absolute -top-40 right-1/4 w-[600px] h-[600px] bg-[#ff1a53]/10 blur-[180px] rounded-full"
+        className="pointer-events-none absolute -top-40 right-1/4 w-[600px] h-[600px] bg-[#ff174d]/10 blur-[180px] rounded-full"
         aria-hidden="true"
       />
 
       {/* Header */}
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-8 border-b border-white/10">
         <div>
-          <div className="flex items-center gap-2 font-mono text-xs text-[#ff1a53] uppercase tracking-widest mb-3">
+          <div className="flex items-center gap-2 font-mono text-xs text-[#ff174d] uppercase tracking-widest mb-3">
             <span>04 {"//"} COMMERCIAL PRODUCTION REPOSITORY</span>
           </div>
           <h2 className="font-bebas text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase font-normal leading-[0.9]">
             Selected Works &amp; <br />
-            <span className="text-[#e11d48] text-outline-hero">Shipped Platforms.</span>
+            <span className="text-[#ff174d] text-outline-hero">Shipped Platforms.</span>
           </h2>
         </div>
-        <div className="max-w-md font-mono text-xs sm:text-sm text-[#a7a2ad]">
+        <div className="max-w-md font-mono text-xs sm:text-sm text-[#a7a1a8]">
           Production applications spanning full-stack web architectures, cross-platform mobile apps, and 3D WebGL platforms across the US, Europe, UAE, Australia, and India.
         </div>
       </div>
@@ -71,10 +71,10 @@ export default function ProjectShowcase({
               key={tab.id}
               type="button"
               onClick={() => setActiveCategory(tab.id)}
-              className={`px-4 py-2 rounded-full font-mono text-xs font-semibold tracking-wider transition-all duration-200 cursor-pointer ${
+              className={`px-4 py-2 rounded-full font-mono text-xs font-semibold tracking-wider transition-all duration-200 cursor-pointer touch-target ${
                 isActive
-                  ? "bg-[#ff1a53] text-white shadow-[0_0_20px_rgba(255,26,83,0.5)]"
-                  : "bg-[#120f16] text-[#a7a2ad] border border-white/10 hover:border-white/30 hover:text-white"
+                  ? "bg-[#ff174d] text-white shadow-[0_0_20px_rgba(255,23,77,0.5)]"
+                  : "bg-[#0e0c10] text-[#a7a1a8] border border-white/10 hover:border-white/30 hover:text-white"
               }`}
             >
               {tab.label}
@@ -86,7 +86,7 @@ export default function ProjectShowcase({
       {/* Projects Grid */}
       <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
         {filteredProjects.map((project, index) => {
-          const accentColor = project.accent || "#ff1a53";
+          const accentColor = project.accent || "#ff174d";
 
           return (
             <article
@@ -94,13 +94,13 @@ export default function ProjectShowcase({
               data-cursor="project"
               data-cursor-text="INSPECT"
               onClick={() => onSelectProject(project)}
-              className="group cursor-pointer rounded-2xl bg-[#120f16] border border-white/10 hover:border-[#ff1a53]/50 transition-all duration-300 overflow-hidden flex flex-col justify-between hover:shadow-[0_20px_50px_rgba(0,0,0,0.7)] hover:-translate-y-1"
+              className="group cursor-pointer rounded-2xl bg-[#0e0c10] border border-white/10 hover:border-[#ff174d]/50 transition-all duration-300 overflow-hidden flex flex-col justify-between hover:shadow-[0_20px_50px_rgba(0,0,0,0.7)] hover:-translate-y-1"
             >
               {/* Card Visual Artwork Preview Header */}
               <div
                 className="relative w-full aspect-[16/9] overflow-hidden p-6 flex flex-col justify-between"
                 style={{
-                  background: `linear-gradient(135deg, #18040a 0%, #10070d 60%, ${accentColor}18 100%)`,
+                  background: `linear-gradient(135deg, #140a10 0%, #0e0c10 60%, ${accentColor}18 100%)`,
                 }}
               >
                 <div className="absolute inset-0 bg-tech-grid opacity-30 pointer-events-none" />
@@ -115,14 +115,14 @@ export default function ProjectShowcase({
                       {project.industry}
                     </span>
                   </div>
-                  <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-[#ff1a53] transition-colors">
+                  <div className="w-8 h-8 rounded-full bg-white/10 flex items-center justify-center text-white group-hover:bg-[#ff174d] transition-colors">
                     <ArrowUpRight size={16} />
                   </div>
                 </div>
 
                 {/* Holographic Mockup Box */}
-                <div className="relative z-10 self-center w-full max-w-xs p-4 rounded-xl bg-black/75 border border-white/15 backdrop-blur-md shadow-2xl transition-transform duration-300 group-hover:scale-105 group-hover:border-[#ff1a53]/60">
-                  <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10 font-mono text-[10px] text-[#a7a2ad]">
+                <div className="relative z-10 self-center w-full max-w-xs p-4 rounded-xl bg-black/75 border border-white/15 backdrop-blur-md shadow-2xl transition-transform duration-300 group-hover:scale-105 group-hover:border-[#ff174d]/60">
+                  <div className="flex items-center justify-between pb-2 mb-2 border-b border-white/10 font-mono text-[10px] text-[#a7a1a8]">
                     <div className="flex gap-1.5">
                       <span className="w-2 h-2 rounded-full bg-rose-500/80" />
                       <span className="w-2 h-2 rounded-full bg-amber-500/80" />
@@ -131,7 +131,7 @@ export default function ProjectShowcase({
                     <span>{project.name.toLowerCase()}.service</span>
                   </div>
                   <div className="flex items-center gap-3 py-1">
-                    <div className="w-9 h-9 rounded-lg bg-[#880826]/40 border border-[#ff1a53]/40 flex items-center justify-center text-[#ff1a53]">
+                    <div className="w-9 h-9 rounded-lg bg-[#ff174d]/20 border border-[#ff174d]/40 flex items-center justify-center text-[#ff174d]">
                       <Braces size={18} />
                     </div>
                     <div className="flex flex-col">
@@ -146,7 +146,7 @@ export default function ProjectShowcase({
                 </div>
 
                 {/* Bottom Art Tech Tagline */}
-                <div className="relative z-10 font-mono text-xs text-[#a7a2ad] line-clamp-1">
+                <div className="relative z-10 font-mono text-xs text-[#a7a1a8] line-clamp-1">
                   {project.tagline || project.overview}
                 </div>
               </div>
@@ -155,21 +155,21 @@ export default function ProjectShowcase({
               <div className="p-6 sm:p-7 flex flex-col justify-between flex-grow">
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <h3 className="font-syne text-2xl font-bold text-white group-hover:text-[#ff1a53] transition-colors">
+                    <h3 className="font-syne text-2xl font-bold text-white group-hover:text-[#ff174d] transition-colors">
                       {project.name}
                     </h3>
-                    <span className="text-xs font-mono text-[#ff1a53] uppercase font-semibold">
+                    <span className="text-xs font-mono text-[#ff174d] uppercase font-semibold">
                       {project.industry}
                     </span>
                   </div>
 
-                  <p className="font-display text-xs sm:text-sm text-[#a7a2ad] leading-relaxed mb-5 line-clamp-3">
+                  <p className="font-display text-xs sm:text-sm text-[#a7a1a8] leading-relaxed mb-5 line-clamp-3">
                     {project.description}
                   </p>
 
                   {/* Key Contributions */}
                   <div className="space-y-1.5 mb-5">
-                    <span className="font-mono text-[10px] uppercase tracking-wider text-[#ff1a53] font-bold block">
+                    <span className="font-mono text-[10px] uppercase tracking-wider text-[#ff174d] font-bold block">
                       KEY ENGINEERING CONTRIBUTION
                     </span>
                     {project.myContribution.slice(0, 2).map((item, idx) => (
@@ -187,13 +187,13 @@ export default function ProjectShowcase({
                     {project.technologies.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
-                        className="px-2.5 py-1 rounded bg-white/[0.04] border border-white/5 font-mono text-[10px] text-[#a7a2ad]"
+                        className="px-2.5 py-1 rounded bg-white/[0.04] border border-white/5 font-mono text-[10px] text-[#a7a1a8]"
                       >
                         {tech}
                       </span>
                     ))}
                     {project.technologies.length > 4 && (
-                      <span className="px-2 py-1 rounded bg-white/[0.04] font-mono text-[10px] text-[#a7a2ad]">
+                      <span className="px-2 py-1 rounded bg-white/[0.04] font-mono text-[10px] text-[#a7a1a8]">
                         +{project.technologies.length - 4}
                       </span>
                     )}
@@ -207,7 +207,7 @@ export default function ProjectShowcase({
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="text-[#a7a2ad] hover:text-[#ff1a53] flex items-center gap-1 transition-colors"
+                        className="text-[#a7a1a8] hover:text-[#ff174d] flex items-center gap-1 transition-colors touch-target"
                         title="Live Platform"
                       >
                         <Globe size={13} />
@@ -220,7 +220,7 @@ export default function ProjectShowcase({
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="text-[#a7a2ad] hover:text-[#ff1a53] flex items-center gap-1 transition-colors"
+                        className="text-[#a7a1a8] hover:text-[#ff174d] flex items-center gap-1 transition-colors touch-target"
                         title="Apple App Store"
                       >
                         <Apple size={13} />
@@ -233,7 +233,7 @@ export default function ProjectShowcase({
                         target="_blank"
                         rel="noreferrer"
                         onClick={(e) => e.stopPropagation()}
-                        className="text-[#a7a2ad] hover:text-[#ff1a53] flex items-center gap-1 transition-colors"
+                        className="text-[#a7a1a8] hover:text-[#ff174d] flex items-center gap-1 transition-colors touch-target"
                         title="Google Play Store"
                       >
                         <Play size={13} />

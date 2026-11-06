@@ -46,39 +46,54 @@ const siteUrl =
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),
-  title: "Sumit Pramanik | Full Stack Engineer | Node.js, React.js & AI",
+  title: {
+    default: "Sumit Pramanik | Full Stack Engineer | Node.js, React.js & AI",
+    template: "%s | Sumit Pramanik",
+  },
   description:
-    "Full Stack Engineer with 8+ years of experience building scalable web, mobile and backend applications using Node.js, React.js, React Native and Next.js. Focused on AI/GenAI application development and intelligent software experiences.",
-  applicationName: portfolio.name,
-  publisher: portfolio.name,
+    "Sumit Pramanik is a Full Stack Engineer with 8+ years of experience building scalable web, mobile and backend applications using Node.js, React.js, React Native and Next.js, with a focus on AI and GenAI application development.",
+  applicationName: "Sumit Pramanik Portfolio",
+  publisher: "Sumit Pramanik",
+  authors: [{ name: "Sumit Pramanik", url: siteUrl }],
+  creator: "Sumit Pramanik",
   keywords: [
     "Sumit Pramanik",
-    "Full Stack Engineer",
+    "Sumit Pramanik Full Stack Engineer",
+    "Sumit Pramanik Node.js Developer",
+    "Sumit Pramanik React Developer",
+    "Sumit Pramanik React Native Developer",
+    "Sumit Pramanik Next.js Developer",
+    "Sumit Pramanik AI Engineer",
+    "Sumit Pramanik Jaipur",
     "Node.js",
+    "Express.js",
     "React.js",
     "React Native",
     "Next.js",
     "TypeScript",
-    "AI / GenAI Application Development",
-    "LLM API Integration",
-    "RAG Architecture",
     "MongoDB",
     "RESTful API Design",
-    "Cross-Platform Mobile Engineering",
+    "AI / GenAI Application Development",
+    "RAG Architecture",
+    "LLM API Integration",
   ],
+  alternates: {
+    canonical: siteUrl,
+  },
   openGraph: {
-    type: "website",
-    url: "/",
+    type: "profile",
+    url: siteUrl,
     title: "Sumit Pramanik | Full Stack Engineer | Node.js, React.js & AI",
     description:
-      "Full Stack Engineer with 8+ years of experience building scalable web, mobile and backend applications using Node.js, React.js, React Native and Next.js. Focused on AI/GenAI application development.",
-    siteName: portfolio.name,
+      "Sumit Pramanik is a Full Stack Engineer with 8+ years of experience building scalable web, mobile and backend applications using Node.js, React.js, React Native and Next.js, with a focus on AI and GenAI application development.",
+    siteName: "Sumit Pramanik Portfolio",
+    locale: "en_US",
     images: [
       {
         url: "/opengraph-image",
         width: 1200,
         height: 630,
-        alt: `${portfolio.name}, Full Stack Engineer (Node.js, React.js) | AI / GenAI`,
+        alt: "Sumit Pramanik - Full Stack Engineer (Node.js, React.js) | AI / GenAI Application Development",
       },
     ],
   },
@@ -86,11 +101,28 @@ export const metadata: Metadata = {
     card: "summary_large_image",
     title: "Sumit Pramanik | Full Stack Engineer | Node.js, React.js & AI",
     description:
-      "Full Stack Engineer with 8+ years of experience building scalable web, mobile and backend applications using Node.js, React.js, React Native and Next.js.",
+      "Sumit Pramanik is a Full Stack Engineer with 8+ years of experience building scalable web, mobile and backend applications using Node.js, React.js, React Native and Next.js.",
     images: ["/opengraph-image"],
+    creator: "@sumitaasur",
   },
-  icons: { icon: "/icon.svg", shortcut: "/icon.svg" },
-  robots: { index: true, follow: true },
+  icons: {
+    icon: [
+      { url: "/icon.svg", type: "image/svg+xml" },
+    ],
+    shortcut: "/icon.svg",
+    apple: "/icon.svg",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
 };
 
 export default function RootLayout({
@@ -101,16 +133,27 @@ export default function RootLayout({
   const personSchema = {
     "@context": "https://schema.org",
     "@type": "Person",
-    name: portfolio.name,
-    jobTitle: portfolio.title,
-    description: portfolio.summary,
-    telephone: portfolio.phone,
+    "@id": `${siteUrl}/#person`,
+    name: "Sumit Pramanik",
+    givenName: "Sumit",
+    familyName: "Pramanik",
+    url: siteUrl,
+    image: `${siteUrl}/images/sumit-portrait.png`,
+    jobTitle: "Full Stack Engineer",
+    description:
+      "Full Stack Engineer with 8+ years of experience building scalable web, mobile and backend applications using Node.js, React.js, React Native and Next.js, with a focus on AI and GenAI application development.",
     email: portfolio.email,
+    telephone: portfolio.phone,
     address: {
       "@type": "PostalAddress",
       addressLocality: "Jaipur",
+      addressRegion: "Rajasthan",
       addressCountry: "India",
     },
+    sameAs: [
+      portfolio.linkedinUrl,
+      portfolio.githubUrl,
+    ],
     alumniOf: {
       "@type": "CollegeOrUniversity",
       name: portfolio.education.institution,
@@ -122,31 +165,52 @@ export default function RootLayout({
       "React Native",
       "Next.js",
       "TypeScript",
+      "JavaScript ES6+",
       "MongoDB",
-      "REST APIs",
+      "MySQL",
+      "RESTful API Design",
       "AI / GenAI Application Development",
       "LLM API Integration",
       "RAG Architecture",
+      "Prompt Engineering",
+      "Three.js WebGL",
+      "Cross-Platform Mobile Engineering",
+      "Performance Optimization",
     ],
   };
 
   const websiteSchema = {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    name: `${portfolio.name} Portfolio`,
+    "@id": `${siteUrl}/#website`,
     url: siteUrl,
+    name: "Sumit Pramanik Portfolio",
     description:
       "Full Stack Engineer with 8+ years of experience building scalable web, mobile and backend applications using Node.js, React.js, React Native and Next.js.",
     author: {
-      "@type": "Person",
-      name: portfolio.name,
+      "@id": `${siteUrl}/#person`,
+    },
+  };
+
+  const profilePageSchema = {
+    "@context": "https://schema.org",
+    "@type": "ProfilePage",
+    "@id": `${siteUrl}/#profile`,
+    url: siteUrl,
+    name: "Sumit Pramanik - Full Stack Engineer Professional Profile",
+    mainEntity: {
+      "@id": `${siteUrl}/#person`,
     },
   };
 
   return (
     <html lang="en" className="dark scroll-smooth" suppressHydrationWarning>
+      <head>
+        <meta name="theme-color" content="#080709" />
+        <meta name="format-detection" content="telephone=no" />
+      </head>
       <body
-        className={`${bebasNeue.variable} ${caveatFont.variable} ${syneDisplay.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} bg-[#080709] text-[#f4f2f4] antialiased selection:bg-[#ff1a53] selection:text-white`}
+        className={`${bebasNeue.variable} ${caveatFont.variable} ${syneDisplay.variable} ${spaceGrotesk.variable} ${jetbrainsMono.variable} bg-[#080709] text-[#ffffff] antialiased selection:bg-[#ff174d] selection:text-white`}
       >
         <script
           type="application/ld+json"
@@ -158,6 +222,12 @@ export default function RootLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify(websiteSchema).replace(/</g, "\\u003c"),
+          }}
+        />
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{
+            __html: JSON.stringify(profilePageSchema).replace(/</g, "\\u003c"),
           }}
         />
         {children}

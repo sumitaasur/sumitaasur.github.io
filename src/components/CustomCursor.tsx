@@ -123,20 +123,20 @@ export default function CustomCursor() {
           width: hasBadge ? "72px" : "36px",
           height: hasBadge ? "72px" : "36px",
           border: hasBadge
-            ? "1px solid rgba(255, 26, 83, 0.85)"
+            ? "1px solid rgba(255, 23, 77, 0.9)"
             : isHover
-            ? "1.5px solid rgba(255, 26, 83, 0.7)"
+            ? "1.5px solid rgba(255, 23, 77, 0.7)"
             : "1px solid rgba(255, 255, 255, 0.35)",
           backgroundColor: hasBadge
-            ? "rgba(136, 8, 38, 0.85)"
+            ? "rgba(229, 9, 63, 0.85)"
             : isHover
-            ? "rgba(225, 29, 72, 0.15)"
+            ? "rgba(255, 23, 77, 0.15)"
             : "rgba(255, 255, 255, 0.03)",
           backdropFilter: hasBadge ? "blur(8px)" : "none",
           boxShadow: hasBadge
-            ? "0 0 25px rgba(255, 26, 83, 0.5)"
+            ? "0 0 25px rgba(255, 23, 77, 0.55)"
             : isHover
-            ? "0 0 16px rgba(225, 29, 72, 0.3)"
+            ? "0 0 16px rgba(255, 23, 77, 0.35)"
             : "none",
         }}
       >
@@ -149,7 +149,7 @@ export default function CustomCursor() {
 
       {/* Immediate center point */}
       <div
-        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-[#ff1a53] shadow-[0_0_10px_#ff1a53] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-150"
+        className="fixed top-0 left-0 w-2 h-2 rounded-full bg-[#ff174d] shadow-[0_0_10px_#ff174d] -translate-x-1/2 -translate-y-1/2 transition-opacity duration-150"
         style={{
           transform: `translate3d(${targetPos.x}px, ${targetPos.y}px, 0) translate(-50%, -50%) scale(${
             hasBadge ? 0 : isMouseDown ? 0.5 : 1
