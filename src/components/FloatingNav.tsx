@@ -71,15 +71,15 @@ export default function FloatingNav() {
 
   return (
     <>
-      {/* Top Navbar Header */}
+      {/* Top Navbar Header matching WAIL sticky header */}
       <header
-        className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 w-full ${
+        className={`sticky top-0 left-0 right-0 z-50 w-full transition-all duration-300 border-b border-[#292323] ${
           isScrolled
-            ? "bg-[#080709]/95 backdrop-blur-md border-b border-white/10 shadow-2xl"
-            : "bg-transparent border-b border-white/10"
+            ? "bg-[#080709]/98 backdrop-blur-md shadow-2xl"
+            : "bg-[#080709]/95 backdrop-blur-sm"
         }`}
       >
-        <div className="max-w-[1520px] mx-auto px-4 sm:px-8 lg:px-12 h-16 sm:h-20 flex items-center justify-between">
+        <div className="max-w-[1800px] mx-auto px-4 sm:px-8 lg:px-[clamp(20px,3.8vw,68px)] h-[66px] flex items-center justify-between">
           {/* Left: Brand Monogram / Logo */}
           <a
             href="#top"
