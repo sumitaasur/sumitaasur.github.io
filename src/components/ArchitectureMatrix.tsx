@@ -55,42 +55,45 @@ export default function ArchitectureMatrix() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-8 border-b border-white/10">
         <div>
           <div className="flex items-center gap-2 font-mono text-xs text-[#ff174d] uppercase tracking-widest mb-3">
-            <span>03 {"//"} CONNECTED SYSTEM ARCHITECTURE</span>
+            <span data-type>03 {"//"} CONNECTED SYSTEM ARCHITECTURE</span>
           </div>
-          <h2 className="font-bebas text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase font-normal leading-[0.9]">
+          <h2
+            data-reveal="center"
+            className="font-bebas text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase font-normal leading-[0.9]"
+          >
             Full Stack <br />
             <span className="text-[#ff174d] text-outline-hero">Architecture Map.</span>
           </h2>
         </div>
-        <div className="max-w-md font-mono text-xs sm:text-sm text-[#a7a1a8]">
+        <div data-reveal className="max-w-md font-mono text-xs sm:text-sm text-[#a7a1a8]">
           A connected visualization of how Backend APIs, Frontend systems, Native Mobile runtimes, and Cloud infrastructure integrate into unified production software.
         </div>
       </div>
 
       {/* Architecture Topology Connector Flow */}
-      <div className="mb-12 p-4 rounded-xl bg-white/[0.02] border border-white/10 overflow-x-auto">
+      <div data-reveal className="mb-12 p-4 rounded-xl bg-white/[0.02] border border-white/10 overflow-x-auto">
         <div className="flex items-center justify-between min-w-[700px] gap-2 font-mono text-xs">
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#11080c] border border-[#ff174d]/40 text-white font-bold">
+          <div data-pop className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#11080c] border border-[#ff174d]/40 text-white font-bold">
             <Server size={14} className="text-[#ff174d]" />
             <span>NODE.JS / EXPRESS BACKEND</span>
           </div>
           <span className="text-[#ff174d]">&rarr;</span>
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#11080c] border border-[#ff174d]/40 text-white font-bold">
+          <div data-pop className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#11080c] border border-[#ff174d]/40 text-white font-bold">
             <Database size={14} className="text-emerald-400" />
             <span>MONGODB / MYSQL</span>
           </div>
           <span className="text-[#ff174d]">&rarr;</span>
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#11080c] border border-[#ff174d]/40 text-white font-bold">
+          <div data-pop className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#11080c] border border-[#ff174d]/40 text-white font-bold">
             <Layers size={14} className="text-[#ff174d]" />
             <span>REACT / NEXT.JS WEB</span>
           </div>
           <span className="text-[#ff174d]">&bull;</span>
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#11080c] border border-[#ff174d]/40 text-white font-bold">
+          <div data-pop className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#11080c] border border-[#ff174d]/40 text-white font-bold">
             <Smartphone size={14} className="text-[#ff174d]" />
             <span>REACT NATIVE MOBILE</span>
           </div>
           <span className="text-[#ff174d]">&rarr;</span>
-          <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#11080c] border border-[#ff174d]/40 text-white font-bold">
+          <div data-pop className="flex items-center gap-2 px-3 py-2 rounded-lg bg-[#11080c] border border-[#ff174d]/40 text-white font-bold">
             <Cloud size={14} className="text-cyan-400" />
             <span>AWS / APP STORES</span>
           </div>
@@ -113,6 +116,7 @@ export default function ArchitectureMatrix() {
               <button
                 key={layer.id}
                 type="button"
+                data-reveal
                 onClick={() => setActiveLayerId(layer.id)}
                 className={`w-full text-left p-4 sm:p-5 rounded-2xl border transition-all duration-300 relative overflow-hidden flex items-start justify-between gap-4 cursor-pointer touch-target ${
                   isActive
@@ -154,7 +158,7 @@ export default function ArchitectureMatrix() {
         </div>
 
         {/* Right Column: Deep Blueprint & Technical Specs for Selected Layer */}
-        <div className="lg:col-span-7 rounded-2xl bg-[#0e0c10] border border-white/10 p-6 sm:p-8 relative overflow-hidden">
+        <div data-reveal className="lg:col-span-7 rounded-2xl bg-[#0e0c10] border border-white/10 p-6 sm:p-8 relative overflow-hidden">
           <div className="absolute inset-0 bg-tech-grid opacity-40 pointer-events-none" />
           <div className="absolute -top-12 -right-12 w-48 h-48 bg-[#ff174d]/10 rounded-full blur-3xl pointer-events-none" />
 
@@ -164,11 +168,11 @@ export default function ArchitectureMatrix() {
               <span className="font-mono text-xs text-[#ff174d] font-bold uppercase tracking-wider block mb-1">
                 SYSTEM SUBSYSTEM {"//"} {currentLayer.id.toUpperCase()}
               </span>
-              <h3 className="font-syne text-2xl sm:text-3xl font-extrabold text-white">
+              <h3 data-type className="font-syne text-2xl sm:text-3xl font-extrabold text-white">
                 {currentLayer.name}
               </h3>
             </div>
-            <div className="px-4 py-2 rounded-xl bg-[#140a10] border border-[#ff174d]/40 text-right">
+            <div data-pop className="px-4 py-2 rounded-xl bg-[#140a10] border border-[#ff174d]/40 text-right">
               <span className="font-syne text-xl font-black text-[#ff174d] block leading-none">
                 {currentLayer.metric}
               </span>
@@ -215,6 +219,7 @@ export default function ArchitectureMatrix() {
               {currentLayer.technologies.map((tech) => (
                 <span
                   key={tech}
+                  data-pop
                   className="px-3 py-1.5 rounded-lg bg-[#140a10] border border-[#ff174d]/30 text-white font-mono text-xs font-semibold hover:border-[#ff174d] transition-colors"
                 >
                   {tech}

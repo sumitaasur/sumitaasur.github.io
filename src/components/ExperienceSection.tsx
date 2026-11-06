@@ -22,14 +22,17 @@ export default function ExperienceSection() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-8 border-b border-white/10">
         <div>
           <div className="flex items-center gap-2 font-mono text-xs text-[#ff174d] uppercase tracking-widest mb-3">
-            <span>05 {"//"} CAREER TRAJECTORY</span>
+            <span data-type>05 {"//"} CAREER TRAJECTORY</span>
           </div>
-          <h2 className="font-bebas text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase font-normal leading-[0.9]">
+          <h2
+            data-reveal="center"
+            className="font-bebas text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase font-normal leading-[0.9]"
+          >
             8+ Years of Verified <br />
             <span className="text-[#ff174d] text-outline-hero">Engineering Delivery.</span>
           </h2>
         </div>
-        <div className="max-w-md font-mono text-xs sm:text-sm text-[#a7a1a8]">
+        <div data-reveal className="max-w-md font-mono text-xs sm:text-sm text-[#a7a1a8]">
           A progressive career path in production software engineering: from quality verification to full stack systems, REST API architecture, and cross-platform leadership.
         </div>
       </div>
@@ -39,6 +42,7 @@ export default function ExperienceSection() {
         {experiences.map((job, index) => (
           <div
             key={`${job.company}-${index}`}
+            data-reveal
             className="p-6 sm:p-8 rounded-2xl bg-[#0e0c10] border border-white/10 hover:border-[#ff174d]/50 transition-all duration-300 relative overflow-hidden group"
           >
             {/* Top row: Role, Badge, Company, Location, Dates */}
@@ -48,11 +52,11 @@ export default function ExperienceSection() {
                   <span className="font-mono text-xs text-[#ff174d] font-bold">
                     0{index + 1} {"//"}
                   </span>
-                  <h3 className="font-syne text-xl sm:text-2xl font-bold text-white group-hover:text-[#ff174d] transition-colors">
+                  <h3 data-type className="font-syne text-xl sm:text-2xl font-bold text-white group-hover:text-[#ff174d] transition-colors">
                     {job.role}
                   </h3>
                   {job.badge && (
-                    <span className="px-2.5 py-0.5 rounded-full bg-[#ff174d]/15 border border-[#ff174d]/30 font-mono text-[10px] text-[#ff174d] font-semibold uppercase">
+                    <span data-pop className="px-2.5 py-0.5 rounded-full bg-[#ff174d]/15 border border-[#ff174d]/30 font-mono text-[10px] text-[#ff174d] font-semibold uppercase">
                       {job.badge}
                     </span>
                   )}
@@ -60,7 +64,7 @@ export default function ExperienceSection() {
 
                 <div className="flex flex-wrap items-center gap-4 text-xs font-mono text-[#a7a1a8]">
                   <span className="text-white font-semibold flex items-center gap-1.5">
-                    <Briefcase size={13} className="text-[#ff174d]" />
+                    <Briefcase size={13} data-pop className="text-[#ff174d]" />
                     {job.company}
                   </span>
                   <span className="flex items-center gap-1.5">
@@ -70,7 +74,7 @@ export default function ExperienceSection() {
                 </div>
               </div>
 
-              <div className="flex items-center gap-2 font-mono text-xs text-[#ff174d] bg-white/[0.03] px-3.5 py-1.5 rounded-full border border-white/10 w-fit">
+              <div data-pop className="flex items-center gap-2 font-mono text-xs text-[#ff174d] bg-white/[0.03] px-3.5 py-1.5 rounded-full border border-white/10 w-fit">
                 <Calendar size={13} />
                 <span>{job.dates}</span>
               </div>
@@ -80,7 +84,7 @@ export default function ExperienceSection() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {job.highlights.map((highlight, hIdx) => (
                 <div key={hIdx} className="flex items-start gap-3 text-xs sm:text-sm font-display text-[#a7a1a8] leading-relaxed">
-                  <CheckCircle2 size={15} className="text-[#ff174d] mt-0.5 flex-shrink-0" />
+                  <CheckCircle2 size={15} data-pop className="text-[#ff174d] mt-0.5 flex-shrink-0" />
                   <span>{highlight}</span>
                 </div>
               ))}

@@ -16,15 +16,36 @@ export interface CursorState {
   ay: number;
 }
 
+export interface SwarmSectionInfo {
+  id: string;
+  name: string;
+  selector: string;
+}
+
 export interface SwarmStats {
   total: number;
   completed: number;
   percentage: number;
   isTouring: boolean;
+  isPaused: boolean;
   speed: number;
+  activeSectionId: string;
+  activeSectionName: string;
 }
 
 type SwarmListener = (stats: SwarmStats) => void;
+
+export const PORTFOLIO_SECTIONS: SwarmSectionInfo[] = [
+  { id: "top", name: "01. HERO", selector: "#top" },
+  { id: "ai-engineering", name: "02. AI & GENAI", selector: "#ai-engineering" },
+  { id: "architecture", name: "03. ARCHITECTURE", selector: "#architecture" },
+  { id: "performance", name: "04. ACHIEVEMENTS", selector: "#performance" },
+  { id: "projects", name: "05. PROJECTS", selector: "#projects" },
+  { id: "process", name: "06. METHODOLOGY", selector: "#process" },
+  { id: "experience", name: "07. EXPERIENCE", selector: "#experience" },
+  { id: "about", name: "08. PHILOSOPHY", selector: "#about" },
+  { id: "contact", name: "09. CONTACT", selector: "#contact" },
+];
 
 export class SwarmEngine {
   private host: HTMLElement | null = null;
@@ -36,12 +57,16 @@ export class SwarmEngine {
   private isDestroyed: boolean = false;
   private isDismissed: boolean = false;
   private isTouring: boolean = false;
+  private isPaused: boolean = false;
   private speed: number = 1;
   private lastAct: number = 0;
   private active: boolean = true;
   private scanTimer: number | null = null;
   private animFrameId: number | null = null;
   private listeners: Set<SwarmListener> = new Set();
+
+  private activeSectionId: string = "top";
+  private activeSectionName: string = "01. HERO";
 
   private RING = { cx: 0, cy: 0, R: 0 };
   private TH = -0.14;
@@ -78,7 +103,6 @@ export class SwarmEngine {
     const total = this.elements.length;
     let completed = 0;
     this.elements.forEach((e) => {
-      // Element is completed if marked with .in or has typed characters turned .on
       const state = (e as unknown as { _s?: number })._s;
       if (state === 2 || e.classList.contains("in")) {
         completed++;
@@ -91,14 +115,25 @@ export class SwarmEngine {
       completed,
       percentage,
       isTouring: this.isTouring,
+      isPaused: this.isPaused,
       speed: this.speed,
+      activeSectionId: this.activeSectionId,
+      activeSectionName: this.activeSectionName,
     };
 
     this.listeners.forEach((l) => l(stats));
   }
 
-  private sleep(ms: number): Promise<void> {
-    return new Promise((r) => setTimeout(r, ms / this.speed));
+  private async sleep(ms: number): Promise<void> {
+    const scaledMs = ms / this.speed;
+    const start = performance.now();
+    while (performance.now() - start < scaledMs && !this.isDestroyed) {
+      if (this.isPaused) {
+        await new Promise((r) => setTimeout(r, 60));
+      } else {
+        await new Promise((r) => setTimeout(r, Math.min(25, scaledMs)));
+      }
+    }
   }
 
   private ease(t: number): number {
@@ -113,26 +148,76 @@ export class SwarmEngine {
     this.RING.cy = (hdr ? hdr.offsetHeight : 70) + 48;
   };
 
+  /**
+   * Adaptive home formation:
+   * When in Hero (scrollY < 420): Saturn 3D inclined orbit ring around portrait.
+   * When in Portfolio Sections (scrollY >= 420): High-tech drone fleet hovering in active section viewport.
+   */
   private home(i: number, t: number, sy: number) {
-    const outer = i < 5;
-    const n = outer ? 5 : 4;
-    const idx = outer ? i : i - 5;
-    const a = (outer ? 1 : -1.35) * (t / 1700) + (idx * 6.2832) / n;
-    const rx = this.RING.R * (outer ? 1 : 0.62);
-    const ry = rx * 0.24;
-    const dx = rx * Math.cos(a);
-    const dy = ry * Math.sin(a);
-    return {
-      x: this.RING.cx + dx * this.cT - dy * this.sT,
-      y: this.RING.cy - sy + dx * this.sT + dy * this.cT,
-      s: 0.7 + (0.3 * (Math.sin(a) + 1)) / 2,
-    };
+    if (sy < 420) {
+      // Classic WAIL Saturn 3D Orbit Ring
+      const outer = i < 5;
+      const n = outer ? 5 : 4;
+      const idx = outer ? i : i - 5;
+      const a = (outer ? 1 : -1.35) * (t / 1700) + (idx * 6.2832) / n;
+      const rx = this.RING.R * (outer ? 1 : 0.62);
+      const ry = rx * 0.24;
+      const dx = rx * Math.cos(a);
+      const dy = ry * Math.sin(a);
+      return {
+        x: this.RING.cx + dx * this.cT - dy * this.sT,
+        y: this.RING.cy - sy + dx * this.sT + dy * this.cT,
+        s: 0.7 + (0.3 * (Math.sin(a) + 1)) / 2,
+      };
+    } else {
+      // Portfolio-Wide Adaptive Fleet Formation
+      // Drones span across the upper viewport, breathing with gentle organic harmonic wave
+      const margin = Math.min(window.innerWidth * 0.1, 80);
+      const availableWidth = window.innerWidth - margin * 2;
+      const stepX = availableWidth / 8;
+      const baseX = margin + i * stepX;
+      const wave = Math.sin(t / 800 + i * 0.75) * 16;
+      const staggeredY = 100 + wave + (i % 2 === 0 ? 0 : 20);
+
+      return {
+        x: baseX,
+        y: staggeredY,
+        s: 0.82 + Math.sin(t / 1000 + i) * 0.08,
+      };
+    }
+  }
+
+  private updateActiveSection() {
+    if (typeof window === "undefined") return;
+    const vCenter = window.innerHeight * 0.45;
+    let matchedSec = PORTFOLIO_SECTIONS[0];
+    let minDistance = 1e9;
+
+    for (const sec of PORTFOLIO_SECTIONS) {
+      const el = document.querySelector<HTMLElement>(sec.selector);
+      if (!el) continue;
+      const rect = el.getBoundingClientRect();
+      if (rect.top <= vCenter && rect.bottom >= vCenter) {
+        matchedSec = sec;
+        break;
+      }
+      const dist = Math.min(Math.abs(rect.top - vCenter), Math.abs(rect.bottom - vCenter));
+      if (dist < minDistance) {
+        minDistance = dist;
+        matchedSec = sec;
+      }
+    }
+
+    if (matchedSec.id !== this.activeSectionId) {
+      this.activeSectionId = matchedSec.id;
+      this.activeSectionName = matchedSec.name;
+      this.emitStats();
+    }
   }
 
   private init() {
     if (typeof window === "undefined" || !this.host || !this.sel) return;
 
-    // Check prefers-reduced-motion
     if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
       this.dismiss();
       return;
@@ -143,7 +228,7 @@ export class SwarmEngine {
 
     this.ringSize();
 
-    // Spawn 9 cursors onto the orbit ring
+    // Spawn 9 cursors onto the staging formation
     this.cursors = this.cols.map((c, i) => {
       const e = document.createElement("div");
       e.className = "cur";
@@ -167,40 +252,44 @@ export class SwarmEngine {
       };
     });
 
-    // Collect rebuildable elements
+    // Collect all rebuildable elements across all sections
     this.collectElements();
 
-    // Start tick loop
     this.lastAct = performance.now() + 3500;
     this.active = true;
 
+    // High-performance 60fps tick loop
     const tick = (t: number) => {
       if (this.isDestroyed || this.isDismissed) return;
       const sy = window.scrollY;
 
-      this.cursors.forEach((c, i) => {
-        if (c.docked) return;
-        let ts = 1;
-        if (!c.drag) {
-          if (c.orb && !c.busy) {
-            const h = this.home(i, t, sy);
-            c.tx = h.x;
-            c.ty = h.y;
-            ts = h.s;
-            c.x += (c.tx - c.x) * 0.14;
-            c.y += (c.ty - c.y) * 0.14;
-          } else {
-            c.x += (c.tx - c.x) * 0.24;
-            c.y += (c.ty - c.y) * 0.24;
+      this.updateActiveSection();
+
+      if (!this.isPaused) {
+        this.cursors.forEach((c, i) => {
+          if (c.docked) return;
+          let ts = 1;
+          if (!c.drag) {
+            if (c.orb && !c.busy) {
+              const h = this.home(i, t, sy);
+              c.tx = h.x;
+              c.ty = h.y;
+              ts = h.s;
+              c.x += (c.tx - c.x) * 0.16;
+              c.y += (c.ty - c.y) * 0.16;
+            } else {
+              c.x += (c.tx - c.x) * 0.26;
+              c.y += (c.ty - c.y) * 0.26;
+            }
           }
-        }
-        c.s += (ts - c.s) * 0.12;
-        c.e.style.opacity =
-          c.orb && !c.busy && !c.drag
-            ? (0.45 + (0.55 * (c.s - 0.7)) / 0.3).toFixed(2)
-            : "1";
-        c.e.style.transform = `translate3d(${c.x}px,${c.y}px,0) scale(${c.s.toFixed(3)})`;
-      });
+          c.s += (ts - c.s) * 0.12;
+          c.e.style.opacity =
+            c.orb && !c.busy && !c.drag
+              ? (0.55 + (0.45 * (c.s - 0.7)) / 0.3).toFixed(2)
+              : "1";
+          c.e.style.transform = `translate3d(${c.x}px,${c.y}px,0) scale(${c.s.toFixed(3)})`;
+        });
+      }
 
       this.animFrameId = requestAnimationFrame(tick);
     };
@@ -218,19 +307,19 @@ export class SwarmEngine {
     this.scan();
     this.scanTimer = window.setInterval(() => this.scan(), 120);
 
-    // Fallback safety timeout: ensure content is revealed if swarm takes too long
+    // Safety fallback: ensure initial content is visible after 8s if user remains idle
     setTimeout(() => {
       if (this.isDismissed) return;
       const anyRevealed = document.querySelector(
         "[data-reveal].in, [data-item].in, [data-pop].in, .ch.on"
       );
       if (!anyRevealed) {
-        this.revealAllInstantly();
+        this.goLive();
       }
     }, 8000);
   }
 
-  private collectElements() {
+  public collectElements() {
     const rawEls = Array.from(
       document.querySelectorAll<HTMLElement>(
         "[data-reveal],[data-type],[data-clone],[data-pop]"
@@ -250,7 +339,6 @@ export class SwarmEngine {
   private splitText(el: HTMLElement) {
     if (el.classList.contains("ready")) return;
 
-    // Preserve existing .ch if rendered by AnimatedText React component
     const existingCh = Array.from(el.querySelectorAll<HTMLElement>(".ch"));
     if (existingCh.length > 0) {
       (el as unknown as { _ch: HTMLElement[] })._ch = existingCh;
@@ -293,7 +381,7 @@ export class SwarmEngine {
   };
 
   private inViewport(r: DOMRect): boolean {
-    return r.bottom > 0 && r.top < window.innerHeight * 0.94 && r.height > 0;
+    return r.bottom > 20 && r.top < window.innerHeight * 0.92 && r.height > 0;
   }
 
   private ripple(c: CursorState) {
@@ -329,6 +417,7 @@ export class SwarmEngine {
     maxSteps: number = 40
   ): Promise<void> {
     for (let i = 0; i < maxSteps; i++) {
+      if (this.isDestroyed || this.isDismissed) break;
       fn();
       if (Math.hypot(c.tx - c.x, c.ty - c.y) < 8) break;
       await this.sleep(25);
@@ -341,6 +430,8 @@ export class SwarmEngine {
 
   private async acquire(): Promise<CursorState> {
     for (;;) {
+      if (this.isDestroyed || this.isDismissed) throw new Error("destroyed");
+
       let best: CursorState | null = null;
       let bd = 1e9;
       this.cursors.forEach((c) => {
@@ -410,14 +501,18 @@ export class SwarmEngine {
     c.e.classList.add("dn");
     this.ripple(c);
     el.style.transition = "none";
-    await this.sleep(60);
+    await this.sleep(50);
 
     c.drag = true;
-    const dur = Math.min(650, 280 + el.offsetWidth * 0.4) / this.speed;
+    const dur = Math.min(600, 260 + el.offsetWidth * 0.35) / this.speed;
     const t0 = performance.now();
 
     await new Promise<void>((resolve) => {
       const step = (now: number) => {
+        if (this.isDestroyed || this.isDismissed) {
+          resolve();
+          return;
+        }
         const p = this.ease(Math.min((now - t0) / dur, 1));
         r = el.getBoundingClientRect();
         const w = r.width * p;
@@ -434,7 +529,7 @@ export class SwarmEngine {
         c.x = l + w;
         c.y = t + h;
 
-        if (now - t0 < dur) {
+        if (now - t0 < dur && !this.isDestroyed) {
           requestAnimationFrame(step);
         } else {
           resolve();
@@ -457,7 +552,7 @@ export class SwarmEngine {
     el.style.clipPath = "";
     el.style.transition = "";
 
-    setTimeout(() => b.remove(), 300);
+    setTimeout(() => b.remove(), 260);
     return true;
   }
 
@@ -467,10 +562,10 @@ export class SwarmEngine {
       c,
       () => {
         r = el.getBoundingClientRect();
-        c.tx = r.left + r.width * 0.55;
-        c.ty = r.top + r.height * 0.55;
+        c.tx = r.left + r.width * 0.5;
+        c.ty = r.top + r.height * 0.5;
       },
-      40
+      38
     );
 
     if (!this.inViewport(el.getBoundingClientRect())) return false;
@@ -482,13 +577,13 @@ export class SwarmEngine {
     this.ripple(c);
     c.drag = true;
 
-    await this.sleep(100);
+    await this.sleep(80);
     el.classList.add("in");
     c.e.classList.remove("dn");
     this.ripple(c);
     swarmAudio.playDoneSound();
 
-    await this.sleep(350);
+    await this.sleep(280);
     b.remove();
     c.drag = false;
     return true;
@@ -521,8 +616,9 @@ export class SwarmEngine {
     this.ripple(c);
     c.drag = true;
 
-    const per = Math.max(14, Math.min(48, 900 / (n || 1)));
+    const per = Math.max(12, Math.min(42, 800 / (n || 1)));
     for (let i = 0; i < n; i++) {
+      if (this.isDestroyed || this.isDismissed) break;
       chs[i].classList.add("on");
       swarmAudio.playTypeSound();
       const rc = chs[i].getBoundingClientRect();
@@ -537,7 +633,7 @@ export class SwarmEngine {
     }
 
     c.drag = false;
-    await this.sleep(110);
+    await this.sleep(90);
     cr.remove();
     b.remove();
     swarmAudio.playDoneSound();
@@ -552,16 +648,20 @@ export class SwarmEngine {
       : "reveal";
 
     let ok = false;
-    if (kind === "reveal") {
-      ok = await this.dragReveal(
-        el,
-        c,
-        el.getAttribute("data-reveal") === "center"
-      );
-    } else if (kind === "type") {
-      ok = await this.typeIn(el, c);
-    } else if (kind === "pop") {
-      ok = await this.popIn(el, c);
+    try {
+      if (kind === "reveal") {
+        ok = await this.dragReveal(
+          el,
+          c,
+          el.getAttribute("data-reveal") === "center"
+        );
+      } else if (kind === "type") {
+        ok = await this.typeIn(el, c);
+      } else if (kind === "pop") {
+        ok = await this.popIn(el, c);
+      }
+    } catch {
+      ok = false;
     }
 
     this.free(c);
@@ -574,14 +674,23 @@ export class SwarmEngine {
     this.pumping = true;
 
     while (this.queue.length && !this.isDestroyed && !this.isDismissed) {
-      const c = await this.acquire();
-      const nextEl = this.queue.shift();
-      if (nextEl) {
-        this.exec(nextEl, c);
-      } else {
-        this.free(c);
+      if (this.isPaused) {
+        await this.sleep(100);
+        continue;
       }
-      await this.sleep(40);
+
+      try {
+        const c = await this.acquire();
+        const nextEl = this.queue.shift();
+        if (nextEl) {
+          this.exec(nextEl, c);
+        } else {
+          this.free(c);
+        }
+      } catch {
+        break;
+      }
+      await this.sleep(30);
     }
 
     this.pumping = false;
@@ -605,21 +714,24 @@ export class SwarmEngine {
 
   public scan = () => {
     if (this.isDestroyed || this.isDismissed) return;
-    const act = performance.now() - this.lastAct < 800;
+    const act = performance.now() - this.lastAct < 900;
     const allow = act || this.active || this.isTouring;
 
     this.elements.forEach((e) => {
       const state = (e as unknown as { _s?: number })._s || 0;
       const r = e.getBoundingClientRect();
 
-      if (state === 2) {
-        // Element completed; if it scrolled far out of view, optionally reset
-        if (r.bottom < -100 || r.top > window.innerHeight + 100) {
-          if (!this.isTouring) {
-            this.hide(e);
-          }
+      // Fast-scroll recovery:
+      // If an element scrolled past above the viewport and hasn't finished,
+      // instantly reveal it so the user never sees blank areas upon scrolling up.
+      if (r.bottom < -20) {
+        if (state !== 2) {
+          e.classList.add("in");
+          const chs = (e as unknown as { _ch?: HTMLElement[] })._ch || [];
+          chs.forEach((ch) => ch.classList.add("on"));
+          (e as unknown as { _s: number })._s = 2;
         }
-      } else if (allow && state === 0 && this.inViewport(r)) {
+      } else if (state === 0 && this.inViewport(r) && allow) {
         (e as unknown as { _s: number })._s = 1;
         this.queue.push(e);
       }
@@ -629,37 +741,37 @@ export class SwarmEngine {
     if (this.queue.length) {
       this.pump();
     }
+    this.emitStats();
   };
 
   /**
-   * TOUR Mode: Smoothly navigates the entire website section by section,
-   * activating cursors to reconstruct each section in view.
+   * TOUR Mode: Automatically traverses all 9 sections in sequence,
+   * pausing at each section to let the autonomous agents reconstruct it.
    */
   public async startTour(): Promise<void> {
     if (this.isTouring) return;
     this.isTouring = true;
+    this.isPaused = false;
     this.emitStats();
 
-    const sections = [
-      "#top",
-      "#projects",
-      "#ai-engineering",
-      "#architecture",
-      "#about",
-      "#experience",
-      "#contact",
-    ];
-
-    for (const secId of sections) {
-      if (!this.isTouring) break;
-      const target = document.querySelector(secId);
+    for (const sec of PORTFOLIO_SECTIONS) {
+      if (!this.isTouring || this.isDestroyed || this.isDismissed) break;
+      const target = document.querySelector<HTMLElement>(sec.selector);
       if (target) {
-        target.scrollIntoView({ behavior: "smooth" });
+        target.scrollIntoView({ behavior: "smooth", block: "start" });
+        this.activeSectionId = sec.id;
+        this.activeSectionName = sec.name;
+        this.emitStats();
         this.lastAct = performance.now();
         this.scan();
-        // Wait for section to settle and cursors to work
-        await this.sleep(1800);
+
+        // Allow swarm agents to construct the section
+        await this.sleep(2600);
       }
+    }
+
+    if (this.isTouring && !this.isDestroyed) {
+      swarmAudio.playCelebrationSound();
     }
 
     this.isTouring = false;
@@ -671,8 +783,14 @@ export class SwarmEngine {
     this.emitStats();
   }
 
+  public togglePause(): boolean {
+    this.isPaused = !this.isPaused;
+    this.emitStats();
+    return this.isPaused;
+  }
+
   public setSpeed(multiplier: number) {
-    this.speed = Math.max(0.25, Math.min(3, multiplier));
+    this.speed = Math.max(0.5, Math.min(3, multiplier));
     this.emitStats();
   }
 
@@ -680,49 +798,85 @@ export class SwarmEngine {
     return this.speed;
   }
 
-  public replay() {
+  /**
+   * GO LIVE / INSTANT REVEAL:
+   * Immediately finishes all reconstructions across the portfolio,
+   * clears selection boxes, parks agents, and reveals everything 100%.
+   */
+  public goLive() {
     this.stopTour();
-    window.scrollTo({ top: 0, behavior: "smooth" });
-
-    // Reset all elements
-    this.elements.forEach((el) => {
-      this.hide(el);
-    });
-
-    // Reset all cursors to orbit ring
-    this.cursors.forEach((c, i) => {
-      c.busy = false;
-      c.drag = false;
-      c.docked = false;
-      c.orb = true;
-      c.e.classList.remove("fl", "dn");
-      this.host?.appendChild(c.e);
-      const h = this.home(i, 0, 0);
-      c.tx = h.x;
-      c.ty = h.y;
-    });
-
-    this.lastAct = performance.now();
-    this.active = true;
     this.queue = [];
-    this.emitStats();
-    setTimeout(() => this.scan(), 300);
-  }
 
-  public revealAllInstantly() {
     this.elements.forEach((el) => {
       el.classList.add("in");
       const chs = (el as unknown as { _ch?: HTMLElement[] })._ch || [];
       chs.forEach((ch) => ch.classList.add("on"));
       (el as unknown as { _s: number })._s = 2;
     });
+
+    // Clean up temporary DOM helpers
+    if (this.sel) {
+      const activeBoxes = this.sel.querySelectorAll(".sel, .caret, .rip");
+      activeBoxes.forEach((b) => b.remove());
+    }
+
+    this.cursors.forEach((c) => {
+      c.busy = false;
+      c.drag = false;
+      c.orb = true;
+      c.e.classList.remove("dn");
+    });
+
+    swarmAudio.playCelebrationSound();
     this.emitStats();
+  }
+
+  /**
+   * REPLAY:
+   * Option to replay current section or full portfolio.
+   */
+  public replay(sectionOnly: boolean = false) {
+    this.stopTour();
+    this.isPaused = false;
+
+    if (sectionOnly) {
+      const secEl = document.querySelector<HTMLElement>(`#${this.activeSectionId}`);
+      if (secEl) {
+        const secElements = Array.from(
+          secEl.querySelectorAll<HTMLElement>(
+            "[data-reveal],[data-type],[data-clone],[data-pop]"
+          )
+        );
+        secElements.forEach((el) => this.hide(el));
+      }
+    } else {
+      window.scrollTo({ top: 0, behavior: "smooth" });
+      this.elements.forEach((el) => this.hide(el));
+
+      this.cursors.forEach((c, i) => {
+        c.busy = false;
+        c.drag = false;
+        c.docked = false;
+        c.orb = true;
+        c.e.classList.remove("fl", "dn");
+        this.host?.appendChild(c.e);
+        const h = this.home(i, 0, 0);
+        c.tx = h.x;
+        c.ty = h.y;
+      });
+    }
+
+    this.lastAct = performance.now();
+    this.active = true;
+    this.queue = [];
+    this.emitStats();
+    setTimeout(() => this.scan(), 350);
   }
 
   public dismiss() {
     this.isDismissed = true;
     this.stopTour();
-    this.revealAllInstantly();
+    this.goLive();
     if (this.host) this.host.style.display = "none";
     if (this.sel) this.sel.style.display = "none";
     document.body.classList.remove("swarm-active");
@@ -734,7 +888,7 @@ export class SwarmEngine {
     if (this.host) this.host.style.display = "";
     if (this.sel) this.sel.style.display = "";
     document.body.classList.add("swarm-active");
-    this.replay();
+    this.replay(false);
   }
 
   public destroy() {

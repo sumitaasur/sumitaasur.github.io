@@ -127,6 +127,38 @@ class SwarmAudioController {
       // Ignore audio error
     }
   }
+
+  /**
+   * Section completion and celebration harmonic chime
+   */
+  public playCelebrationSound() {
+    if (!this.isEnabled) return;
+    const ctx = this.getContext();
+    if (!ctx) return;
+
+    try {
+      const chords = [523.25, 659.25, 783.99, 1046.5]; // C5, E5, G5, C6
+      chords.forEach((freq, idx) => {
+        const osc = ctx.createOscillator();
+        const gain = ctx.createGain();
+        const start = ctx.currentTime + idx * 0.09;
+
+        osc.type = "triangle";
+        osc.frequency.setValueAtTime(freq, start);
+
+        gain.gain.setValueAtTime(0.04, start);
+        gain.gain.exponentialRampToValueAtTime(0.0001, start + 0.35);
+
+        osc.connect(gain);
+        gain.connect(ctx.destination);
+
+        osc.start(start);
+        osc.stop(start + 0.35);
+      });
+    } catch {
+      // Ignore audio error
+    }
+  }
 }
 
 export const swarmAudio = new SwarmAudioController();

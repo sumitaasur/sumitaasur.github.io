@@ -41,14 +41,17 @@ export default function BeforeAfterShowcase() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-8 border-b border-white/10">
         <div>
           <div className="flex items-center gap-2 font-mono text-xs text-[#ff174d] uppercase tracking-widest mb-3">
-            <span>03 {"//"} BENCHMARK CASE STUDY</span>
+            <span data-type>03 {"//"} BENCHMARK CASE STUDY</span>
           </div>
-          <h2 className="font-syne text-3xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white">
+          <h2
+            data-reveal="center"
+            className="font-syne text-3xl sm:text-5xl lg:text-6xl font-bold uppercase tracking-tight text-white"
+          >
             Measured Impact: <br />
             <span className="text-outline-hero">Before vs. Engineered.</span>
           </h2>
         </div>
-        <div className="max-w-md font-mono text-xs sm:text-sm text-[#a7a1a8]">
+        <div data-reveal className="max-w-md font-mono text-xs sm:text-sm text-[#a7a1a8]">
           Drag the interactive slider below to inspect the measured performance contrast between standard legacy frontend patterns and my production-optimized architectures.
         </div>
       </div>
@@ -56,6 +59,7 @@ export default function BeforeAfterShowcase() {
       {/* Interactive Draggable Comparison Component */}
       <div
         ref={containerRef}
+        data-reveal
         onMouseDown={() => (isDragging.current = true)}
         onMouseUp={() => (isDragging.current = false)}
         onMouseLeave={() => (isDragging.current = false)}

@@ -121,14 +121,17 @@ export default function ContactSection() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-8 border-b border-white/10">
         <div>
           <div className="flex items-center gap-2 font-mono text-xs text-[#ff174d] uppercase tracking-widest mb-3">
-            <span>07 {"//"} INITIATE ENGAGEMENT</span>
+            <span data-type>07 {"//"} INITIATE ENGAGEMENT</span>
           </div>
-          <h2 className="font-bebas text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase font-normal leading-[0.9]">
+          <h2
+            data-reveal="center"
+            className="font-bebas text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase font-normal leading-[0.9]"
+          >
             Let&apos;s Build <br />
             <span className="text-[#ff174d] text-outline-hero">Something Real.</span>
           </h2>
         </div>
-        <div className="max-w-md font-mono text-xs sm:text-sm text-[#a7a1a8]">
+        <div data-reveal className="max-w-md font-mono text-xs sm:text-sm text-[#a7a1a8]">
           Available for Full Stack Engineering, AI application development, REST API architecture, and cross-platform leadership worldwide.
         </div>
       </div>
@@ -138,7 +141,7 @@ export default function ContactSection() {
         {/* Left Column: Direct Links & Coordinates */}
         <div className="lg:col-span-5 space-y-6">
           {/* Status Card */}
-          <div className="p-6 rounded-2xl bg-gradient-to-br from-[#140a10] via-[#0e080c] to-[#080709] border border-[#ff174d]/30 box-glow-crimson">
+          <div data-reveal className="p-6 rounded-2xl bg-gradient-to-br from-[#140a10] via-[#0e080c] to-[#080709] border border-[#ff174d]/30 box-glow-crimson">
             <div className="flex items-center gap-2.5 mb-2">
               <span className="w-2.5 h-2.5 rounded-full bg-emerald-400 animate-pulse-dot" />
               <span className="font-mono text-xs uppercase tracking-wider text-emerald-400 font-bold">
@@ -152,6 +155,7 @@ export default function ContactSection() {
             {/* Quick Copy Email Button */}
             <button
               type="button"
+              data-pop
               onClick={copyEmail}
               data-cursor="contact"
               data-cursor-text="COPY"
@@ -169,7 +173,7 @@ export default function ContactSection() {
           </div>
 
           {/* Direct Phone & Details */}
-          <div className="p-6 rounded-2xl bg-[#0e0c10] border border-white/10 space-y-3 font-mono text-xs">
+          <div data-reveal className="p-6 rounded-2xl bg-[#0e0c10] border border-white/10 space-y-3 font-mono text-xs">
             <a
               href={`tel:${portfolio.phone}`}
               className="flex items-center justify-between p-3.5 rounded-xl bg-white/[0.03] border border-white/5 hover:border-[#ff174d]/40 text-[#a7a1a8] hover:text-white transition-colors touch-target"
@@ -193,7 +197,7 @@ export default function ContactSection() {
           </div>
 
           {/* Verified Professional Profiles */}
-          <div className="p-6 rounded-2xl bg-[#0e0c10] border border-white/10">
+          <div data-reveal className="p-6 rounded-2xl bg-[#0e0c10] border border-white/10">
             <span className="font-mono text-[10px] uppercase tracking-widest text-[#a7a1a8] block mb-3">
               VERIFIED PROFESSIONAL NETWORKS
             </span>
@@ -224,15 +228,15 @@ export default function ContactSection() {
         </div>
 
         {/* Right Column: Interactive Transmission Terminal Form */}
-        <div className="lg:col-span-7 rounded-2xl bg-[#0e0c10] border border-white/10 p-6 sm:p-8 relative overflow-hidden">
+        <div data-reveal className="lg:col-span-7 rounded-2xl bg-[#0e0c10] border border-white/10 p-6 sm:p-8 relative overflow-hidden">
           <div className="flex items-center justify-between pb-4 border-b border-white/10 mb-6">
             <div className="flex items-center gap-2">
-              <Terminal size={15} className="text-[#ff174d]" />
-              <span className="font-mono text-xs font-bold uppercase tracking-wider text-white">
+              <Terminal size={15} data-pop className="text-[#ff174d]" />
+              <span data-type className="font-mono text-xs font-bold uppercase tracking-wider text-white">
                 DIRECT TRANSMISSION {"//"} TERMINAL
               </span>
             </div>
-            <span className="font-mono text-[10px] text-emerald-400">ENCRYPTED / SSL</span>
+            <span data-pop className="font-mono text-[10px] text-emerald-400">ENCRYPTED / SSL</span>
           </div>
 
           {/* Topic Selectors */}
@@ -247,6 +251,7 @@ export default function ContactSection() {
                   <button
                     key={topic}
                     type="button"
+                    data-pop
                     onClick={() => setSelectedTopic(topic)}
                     className={`px-3 py-1.5 rounded-lg font-mono text-xs transition-all duration-200 cursor-pointer touch-target ${
                       isSelected
@@ -326,6 +331,7 @@ export default function ContactSection() {
             <div className="pt-2 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
               <button
                 type="submit"
+                data-pop
                 disabled={sending}
                 className="btn-neon inline-flex items-center justify-center gap-2.5 px-7 py-3.5 rounded-xl font-mono text-xs font-bold tracking-wider uppercase cursor-pointer disabled:opacity-50 touch-target"
               >

@@ -70,15 +70,18 @@ export default function AIEngineeringSection() {
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-16 pb-8 border-b border-white/10">
         <div>
           <div className="flex items-center gap-2 font-mono text-xs text-[#ff174d] uppercase tracking-widest mb-3">
-            <Sparkles size={14} />
-            <span>02 {"//"} INTELLIGENT SYSTEMS INTERFACE</span>
+            <Sparkles size={14} data-pop />
+            <span data-type>02 {"//"} INTELLIGENT SYSTEMS INTERFACE</span>
           </div>
-          <h2 className="font-bebas text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase font-normal leading-[0.9]">
+          <h2
+            data-reveal="center"
+            className="font-bebas text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase font-normal leading-[0.9]"
+          >
             AI &amp; GenAI <br />
             <span className="text-[#ff174d] text-outline-hero">Application Engineering.</span>
           </h2>
         </div>
-        <div className="max-w-md font-mono text-xs sm:text-sm text-[#a7a1a8] leading-relaxed">
+        <div data-reveal className="max-w-md font-mono text-xs sm:text-sm text-[#a7a1a8] leading-relaxed">
           {aiData.description}
         </div>
       </div>
@@ -88,19 +91,20 @@ export default function AIEngineeringSection() {
         {aiData.capabilities.map((cap, idx) => (
           <div
             key={cap.title}
+            data-reveal
             className="p-6 sm:p-7 rounded-2xl bg-[#0e0c10] border border-white/10 hover:border-[#ff174d]/50 transition-all duration-300 flex flex-col justify-between group relative overflow-hidden"
           >
             <div className="absolute top-0 right-0 w-28 h-28 bg-[#ff174d]/5 rounded-full blur-2xl group-hover:bg-[#ff174d]/15 transition-all" />
 
             <div>
               <div className="flex items-center justify-between mb-4">
-                <span className="font-mono text-xs text-[#ff174d] font-bold">
+                <span data-type className="font-mono text-xs text-[#ff174d] font-bold">
                   0{idx + 1} {"//"} CAPABILITY
                 </span>
-                <Bot size={18} className="text-[#a7a1a8] group-hover:text-[#ff174d] transition-colors" />
+                <Bot size={18} data-pop className="text-[#a7a1a8] group-hover:text-[#ff174d] transition-colors" />
               </div>
 
-              <h3 className="font-syne text-xl font-bold text-white mb-3 group-hover:text-[#ff174d] transition-colors">
+              <h3 data-type className="font-syne text-xl font-bold text-white mb-3 group-hover:text-[#ff174d] transition-colors">
                 {cap.title}
               </h3>
 
@@ -113,6 +117,7 @@ export default function AIEngineeringSection() {
               {cap.tags.map((tag) => (
                 <span
                   key={tag}
+                  data-pop
                   className="px-2.5 py-1 rounded bg-white/[0.04] border border-white/5 font-mono text-[10px] text-[#f5f3f5]"
                 >
                   {tag}
@@ -123,16 +128,19 @@ export default function AIEngineeringSection() {
         ))}
 
         {/* AI-Assisted Engineering Workflow Card */}
-        <div className="p-6 sm:p-7 rounded-2xl bg-gradient-to-br from-[#140a10] to-[#0e0c10] border border-[#ff174d]/40 flex flex-col justify-between">
+        <div
+          data-reveal
+          className="p-6 sm:p-7 rounded-2xl bg-gradient-to-br from-[#140a10] to-[#0e0c10] border border-[#ff174d]/40 flex flex-col justify-between"
+        >
           <div>
             <div className="flex items-center justify-between mb-4">
-              <span className="font-mono text-xs text-emerald-400 font-bold uppercase">
+              <span data-type className="font-mono text-xs text-emerald-400 font-bold uppercase">
                 DAILY AUGMENTED TOOLKIT
               </span>
-              <Terminal size={18} className="text-emerald-400" />
+              <Terminal size={18} data-pop className="text-emerald-400" />
             </div>
 
-            <h3 className="font-syne text-xl font-bold text-white mb-3">
+            <h3 data-type className="font-syne text-xl font-bold text-white mb-3">
               AI-Augmented Development
             </h3>
 
@@ -145,6 +153,7 @@ export default function AIEngineeringSection() {
             {["Claude", "Cursor", "GitHub Copilot", "ChatGPT", "Codex"].map((tool) => (
               <span
                 key={tool}
+                data-pop
                 className="px-3 py-1.5 rounded-lg bg-white/10 text-white font-mono text-xs font-semibold"
               >
                 {tool}
@@ -155,11 +164,11 @@ export default function AIEngineeringSection() {
       </div>
 
       {/* Interactive RAG Architecture Pipeline Schematic */}
-      <div className="p-6 sm:p-8 rounded-2xl bg-[#080709] border border-white/10 mb-16 relative overflow-hidden">
+      <div data-reveal className="p-6 sm:p-8 rounded-2xl bg-[#080709] border border-white/10 mb-16 relative overflow-hidden">
         <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-4 pb-6 border-b border-white/10 mb-6">
           <div className="flex items-center gap-2.5">
-            <Database size={18} className="text-[#ff174d]" />
-            <h3 className="font-syne text-lg sm:text-xl font-bold text-white">
+            <Database size={18} data-pop className="text-[#ff174d]" />
+            <h3 data-type className="font-syne text-lg sm:text-xl font-bold text-white">
               Interactive RAG Pipeline Architecture
             </h3>
           </div>
@@ -176,6 +185,7 @@ export default function AIEngineeringSection() {
               <button
                 key={step.step}
                 type="button"
+                data-pop
                 onClick={() => setActiveStep(idx)}
                 className={`p-4 rounded-xl border text-left transition-all duration-200 cursor-pointer touch-target ${
                   isSelected
@@ -199,7 +209,7 @@ export default function AIEngineeringSection() {
         </div>
 
         {/* Selected Step Detail Console */}
-        <div className="p-5 rounded-xl bg-[#0e0c10] border border-white/10 font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+        <div data-reveal className="p-5 rounded-xl bg-[#0e0c10] border border-white/10 font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-4">
           <div className="space-y-1">
             <span className="text-[#ff174d] font-bold uppercase tracking-wider text-[10px]">
               CURRENT ACTIVE STAGE: {ragPipelineSteps[activeStep].title} ({ragPipelineSteps[activeStep].tech})
@@ -208,20 +218,20 @@ export default function AIEngineeringSection() {
               {ragPipelineSteps[activeStep].description}
             </p>
           </div>
-          <div className="px-3 py-1.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-[11px] whitespace-nowrap self-start sm:self-center">
+          <div data-pop className="px-3 py-1.5 rounded bg-emerald-500/10 border border-emerald-500/30 text-emerald-300 text-[11px] whitespace-nowrap self-start sm:self-center">
             ● NODE.JS PIPELINE VERIFIED
           </div>
         </div>
       </div>
 
       {/* Clearly Distinguished "Currently Expanding Into" Section */}
-      <div className="p-6 sm:p-8 rounded-2xl bg-[#0e0c10] border border-white/10">
+      <div data-reveal className="p-6 sm:p-8 rounded-2xl bg-[#0e0c10] border border-white/10">
         <div className="flex items-center gap-2 mb-2 font-mono text-xs text-[#a7a1a8] uppercase tracking-wider">
-          <AlertCircle size={14} className="text-amber-400" />
-          <span>CONTINUOUS LEARNING &amp; EXPANSION (PROTOTYPING &bull; NON-PRODUCTION)</span>
+          <AlertCircle size={14} data-pop className="text-amber-400" />
+          <span data-type>CONTINUOUS LEARNING &amp; EXPANSION (PROTOTYPING &bull; NON-PRODUCTION)</span>
         </div>
 
-        <h3 className="font-syne text-xl sm:text-2xl font-bold text-white mb-2">
+        <h3 data-type className="font-syne text-xl sm:text-2xl font-bold text-white mb-2">
           Expanding Technical Frontiers
         </h3>
         <p className="font-display text-xs sm:text-sm text-[#a7a1a8] mb-6 max-w-2xl">
@@ -232,12 +242,13 @@ export default function AIEngineeringSection() {
           {aiData.expandingInto.map((item) => (
             <div
               key={item.name}
+              data-reveal
               className="p-5 rounded-xl bg-[#080709] border border-white/10 flex flex-col justify-between"
             >
               <div>
                 <div className="flex items-center justify-between mb-3">
-                  <h4 className="font-syne text-lg font-bold text-white">{item.name}</h4>
-                  <span className="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-400/10 border border-amber-400/30 text-amber-300">
+                  <h4 data-type className="font-syne text-lg font-bold text-white">{item.name}</h4>
+                  <span data-pop className="px-2 py-0.5 rounded text-[10px] font-mono bg-amber-400/10 border border-amber-400/30 text-amber-300">
                     {item.status}
                   </span>
                 </div>

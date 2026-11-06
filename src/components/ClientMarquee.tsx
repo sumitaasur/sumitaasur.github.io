@@ -7,7 +7,10 @@ export default function ClientMarquee() {
   const tech = portfolio.marqueeTech;
 
   return (
-    <section className="relative py-12 sm:py-16 overflow-hidden bg-[#080709] border-y border-white/5">
+    <section
+      style={{ contain: "paint" }}
+      className="relative py-12 sm:py-16 overflow-hidden bg-[#080709] border-y border-white/5 max-w-[100vw]"
+    >
       {/* Subtle background glow */}
       <div
         className="pointer-events-none absolute inset-0 bg-gradient-to-r from-[#ff174d]/5 via-transparent to-[#ff174d]/5 opacity-50"

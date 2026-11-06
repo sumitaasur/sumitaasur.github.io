@@ -50,14 +50,17 @@ export default function ProjectShowcase({
       <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12 pb-8 border-b border-white/10">
         <div>
           <div className="flex items-center gap-2 font-mono text-xs text-[#ff174d] uppercase tracking-widest mb-3">
-            <span>04 {"//"} COMMERCIAL PRODUCTION REPOSITORY</span>
+            <span data-type>04 {"//"} COMMERCIAL PRODUCTION REPOSITORY</span>
           </div>
-          <h2 className="font-bebas text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase font-normal leading-[0.9]">
+          <h2
+            data-reveal="center"
+            className="font-bebas text-5xl sm:text-7xl lg:text-8xl tracking-tight text-white uppercase font-normal leading-[0.9]"
+          >
             Selected Works &amp; <br />
             <span className="text-[#ff174d] text-outline-hero">Shipped Platforms.</span>
           </h2>
         </div>
-        <div className="max-w-md font-mono text-xs sm:text-sm text-[#a7a1a8]">
+        <div data-reveal className="max-w-md font-mono text-xs sm:text-sm text-[#a7a1a8]">
           Production applications spanning full-stack web architectures, cross-platform mobile apps, and 3D WebGL platforms across the US, Europe, UAE, Australia, and India.
         </div>
       </div>
@@ -70,6 +73,7 @@ export default function ProjectShowcase({
             <button
               key={tab.id}
               type="button"
+              data-pop
               onClick={() => setActiveCategory(tab.id)}
               className={`px-4 py-2 rounded-full font-mono text-xs font-semibold tracking-wider transition-all duration-200 cursor-pointer touch-target ${
                 isActive
@@ -91,6 +95,7 @@ export default function ProjectShowcase({
           return (
             <article
               key={project.name}
+              data-reveal
               data-cursor="project"
               data-cursor-text="INSPECT"
               onClick={() => onSelectProject(project)}
@@ -155,10 +160,10 @@ export default function ProjectShowcase({
               <div className="p-6 sm:p-7 flex flex-col justify-between flex-grow">
                 <div>
                   <div className="flex items-center justify-between gap-2 mb-2">
-                    <h3 className="font-syne text-2xl font-bold text-white group-hover:text-[#ff174d] transition-colors">
+                    <h3 data-type className="font-syne text-2xl font-bold text-white group-hover:text-[#ff174d] transition-colors">
                       {project.name}
                     </h3>
-                    <span className="text-xs font-mono text-[#ff174d] uppercase font-semibold">
+                    <span data-pop className="text-xs font-mono text-[#ff174d] uppercase font-semibold">
                       {project.industry}
                     </span>
                   </div>
@@ -187,6 +192,7 @@ export default function ProjectShowcase({
                     {project.technologies.slice(0, 4).map((tech) => (
                       <span
                         key={tech}
+                        data-pop
                         className="px-2.5 py-1 rounded bg-white/[0.04] border border-white/5 font-mono text-[10px] text-[#a7a1a8]"
                       >
                         {tech}
