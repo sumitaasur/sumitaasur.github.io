@@ -6,7 +6,7 @@ import { portfolio } from "@/data/portfolio";
 const bebasNeue = Bebas_Neue({
   subsets: ["latin"],
   variable: "--font-bebas",
-  weight: ["400"],
+  weight: "400",
   display: "swap",
 });
 
@@ -14,28 +14,24 @@ const caveatFont = Caveat({
   subsets: ["latin"],
   variable: "--font-handwriting",
   display: "swap",
-  weight: ["400", "700"],
 });
 
 const syneDisplay = Syne({
   subsets: ["latin"],
   variable: "--font-syne",
   display: "swap",
-  weight: ["500", "700", "800"],
 });
 
 const spaceGrotesk = Space_Grotesk({
   subsets: ["latin"],
   variable: "--font-display",
   display: "swap",
-  weight: ["400", "500", "600", "700"],
 });
 
 const jetbrainsMono = JetBrains_Mono({
   subsets: ["latin"],
   variable: "--font-mono",
   display: "swap",
-  weight: ["400", "500", "700"],
 });
 
 const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sumitaasur.github.io";
