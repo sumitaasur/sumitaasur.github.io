@@ -8,7 +8,7 @@ export default function HeroPortrait() {
     <div className="hero-portrait" data-reveal="center">
       <Image
         src="/images/sumit-portrait.png"
-        alt="Sumit Pramanik - Full Stack Engineer & Technical Lead in Black Suit"
+        alt="Sumit Pramanik - Full Stack Engineer & AI Application Developer"
         width={1211}
         height={1299}
         priority

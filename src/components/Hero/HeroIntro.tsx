@@ -28,6 +28,7 @@ export default function HeroIntro() {
 
       {/* 2. Bold Identity */}
       <h1 className="display" data-type="">
+        <span className="sr-only">Sumit Pramanik – Full Stack Engineer</span>
         <AnimatedText
           text={portfolio.shortName}
           charClassName="hero-identity-ch"

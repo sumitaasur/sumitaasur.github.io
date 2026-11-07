@@ -1,6 +1,6 @@
 import { ImageResponse } from "next/og";
 
-export const alt = "Sumit Pramanik - Senior Full Stack Engineer & Technical Lead";
+export const alt = "Sumit Pramanik - Full Stack Engineer & AI Developer";
 export const size = {
   width: 1200,
   height: 630,
@@ -66,7 +66,7 @@ export default function Image() {
               SUMIT PRAMANIK
             </span>
             <span style={{ fontSize: 13, color: "#ff174d", fontFamily: "monospace" }}>
-              26.9124° N, 75.7873° E // REMOTE WORLDWIDE
+              JAIPUR, INDIA // REMOTE WORLDWIDE
             </span>
           </div>
         </div>
@@ -86,7 +86,7 @@ export default function Image() {
             fontWeight: 700,
           }}
         >
-          AVAILABLE FOR LEADERSHIP &amp; CONTRACT
+          AVAILABLE FOR FULL STACK &amp; AI
         </div>
       </div>
 
@@ -100,10 +100,10 @@ export default function Image() {
             color: "#ffffff",
           }}
         >
-          Senior Full Stack Engineer &amp; Technical Lead
+          Full Stack Engineer &amp; AI Developer
         </div>
         <div style={{ fontSize: 26, color: "#a7a1a8" }}>
-          Node.js • React.js • React Native • Next.js • MongoDB • AI / GenAI
+          Node.js • React.js • Next.js • React Native • JavaScript • TypeScript
         </div>
       </div>
 

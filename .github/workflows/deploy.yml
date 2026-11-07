@@ -3,6 +3,7 @@ name: Deploy Portfolio to GitHub Pages
 on:
   push:
     branches:
+      - main
       - feature/immersive-portfolio-redesign
   workflow_dispatch:
 

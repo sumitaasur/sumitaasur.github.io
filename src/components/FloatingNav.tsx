@@ -127,8 +127,20 @@ export default function FloatingNav() {
             })}
           </nav>
 
-          {/* Right: Let's Talk CTA & Mobile Hamburger */}
-          <div className="flex items-center gap-3">
+          {/* Right: Download CV, Let's Talk CTA & Mobile Hamburger */}
+          <div className="flex items-center gap-4 sm:gap-6">
+            <a
+              href="/Sumit-Pramanik-Resume.pdf"
+              download="Sumit-Pramanik-Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              aria-label="Download Sumit Pramanik's CV"
+              className="hidden sm:inline-flex items-center gap-1.5 font-mono text-xs uppercase tracking-wider text-[#a7a1a8] hover:text-[#ff174d] transition-colors py-2 touch-target"
+            >
+              <span>DOWNLOAD CV</span>
+              <span className="text-xs leading-none">↓</span>
+            </a>
+
             <a
               href="#contact"
               onClick={(e) => {
@@ -217,6 +229,17 @@ export default function FloatingNav() {
           </div>
 
           <div className="pt-6 border-t border-white/10 flex flex-col gap-3 max-w-lg mx-auto w-full mt-6">
+            <a
+              href="/Sumit-Pramanik-Resume.pdf"
+              download="Sumit-Pramanik-Resume.pdf"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="flex items-center justify-between p-3.5 rounded-xl border border-white/10 bg-white/5 text-[#a7a1a8] hover:text-white hover:border-[#ff174d] font-mono text-xs uppercase tracking-wider transition-all touch-target"
+            >
+              <span>DOWNLOAD CV</span>
+              <span className="text-[#ff174d] text-sm font-bold">↓</span>
+            </a>
+
             <a
               href="#contact"
               onClick={(e) => {
