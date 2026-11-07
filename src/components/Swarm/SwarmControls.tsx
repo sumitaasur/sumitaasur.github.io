@@ -24,11 +24,8 @@ export default function SwarmControls({ engine }: SwarmControlsProps) {
     total: 0,
     completed: 0,
     percentage: 0,
-    isTouring: false,
     isPaused: false,
     speed: 1,
-    activeSectionId: "top",
-    activeSectionName: "01. HERO",
   });
 
   const [soundOn, setSoundOn] = useState(false);
@@ -50,15 +47,6 @@ export default function SwarmControls({ engine }: SwarmControlsProps) {
     setSoundOn(next);
   };
 
-  const toggleTour = () => {
-    if (!engine) return;
-    if (stats.isTouring) {
-      engine.stopTour();
-    } else {
-      engine.startTour();
-    }
-  };
-
   const togglePause = () => {
     if (!engine) return;
     engine.togglePause();
@@ -78,7 +66,7 @@ export default function SwarmControls({ engine }: SwarmControlsProps) {
 
   const handleReplay = () => {
     if (!engine) return;
-    engine.replay(false);
+    engine.replay();
   };
 
   const handleDismiss = () => {
@@ -94,43 +82,43 @@ export default function SwarmControls({ engine }: SwarmControlsProps) {
     setIsMinimized(false);
   };
 
-  // If dismissed or reduced motion, show floating launcher so user can reopen
+  // If dismissed or reduced motion, show compact hero launcher so user can reopen
   if (isDismissed) {
     return (
       <aside
-        aria-label="Swarm Rebuild Launcher"
-        className="fixed bottom-5 right-5 z-[140] select-none"
+        aria-label="Hero Swarm Rebuild Launcher"
+        className="absolute bottom-4 right-4 sm:right-8 z-30 select-none"
       >
         <button
           type="button"
           onClick={handleResume}
-          aria-label="Launch Swarm Rebuild"
-          className="group flex items-center gap-2 px-3.5 py-2.5 rounded-full bg-[#100c12]/90 border border-[#ff174d]/30 text-white shadow-[0_4px_20px_rgba(255,23,77,0.25)] hover:border-[#ff174d] hover:shadow-[0_0_25px_rgba(255,23,77,0.45)] backdrop-blur-md transition-all cursor-pointer"
+          aria-label="Launch Hero Swarm Rebuild"
+          className="group flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#100c12]/90 border border-[#ff174d]/30 text-white shadow-[0_4px_20px_rgba(255,23,77,0.25)] hover:border-[#ff174d] hover:shadow-[0_0_25px_rgba(255,23,77,0.45)] backdrop-blur-md transition-all cursor-pointer"
         >
-          <Sparkles size={14} className="text-[#ff174d] animate-spin-slow" />
+          <Sparkles size={12} className="text-[#ff174d] animate-spin-slow" />
           <span className="font-mono text-[10px] uppercase font-bold tracking-wider">
-            Rebuild Swarm
+            Rebuild Hero
           </span>
         </button>
       </aside>
     );
   }
 
-  // Minimized state: sleek compact pill
+  // Minimized state: sleek compact pill inside the hero
   if (isMinimized) {
     return (
       <aside
-        aria-label="Swarm Controls Pill"
-        className="fixed bottom-5 right-5 z-[140] select-none"
+        aria-label="Hero Swarm Controls Pill"
+        className="absolute bottom-4 right-4 sm:right-8 z-30 select-none"
       >
         <button
           type="button"
           onClick={() => setIsMinimized(false)}
-          aria-label="Open Swarm Panel"
-          className="flex items-center gap-2 px-3.5 py-2 rounded-full bg-[#0e0a11]/95 border border-white/15 text-white shadow-xl hover:border-[#ff174d]/50 backdrop-blur-md transition-all font-mono text-[10px] cursor-pointer"
+          aria-label="Open Hero Swarm Panel"
+          className="flex items-center gap-2 px-3 py-1.5 rounded-full bg-[#0e0a11]/95 border border-white/15 text-white shadow-xl hover:border-[#ff174d]/50 backdrop-blur-md transition-all font-mono text-[10px] cursor-pointer"
         >
           <span className="w-2 h-2 rounded-full bg-[#ff174d] animate-ping" />
-          <span className="text-[#ff174d] font-bold">{stats.activeSectionName.split(".")[1]?.trim() || "SWARM"}</span>
+          <span className="text-[#ff174d] font-bold">HERO SWARM</span>
           <span className="text-white/60">&bull;</span>
           <span className="font-bold">{stats.percentage}%</span>
           <ChevronUp size={12} className="text-white/60 ml-0.5" />
@@ -141,26 +129,24 @@ export default function SwarmControls({ engine }: SwarmControlsProps) {
 
   return (
     <aside
-      aria-label="Portfolio-Wide Swarm Rebuild Orchestrator"
-      className="fixed bottom-3 sm:bottom-6 left-1/2 -translate-x-1/2 z-[140] select-none max-w-[96vw] w-auto transition-all"
+      aria-label="Hero Swarm Rebuild Controls"
+      className="absolute bottom-4 right-4 sm:bottom-6 sm:right-8 z-30 select-none max-w-[94vw] w-auto transition-all"
     >
-      <div className="flex items-center gap-1 sm:gap-2 px-2.5 sm:px-4 py-1.5 sm:py-2.5 rounded-2xl bg-[#0e0a11]/94 border border-[#ff174d]/35 backdrop-blur-xl shadow-[0_12px_40px_rgba(0,0,0,0.9),0_0_30px_rgba(255,23,77,0.22)] text-white font-mono text-[11px]">
-        {/* Swarm Status & Active Section Header */}
-        <div className="flex items-center gap-2 pr-2 sm:pr-3 border-r border-white/10">
+      <div className="flex items-center gap-1 sm:gap-2 px-2.5 sm:px-3.5 py-1.5 sm:py-2 rounded-2xl bg-[#0e0a11]/92 border border-[#ff174d]/30 backdrop-blur-xl shadow-[0_8px_30px_rgba(0,0,0,0.8),0_0_20px_rgba(255,23,77,0.18)] text-white font-mono text-[11px]">
+        {/* Swarm Status & Hero Percentage */}
+        <div className="flex items-center gap-2 pr-2 sm:pr-2.5 border-r border-white/10">
           <div className="relative flex items-center justify-center">
-            <span className="w-2.5 h-2.5 rounded-full bg-[#ff174d] animate-pulse" />
+            <span className="w-2 h-2 rounded-full bg-[#ff174d] animate-pulse" />
           </div>
           <div className="flex flex-col">
             <div className="flex items-center gap-1.5 font-bold tracking-wider text-[10px] text-white">
               <span className="hidden sm:inline">SWARM</span>
-              <span className="text-[#ff174d] truncate max-w-[90px] sm:max-w-[120px]">
-                {stats.activeSectionName}
-              </span>
+              <span className="text-[#ff174d]">HERO</span>
               <span className="text-white/60">&bull;</span>
               <span className="text-white">{stats.percentage}%</span>
             </div>
             {/* Dynamic progress bar */}
-            <div className="w-20 sm:w-28 h-1 bg-white/10 rounded-full overflow-hidden mt-0.5">
+            <div className="w-16 sm:w-24 h-1 bg-white/10 rounded-full overflow-hidden mt-0.5">
               <div
                 className="h-full bg-gradient-to-r from-[#ff174d] to-[#ff6bd6] transition-all duration-300"
                 style={{ width: `${stats.percentage}%` }}
@@ -170,52 +156,33 @@ export default function SwarmControls({ engine }: SwarmControlsProps) {
         </div>
 
         {/* Action Controls */}
-        <div className="flex items-center gap-1 sm:gap-1.5">
-          {/* 1. TOUR Mode */}
-          <button
-            type="button"
-            onClick={toggleTour}
-            title={stats.isTouring ? "Pause Portfolio Tour" : "Start Full Portfolio Tour"}
-            className={`flex items-center gap-1 px-2 sm:px-2.5 py-1.5 rounded-lg border transition-all cursor-pointer ${
-              stats.isTouring
-                ? "bg-[#ff174d] text-white border-[#ff174d] shadow-[0_0_12px_rgba(255,23,77,0.5)]"
-                : "bg-white/5 border-white/10 text-white hover:bg-white/10 hover:border-white/20"
-            }`}
-          >
-            {stats.isTouring ? (
-              <Pause size={12} fill="currentColor" />
-            ) : (
-              <Play size={12} fill="currentColor" />
-            )}
-            <span className="text-[10px] font-bold tracking-wider">TOUR</span>
-          </button>
-
-          {/* 2. Pause / Resume */}
+        <div className="flex items-center gap-1">
+          {/* 1. Pause / Resume */}
           <button
             type="button"
             onClick={togglePause}
-            title={stats.isPaused ? "Resume Swarm Animation" : "Pause Swarm Animation"}
+            title={stats.isPaused ? "Resume Hero Swarm" : "Pause Hero Swarm"}
             className={`p-1.5 rounded-lg border transition-all cursor-pointer ${
               stats.isPaused
                 ? "bg-amber-500/20 border-amber-500/50 text-amber-300"
                 : "bg-white/5 border-white/10 text-[#a7a1a8] hover:text-white hover:bg-white/10"
             }`}
           >
-            {stats.isPaused ? <Play size={13} fill="currentColor" /> : <Pause size={13} />}
+            {stats.isPaused ? <Play size={12} fill="currentColor" /> : <Pause size={12} />}
           </button>
 
-          {/* 3. Speed Toggle (1x, 2x, 3x) */}
+          {/* 2. Speed Toggle (1x, 2x, 3x) */}
           <button
             type="button"
             onClick={cycleSpeed}
             title="Cycle Animation Speed (1x, 2x, 3x)"
-            className="flex items-center gap-0.5 sm:gap-1 px-2 py-1.5 rounded-lg bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:border-white/20 transition-all cursor-pointer"
+            className="flex items-center gap-0.5 px-1.5 py-1 rounded-lg bg-white/5 border border-white/10 text-white hover:bg-white/10 hover:border-white/20 transition-all cursor-pointer"
           >
-            <Zap size={11} className="text-[#ffb02e]" />
+            <Zap size={10} className="text-[#ffb02e]" />
             <span className="text-[10px] font-bold">{stats.speed}x</span>
           </button>
 
-          {/* 4. Sound Toggle */}
+          {/* 3. Sound Toggle */}
           <button
             type="button"
             onClick={toggleSound}
@@ -226,41 +193,41 @@ export default function SwarmControls({ engine }: SwarmControlsProps) {
                 : "bg-white/5 border-white/10 text-[#a7a1a8] hover:text-white hover:bg-white/10"
             }`}
           >
-            {soundOn ? <Volume2 size={13} /> : <VolumeX size={13} />}
+            {soundOn ? <Volume2 size={12} /> : <VolumeX size={12} />}
           </button>
 
-          {/* 5. GO LIVE (Instant 100% Reveal) */}
+          {/* 4. GO LIVE (Instant 100% Reveal) */}
           <button
             type="button"
             onClick={handleGoLive}
-            title="Go Live: Reveal Complete Portfolio Instantly"
-            className="hidden sm:flex items-center gap-1 px-2.5 py-1.5 rounded-lg bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/25 transition-all cursor-pointer"
+            title="Reveal Complete Hero Instantly"
+            className="hidden sm:flex items-center gap-1 px-2 py-1 rounded-lg bg-emerald-500/15 border border-emerald-500/40 text-emerald-300 hover:bg-emerald-500/25 transition-all cursor-pointer"
           >
-            <Sparkles size={11} className="text-emerald-400" />
-            <span className="text-[10px] font-bold tracking-wider">GO LIVE</span>
+            <Sparkles size={10} className="text-emerald-400" />
+            <span className="text-[10px] font-bold tracking-wider">REVEAL</span>
           </button>
 
-          {/* 6. Replay */}
+          {/* 5. Replay */}
           <button
             type="button"
             onClick={handleReplay}
-            title="Replay Full Portfolio Rebuild"
+            title="Replay Hero Swarm Reconstruction"
             className="p-1.5 rounded-lg bg-white/5 border border-white/10 text-[#a7a1a8] hover:text-white hover:bg-white/10 transition-all cursor-pointer"
           >
-            <RotateCcw size={13} />
+            <RotateCcw size={12} />
           </button>
 
-          {/* 7. Minimize */}
+          {/* 6. Minimize */}
           <button
             type="button"
             onClick={() => setIsMinimized(true)}
-            title="Minimize Controls to Floating Pill"
+            title="Minimize Hero Controls"
             className="p-1.5 rounded-lg bg-white/5 border border-white/10 text-[#a7a1a8] hover:text-white hover:bg-white/10 transition-all cursor-pointer"
           >
-            <X size={13} />
+            <X size={12} />
           </button>
 
-          {/* 8. Full Dismiss (Visible on larger screens) */}
+          {/* 7. Dismiss */}
           <button
             type="button"
             onClick={handleDismiss}

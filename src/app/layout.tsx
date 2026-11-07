@@ -38,11 +38,7 @@ const jetbrainsMono = JetBrains_Mono({
   weight: ["400", "500", "700"],
 });
 
-const siteUrl =
-  process.env.NEXT_PUBLIC_SITE_URL ??
-  (process.env.VERCEL_URL
-    ? `https://${process.env.VERCEL_URL}`
-    : "https://sumitaasur.github.io");
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sumitaasur.github.io";
 
 export const metadata: Metadata = {
   metadataBase: new URL(siteUrl),

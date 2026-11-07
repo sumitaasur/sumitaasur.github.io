@@ -5,7 +5,6 @@ import SmoothScrollProvider from "@/components/SmoothScrollProvider";
 import CustomCursor from "@/components/CustomCursor";
 import FloatingNav from "@/components/FloatingNav";
 import HeroSection from "@/components/HeroSection";
-import SwarmExperience from "@/components/Swarm/SwarmExperience";
 import ClientMarquee from "@/components/ClientMarquee";
 import AIEngineeringSection from "@/components/AIEngineeringSection";
 import ArchitectureMatrix from "@/components/ArchitectureMatrix";
@@ -26,9 +25,6 @@ export default function PortfolioSite() {
     <SmoothScrollProvider>
       {/* WAIL-Inspired Top Navigation Bar */}
       <FloatingNav />
-
-      {/* WAIL 9-Agent Autonomous Swarm Rebuild Engine & Controls */}
-      <SwarmExperience />
 
       {/* Animated Multi-State Custom Cursor */}
       <CustomCursor />

@@ -1,10 +1,10 @@
 import type { MetadataRoute } from "next";
 
-const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? (process.env.VERCEL_URL ? `https://${process.env.VERCEL_URL}` : "https://sumitaasur.github.io");
+const siteUrl = process.env.NEXT_PUBLIC_SITE_URL ?? "https://sumitaasur.github.io";
 
 export default function robots(): MetadataRoute.Robots {
   return {
-    rules: { userAgent: "*", allow: "/", disallow: "/api/" },
+    rules: { userAgent: "*", allow: "/" },
     sitemap: new URL("/sitemap.xml", siteUrl).toString(),
   };
 }

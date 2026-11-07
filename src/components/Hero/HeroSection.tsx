@@ -7,6 +7,7 @@ import HeroPortrait from "./HeroPortrait";
 import HeroIntro from "./HeroIntro";
 import HeroSide from "./HeroSide";
 import HeroBottom from "./HeroBottom";
+import SwarmExperience from "@/components/Swarm/SwarmExperience";
 import { initHeroAnimations } from "./HeroAnimations";
 
 /**
@@ -38,6 +39,9 @@ export default function HeroSection() {
         className="pointer-events-none absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[720px] max-w-[95vw] h-[480px] bg-gradient-to-b from-[#ff174d]/15 via-[#e5093f]/8 to-transparent blur-[140px] z-0"
         aria-hidden="true"
       />
+
+      {/* Hero-Scoped 9-Agent WAIL Autonomous Swarm Rebuild Engine & Controls */}
+      <SwarmExperience heroRef={heroRef} />
 
       {/* A. Top Information Bar */}
       <HeroTop />

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import emailjs from "@emailjs/browser";
 import {
   Mail,
   Phone,
@@ -52,6 +53,8 @@ export default function ContactSection() {
 
   const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (sending) return;
+
     setSending(true);
     setStatusMessage("");
     setIsSuccess(false);
@@ -63,26 +66,27 @@ export default function ContactSection() {
     const email = ((formData.get("email") as string) || "").trim();
     const userMessage = ((formData.get("message") as string) || "").trim();
 
-    if (!name || !email || !userMessage) {
+    if (!name || name.length < 2 || name.length > 120) {
       setIsSuccess(false);
-      setStatusMessage("Please enter your name, email, and project message.");
+      setStatusMessage("Please enter a valid name (between 2 and 120 characters).");
       setSending(false);
       return;
     }
 
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(email)) {
+    if (!email || !emailRegex.test(email) || email.length > 254) {
       setIsSuccess(false);
-      setStatusMessage("Please enter a valid email address.");
+      setStatusMessage("Please enter a valid business email address.");
       setSending(false);
       return;
     }
 
-    const payload = {
-      name,
-      email,
-      message: `[Inquiry Classification: ${selectedTopic}]\n\n${userMessage}`,
-    };
+    if (!userMessage || userMessage.length < 10 || userMessage.length > 4000) {
+      setIsSuccess(false);
+      setStatusMessage("Please enter a project message brief (between 10 and 4,000 characters).");
+      setSending(false);
+      return;
+    }
 
     // Pre-construct client mailto fallback URL
     const mailSubject = encodeURIComponent(`Portfolio Inquiry [${selectedTopic}] - ${name}`);
@@ -91,28 +95,34 @@ export default function ContactSection() {
     );
     const mailtoUrl = `mailto:${portfolio.email}?subject=${mailSubject}&body=${mailBody}`;
 
-    let handledByApi = false;
+    const serviceId = process.env.NEXT_PUBLIC_EMAILJS_SERVICE_ID;
+    const templateId = process.env.NEXT_PUBLIC_EMAILJS_TEMPLATE_ID;
+    const publicKey = process.env.NEXT_PUBLIC_EMAILJS_PUBLIC_KEY;
+
+    if (!serviceId || !templateId || !publicKey) {
+      setIsSuccess(false);
+      setStatusMessage("Email service is temporarily unconfigured. Please send your dispatch via direct email.");
+      setMailtoFallbackUrl(mailtoUrl);
+      setSending(false);
+      return;
+    }
+
+    // Provide all template parameter variants to support both owner notification and visitor auto-reply templates
+    const templateParams = {
+      name,
+      from_name: name,
+      title: selectedTopic || `Portfolio Inquiry from ${name}`,
+      subject: `Portfolio Inquiry [${selectedTopic}] - ${name}`,
+      email,
+      from_email: email,
+      reply_to: email,
+      message: `[Inquiry Classification: ${selectedTopic}]\n\n${userMessage}`,
+    };
 
     try {
-      const res = await fetch("/api/send-email", {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
+      const res = await emailjs.send(serviceId, templateId, templateParams, publicKey);
 
-      const contentType = res.headers.get("content-type") || "";
-      let data: { message?: string } | null = null;
-
-      if (contentType.includes("application/json")) {
-        try {
-          data = await res.json();
-        } catch {
-          data = null;
-        }
-      }
-
-      if (res.ok && data?.message) {
-        handledByApi = true;
+      if (res.status === 200 || res.text === "OK") {
         setIsSuccess(true);
         setStatusMessage("Transmission confirmed. I will review and reply within 24 hours.");
         form.reset();
@@ -127,45 +137,19 @@ export default function ContactSection() {
         } catch {
           // Ignore confetti error
         }
-        return;
+      } else {
+        throw new Error(res.text || "Transmission failed.");
       }
-
-      // If API returned a 400 client-validation error message
-      if (res.status === 400 && data?.message) {
-        handledByApi = true;
-        setIsSuccess(false);
-        setStatusMessage(data.message);
-        return;
-      }
-    } catch {
-      // Network failure, offline, or static hosting where endpoint is unreachable
-      handledByApi = false;
+    } catch (err: unknown) {
+      setIsSuccess(false);
+      const errText =
+        (err && typeof err === "object" && "text" in err && typeof (err as { text: unknown }).text === "string"
+          ? (err as { text: string }).text
+          : (err as Error)?.message) || "Transmission failed. Please reach out directly or try again.";
+      setStatusMessage(`Transmission error: ${errText}`);
+      setMailtoFallbackUrl(mailtoUrl);
     } finally {
       setSending(false);
-    }
-
-    // Fallback: If running on static host (e.g. GitHub Pages) or server email is unavailable
-    if (!handledByApi) {
-      setMailtoFallbackUrl(mailtoUrl);
-      setIsSuccess(true);
-      setStatusMessage("Transmission initialized. Draft opened in your email client.");
-
-      try {
-        window.location.href = mailtoUrl;
-      } catch {
-        // Fallback safely if browser blocks navigation
-      }
-
-      try {
-        confetti({
-          particleCount: 60,
-          spread: 60,
-          origin: { y: 0.6 },
-          colors: ["#ff174d", "#38bdf8", "#ffffff"],
-        });
-      } catch {
-        // Ignore confetti error
-      }
     }
   };
 
@@ -415,7 +399,7 @@ export default function ContactSection() {
               </button>
 
               <span className="font-mono text-[11px] text-[#a7a1a8]">
-                Direct SMTP &bull; {portfolio.email}
+                Direct Dispatch &bull; {portfolio.email}
               </span>
             </div>
           </form>
