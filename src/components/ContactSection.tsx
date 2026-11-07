@@ -30,6 +30,7 @@ export default function ContactSection() {
   const [sending, setSending] = useState(false);
   const [statusMessage, setStatusMessage] = useState("");
   const [isSuccess, setIsSuccess] = useState(false);
+  const [mailtoFallbackUrl, setMailtoFallbackUrl] = useState<string | null>(null);
 
   const copyEmail = () => {
     navigator.clipboard.writeText(portfolio.email);
@@ -54,18 +55,43 @@ export default function ContactSection() {
     setSending(true);
     setStatusMessage("");
     setIsSuccess(false);
+    setMailtoFallbackUrl(null);
 
     const form = e.currentTarget;
     const formData = new FormData(form);
-    const name = formData.get("name") as string;
-    const email = formData.get("email") as string;
-    const userMessage = formData.get("message") as string;
+    const name = ((formData.get("name") as string) || "").trim();
+    const email = ((formData.get("email") as string) || "").trim();
+    const userMessage = ((formData.get("message") as string) || "").trim();
+
+    if (!name || !email || !userMessage) {
+      setIsSuccess(false);
+      setStatusMessage("Please enter your name, email, and project message.");
+      setSending(false);
+      return;
+    }
+
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setIsSuccess(false);
+      setStatusMessage("Please enter a valid email address.");
+      setSending(false);
+      return;
+    }
 
     const payload = {
       name,
       email,
       message: `[Inquiry Classification: ${selectedTopic}]\n\n${userMessage}`,
     };
+
+    // Pre-construct client mailto fallback URL
+    const mailSubject = encodeURIComponent(`Portfolio Inquiry [${selectedTopic}] - ${name}`);
+    const mailBody = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nInquiry Classification: ${selectedTopic}\n\nProject Brief / Architecture Goals:\n${userMessage}`
+    );
+    const mailtoUrl = `mailto:${portfolio.email}?subject=${mailSubject}&body=${mailBody}`;
+
+    let handledByApi = false;
 
     try {
       const res = await fetch("/api/send-email", {
@@ -74,34 +100,72 @@ export default function ContactSection() {
         body: JSON.stringify(payload),
       });
 
-      const data = await res.json();
-      if (!res.ok) {
-        throw new Error(data.message || "Failed to transmit message.");
+      const contentType = res.headers.get("content-type") || "";
+      let data: { message?: string } | null = null;
+
+      if (contentType.includes("application/json")) {
+        try {
+          data = await res.json();
+        } catch {
+          data = null;
+        }
       }
 
+      if (res.ok && data?.message) {
+        handledByApi = true;
+        setIsSuccess(true);
+        setStatusMessage("Transmission confirmed. I will review and reply within 24 hours.");
+        form.reset();
+
+        try {
+          confetti({
+            particleCount: 80,
+            spread: 70,
+            origin: { y: 0.6 },
+            colors: ["#ff174d", "#22c55e", "#ffffff"],
+          });
+        } catch {
+          // Ignore confetti error
+        }
+        return;
+      }
+
+      // If API returned a 400 client-validation error message
+      if (res.status === 400 && data?.message) {
+        handledByApi = true;
+        setIsSuccess(false);
+        setStatusMessage(data.message);
+        return;
+      }
+    } catch {
+      // Network failure, offline, or static hosting where endpoint is unreachable
+      handledByApi = false;
+    } finally {
+      setSending(false);
+    }
+
+    // Fallback: If running on static host (e.g. GitHub Pages) or server email is unavailable
+    if (!handledByApi) {
+      setMailtoFallbackUrl(mailtoUrl);
       setIsSuccess(true);
-      setStatusMessage("Transmission confirmed. I will review and reply within 24 hours.");
-      form.reset();
+      setStatusMessage("Transmission initialized. Draft opened in your email client.");
+
+      try {
+        window.location.href = mailtoUrl;
+      } catch {
+        // Fallback safely if browser blocks navigation
+      }
 
       try {
         confetti({
-          particleCount: 80,
-          spread: 70,
+          particleCount: 60,
+          spread: 60,
           origin: { y: 0.6 },
-          colors: ["#ff174d", "#22c55e", "#ffffff"],
+          colors: ["#ff174d", "#38bdf8", "#ffffff"],
         });
       } catch {
         // Ignore confetti error
       }
-    } catch (err) {
-      setIsSuccess(false);
-      setStatusMessage(
-        err instanceof Error
-          ? err.message
-          : "Delivery error. Please use direct email link below."
-      );
-    } finally {
-      setSending(false);
     }
   };
 
@@ -315,15 +379,26 @@ export default function ContactSection() {
             {/* Status Feedback */}
             {statusMessage && (
               <div
-                className={`p-3.5 rounded-xl font-mono text-xs flex items-center gap-2 ${
+                className={`p-3.5 rounded-xl font-mono text-xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 ${
                   isSuccess
                     ? "bg-emerald-500/10 border border-emerald-500/30 text-emerald-300"
                     : "bg-rose-500/10 border border-rose-500/30 text-rose-300"
                 }`}
                 role="status"
               >
-                {isSuccess && <CheckCircle2 size={15} />}
-                <span>{statusMessage}</span>
+                <div className="flex items-center gap-2">
+                  {isSuccess && <CheckCircle2 size={15} className="flex-shrink-0" />}
+                  <span>{statusMessage}</span>
+                </div>
+                {mailtoFallbackUrl && (
+                  <a
+                    href={mailtoFallbackUrl}
+                    className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-emerald-500/20 hover:bg-emerald-500/30 border border-emerald-500/40 text-emerald-200 font-semibold transition-colors flex-shrink-0 touch-target"
+                  >
+                    <span>Open Mail App</span>
+                    <ArrowUpRight size={13} />
+                  </a>
+                )}
               </div>
             )}
 
